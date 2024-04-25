@@ -14,9 +14,27 @@ public class Claim {
 
     private String description;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public Customer getCustomerId() {
+        return customerId;
+    }
 
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
 
+    public String getDescription() {
+        return description;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
