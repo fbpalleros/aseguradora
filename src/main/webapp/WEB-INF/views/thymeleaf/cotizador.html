@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+    <h1>Selecciona una opción:</h1>
+
+    <form th:action="@{'first-select'}" th:object="${marcaSeleccionada}">
+
+        <label for="select1">Seleccione el nombre:</label>
+        <select id="select1" name="name">
+            <option th:each="marca:${listado_marcas}"
+            th:value="${marca}"
+            th:text="${marca}"></option>
+        </select>
+        <br>
+    </form>
+
+<form>
+        <label for="select2">Seleccione el modelo:</label>
+        <select id="select2" name="model">
+            <option th:each="modelo:${listado_modelos}"
+                    th:value="${modelo}"
+                    th:text="${modelo}"></option>
+        </select>
+        <br>
+        <label for="select3">Seleccione el año:</label>
+        <select id="select3" name="year">
+            <option th:each="car:${listadoAuto}"
+                    th:value="${car.id}"
+                    th:text="${car.year}"></option>
+        </select>
+    </form>
+
+<span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+
+<!--<div th:each="prueba : ${listado_pruebas}" th:text="${prueba}">-->
+<!--</div>-->
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
