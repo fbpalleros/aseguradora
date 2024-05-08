@@ -1,12 +1,13 @@
-package org.aseguradora.services;
+package org.aseguradora.services.impl;
 
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.repositories.InsuranceRepository;
+import org.aseguradora.services.InsuranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class InsuranceServiceImpl implements InsuranceService{
+public class InsuranceServiceImpl implements InsuranceService {
 
 
     @Autowired

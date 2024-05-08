@@ -7,6 +7,22 @@
 <body>
 <h2>Resultado de la Cotización:</h2>
 <p>El precio cotizado es: <span th:text="${precioCotizado}"></span></p>
+<form th:action="@{/crear-poliza}" method="post">
+<div>¿Desea crear la póliza?</div>
+    <div class="form-check">
+        <input class="form-check-input" value="no" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+        <label class="form-check-label" for="flexRadioDefault1">
+            No
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" value="yes" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+        <label class="form-check-label" for="flexRadioDefault2">
+            Si, deseo crear la póliza!
+        </label>
+    </div>
+    <button type="submit">Enviar</button>
+</form>
 </body>
 </html>
 </body>
