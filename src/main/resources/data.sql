@@ -29,3 +29,4 @@ INSERT INTO auto (name, year, model) VALUES ('Honda', 2018, 'HR-V');
 INSERT INTO auto (name, year, model) VALUES ('Honda', 2023, 'CR-V');
 
 -- cambiar todos los objeto a minuculas
+

@@ -33,6 +33,22 @@ public class Policy {
     public Policy() {
     }
 
+    public Policy(Long id, Integer coverage) {
+        this.id = id;
+        this.coverage = coverage;
+    }
+
+    public Policy(Integer coverage) {
+        this.coverage = coverage;
+    }
+
+    public Policy(Long id, Insurance insuranceId, Customer customerId, Integer coverage) {
+        this.id = id;
+        this.insuranceId = insuranceId;
+        this.customerId = customerId;
+        this.coverage = coverage;
+    }
+
     public Long getId() {
         return id;
     }
