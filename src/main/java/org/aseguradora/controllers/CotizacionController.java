@@ -1,7 +1,11 @@
 package org.aseguradora.controllers;
 
 import org.aseguradora.entity.Car;
+import org.aseguradora.entity.Customer;
+import org.aseguradora.entity.Insurance;
+import org.aseguradora.entity.Policy;
 import org.aseguradora.repositories.CarRepository;
+import org.aseguradora.services.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +29,9 @@ public class CotizacionController {
 //        return new ModelAndView("cotizador", model);
 //    }
 
+    @Autowired
+    private PolicyService policyService;
+
 
 
     @GetMapping("/modeloAuto")
@@ -40,13 +47,30 @@ public class CotizacionController {
         return "cotizador";
     }
 
-    @PostMapping("/first-select")
-    public String firstSelect(@ModelAttribute("marcaSeleccionada")String name, Model model){
-        List<String> listadoPrueba = carRepository.findByModelWithParameter("Honda");
-        model.addAttribute("listado_pruebas", listadoPrueba);
+//    @PostMapping("/first-select")
+//    public String firstSelect(@ModelAttribute("marcaSeleccionada")String name, Model model){
+//        List<String> listadoPrueba = carRepository.findByModelWithParameter("Honda");
+//        model.addAttribute("listado_pruebas", listadoPrueba);
+//
+//
+//        return "";
+//    }
 
-
-        return "";
+    @PostMapping("/cotizar")
+    public String cotizarProducto(@ModelAttribute("policy") Policy policy, Model model) {
+        //  realizar el cálculo de la cotización
+        Customer customer = new Customer();
+        customer.setName("fer");
+        customer.setEmail("fer@gmail.com");
+        policy.setCustomerId(customer);
+        Insurance insurance = new Insurance();
+        insurance.setId(1L);
+        policy.setInsuranceId(insurance);
+        Integer precioCotizado = (int) (policy.getCoverage() * 1.2);
+        policy.setCoverage(precioCotizado);
+        policyService.save(policy);
+        model.addAttribute("precioCotizado", policy.getCoverage());
+        return "resultado";
     }
 
 

@@ -1,5 +1,6 @@
 package org.aseguradora.services;
 
+import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.dto.PolicyDto;
 import org.aseguradora.repositories.PolicyRepository;
@@ -34,4 +35,16 @@ public class PolicyServiceImpl implements PolicyService {
     public List<Policy> findById(Long id) {
         return policyRepository.findById(id);
     }
+
+    @Override
+    public List<Policy> findByIdObjeto( Customer customer) {
+        return policyRepository.findByIdObjeto(customer);
+    }
+
+    @Override
+    public void save(Policy policy) {
+        policyRepository.save(policy);
+    }
+
+
 }

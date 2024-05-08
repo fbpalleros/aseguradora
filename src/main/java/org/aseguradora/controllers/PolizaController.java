@@ -20,6 +20,8 @@ import java.util.List;
 @Controller
 public class PolizaController {
 
+
+
     @Autowired
     private PolicyService policyService;
 
@@ -33,23 +35,27 @@ public class PolizaController {
         return new ModelAndView("polizas", model);
     }
 
+
+
+
     @GetMapping("/polizas/{id}")
     public ModelAndView verPolizas(@PathVariable("id")Long id) {
-        List<Policy> policyList = policyService.findById(id);
+        Customer nuevo = new Customer(id,"fernando" ,"fer@gmail.com");
+        List<Policy> policyList = policyService.findByIdObjeto(nuevo);
         ModelMap model = new ModelMap();
         model.put("polizas_by_id", policyList);
         return new ModelAndView("by-id", model);
     }
 
-    @GetMapping("/polizas/1")
-    public ModelAndView verTipoSeguro() {
-        Object insuranceType = policyService.findInsuranceType();
-
-
-        ModelMap model = new ModelMap();
-        model.put("insurance", insuranceType);
-        return new ModelAndView("prueba", model);
-    }
+//    @GetMapping("/polizas/1")
+//    public ModelAndView verTipoSeguro() {
+//        Object insuranceType = policyService.findInsuranceType();
+//
+//
+//        ModelMap model = new ModelMap();
+//        model.put("insurance", insuranceType);
+//        return new ModelAndView("prueba", model);
+//    }
 
 
     //pruba con customer repository

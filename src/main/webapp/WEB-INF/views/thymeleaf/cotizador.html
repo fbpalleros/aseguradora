@@ -5,7 +5,7 @@
 
     <h1>Selecciona una opción:</h1>
 
-    <form th:action="@{'first-select'}" th:object="${marcaSeleccionada}">
+    <form th:action="@{/cotizar}" th:object="${policy}" method="post">
 
         <label for="select1">Seleccione el nombre:</label>
         <select id="select1" name="name">
@@ -14,9 +14,7 @@
             th:text="${marca}"></option>
         </select>
         <br>
-    </form>
 
-<form>
         <label for="select2">Seleccione el modelo:</label>
         <select id="select2" name="model">
             <option th:each="modelo:${listado_modelos}"
@@ -30,6 +28,13 @@
                     th:value="${car.id}"
                     th:text="${car.year}"></option>
         </select>
+
+    <input type="number"  th:field="*{customerId}" id="coverage" required><br>
+
+
+
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+
     </form>
 
 <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
