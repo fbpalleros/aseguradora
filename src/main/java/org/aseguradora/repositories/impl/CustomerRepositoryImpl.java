@@ -47,4 +47,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         query.setParameter("customer_id", id);
         return query.getResultList();
     }
+
+    @Override
+    @Transactional
+    public void save(Customer customer) {
+        this.sessionFactory.getCurrentSession().save(customer);
+    }
 }

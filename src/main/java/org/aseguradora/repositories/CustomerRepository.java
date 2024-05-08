@@ -14,5 +14,7 @@ public interface CustomerRepository {
 
     List<Policy> findPoliciesByIdCustomer(Long id);
 
+    void save(Customer customer);
+
 
 }
