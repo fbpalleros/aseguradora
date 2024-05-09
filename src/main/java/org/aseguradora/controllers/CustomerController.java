@@ -24,4 +24,12 @@ public class CustomerController {
         model.put("customers", customers);
         return new ModelAndView("customer", model);
     }
+
+    @GetMapping("/mis_datos")
+    public ModelAndView verDatosPorId(){
+        ModelMap model = new ModelMap();
+        Customer customer = customerService.findOne(3L);
+        model.put("customer", customer);
+        return new ModelAndView("mis_datos", model);
+    }
 }
