@@ -14,7 +14,7 @@ public interface PolicyService {
 
     Object findInsuranceType();
 
-    List<Policy> findById(Long id);
+    Policy findById(Long id);
 
     List<Policy> findByIdObjeto(Customer customer);
 

@@ -43,15 +43,15 @@ public class PolicyRepositoryImpl implements PolicyRepository {
     }
 
     @Override // este no va
-    public List<Policy> findById(Long id) {
-        return List.of();
+    public Policy findById(Long id) {
+        return this.sessionFactory.openSession().find(Policy.class, id);
     }
 
 
     @Transactional
     public List<Policy>  findByIdObjeto (Customer customer) {
 
-        String hql = "SELECT p FROM Policy p WHERE cast(p.customerId as long)=?1";
+        String hql = "SELECT p FROM Policy p WHERE p.customerId.id = ?1";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter(1, customer.getId());
 

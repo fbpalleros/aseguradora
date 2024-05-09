@@ -13,7 +13,7 @@ public interface PolicyRepository {
     List<PolicyDto> findAllDto();
 
     //Probablemente debo realizar la consulta desde Costumer
-    List<Policy> findById(Long id); //by Customer
+    Policy findById(Long id); //by Customer
 
     Object findInsuranceType();
 

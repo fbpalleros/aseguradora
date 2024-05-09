@@ -33,7 +33,7 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    public List<Policy> findById(Long id) {
+    public Policy findById(Long id) {
         return policyRepository.findById(id);
     }
 

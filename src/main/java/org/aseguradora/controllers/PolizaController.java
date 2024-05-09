@@ -32,6 +32,9 @@ public class PolizaController {
     public ModelAndView verPolizas() {
         ModelMap model = new ModelMap();
         model.put("polizas", policyService.findAll());
+        Customer customer = new Customer();
+        customer.setId(1L);
+        policyService.findByIdObjeto(customer);
         return new ModelAndView("polizas", model);
     }
 
@@ -40,10 +43,11 @@ public class PolizaController {
 
     @GetMapping("/polizas/{id}")
     public ModelAndView verPolizas(@PathVariable("id")Long id) {
-        Customer nuevo = new Customer(id,"fernando" ,"fer@gmail.com");
-        List<Policy> policyList = policyService.findByIdObjeto(nuevo);
+        //Customer nuevo = new Customer(id,"fernando" ,"fer@gmail.com");
+    	//List<Policy> policyList = policyService.findByIdObjeto(nuevo);
+    	Policy policy = policyService.findById(id);
         ModelMap model = new ModelMap();
-        model.put("polizas_by_id", policyList);
+        model.put("policy", policy);
         return new ModelAndView("by-id", model);
     }
 
