@@ -51,10 +51,10 @@ public class PolicyRepositoryImpl implements PolicyRepository {
     @Transactional
     public List<Policy>  findByIdObjeto (Customer customer) {
 
-        String hql = "SELECT p FROM Policy p WHERE p.customerId.id = ?1";
+        String hql = "SELECT p FROM Policy p WHERE p.customer.id = ?1";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter(1, customer.getId());
-
+        
         return query.getResultList();
     }
 
@@ -81,7 +81,7 @@ public class PolicyRepositoryImpl implements PolicyRepository {
     @Override
     @Transactional
     public Object findInsuranceType(){
-        String hql = "SELECT p.insuranceId FROM Policy p where p.id=?1";
+        String hql = "SELECT p.insurance FROM Policy p where p.id=?1";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter(1, 4L);
 

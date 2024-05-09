@@ -9,7 +9,7 @@
 	            <div class="card" style="width: 18rem;">
 	                <div class="card-body justify-content-center">
 	                	<h5 class="card-title">Tipo de poliza</h5>
-	                    <div th:text="${policy.insuranceId.insuranceType}"></div>
+	                    <div th:text="${policy.insurance.insuranceType}"></div>
 		    			<h5 class="card-title">Cobertura</h5>
 		    			<div th:text="${policy.coverage}"></div>
 		    			<h5 class="card-title">Vencimiento</h5>
@@ -22,5 +22,4 @@
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>
-
 

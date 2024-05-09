@@ -42,7 +42,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     @Transactional
     public List<Policy> findPoliciesByIdCustomer(Long id) {
-        String hql = "SELECT c.name, p.insuranceId FROM Customer c JOIN Policy p ON c.id = p.customerId WHERE p.customerId= : customer_id";
+        String hql = "SELECT c.name, p.insurance FROM Customer c JOIN Policy p ON c.id = p.customer.id WHERE p.customer.id = : customer_id";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("customer_id", id);
         return query.getResultList();

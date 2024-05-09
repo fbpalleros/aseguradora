@@ -66,12 +66,12 @@ public class CotizacionController {
                 customerService.save(customer);
 
                 //una vez guardado setearlo al policy
-                p.setCustomerId(customer);
+                p.setCustomer(customer);
 
 
                 //Buscar insurance para atacharlo al contexto y luego setearlo
                 Insurance insurance = insuranceService.findById(1L);
-                p.setInsuranceId(insurance);
+                p.setInsurance(insurance);
 
                 Integer precioCotizado = (int) (p.getCoverage() * 1.2);
                 p.setCoverage(precioCotizado);

@@ -16,11 +16,11 @@ public class Policy {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "insurance_id")
-    private Insurance insuranceId;
+    private Insurance insurance;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customerId;
+    private Customer customer;
 
     private Integer coverage;
 
@@ -42,10 +42,10 @@ public class Policy {
         this.coverage = coverage;
     }
 
-    public Policy(Long id, Insurance insuranceId, Customer customerId, Integer coverage) {
+    public Policy(Long id, Insurance insurance, Customer customer, Integer coverage) {
         this.id = id;
-        this.insuranceId = insuranceId;
-        this.customerId = customerId;
+        this.insurance = insurance;
+        this.customer = customer;
         this.coverage = coverage;
     }
 
@@ -57,20 +57,20 @@ public class Policy {
         this.id = id;
     }
 
-    public Insurance getInsuranceId() {
-        return insuranceId;
+    public Insurance getInsurance() {
+        return insurance;
     }
 
-    public void setInsuranceId(Insurance insuranceId) {
-        this.insuranceId = insuranceId;
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Integer getCoverage() {
@@ -101,8 +101,8 @@ public class Policy {
     public String toString() {
         return "Policy{" +
                 "id=" + id +
-                ", insuranceId=" + insuranceId +
-                ", customerId=" + customerId +
+                ", insuranceId=" + insurance +
+                ", customerId=" + customer +
                 ", coverage=" + coverage +
                 ", startDate=" + startDate +
                 ", expiration=" + expiration +
