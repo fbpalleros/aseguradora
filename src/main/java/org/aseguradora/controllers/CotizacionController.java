@@ -72,11 +72,7 @@ public class CotizacionController {
                 Policy p = (Policy) session.getAttribute("policy");
 
                 //Guardar cliente en base de datos
-                Customer customer = new Customer();
-                customer.setName("fer");
-                customer.setEmail("fer@gmail.com");
-                customerService.save(customer);
-
+                Customer customer = customerService.findOne(3L); //HARDCODE
                 //una vez guardado setearlo al policy
                 p.setCustomer(customer);
 

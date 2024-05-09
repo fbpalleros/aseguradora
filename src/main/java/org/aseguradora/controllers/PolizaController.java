@@ -34,7 +34,6 @@ public class PolizaController {
         return new ModelAndView("polizas", model);
     }
 
-
     @GetMapping("/polizas/{id}")
     public ModelAndView verPolizas(@PathVariable("id")Long id) {
         Customer nuevo = new Customer(id,"fernando" ,"fer@gmail.com");
@@ -43,18 +42,5 @@ public class PolizaController {
         model.put("polizas_by_id", policyList);
         return new ModelAndView("by-id", model);
     }
-
-
-    //pruba con customer repository
-    @GetMapping("/polizas/cliente/3")
-    public ModelAndView verPolizasPorCliente() {
-
-        Customer c1 = customerService.findOne(3L);
-
-        ModelMap model = new ModelMap();
-        model.put("customer", c1);
-        return new ModelAndView("prueba", model);
-    }
-
 
 }
