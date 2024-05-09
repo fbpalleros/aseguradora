@@ -9,7 +9,6 @@ import org.aseguradora.services.InsuranceService;
 import org.aseguradora.services.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -79,12 +78,12 @@ public class CotizacionController {
                 customerService.save(customer);
 
                 //una vez guardado setearlo al policy
-                p.setCustomerId(customer);
+                p.setCustomer(customer);
 
 
                 //Buscar insurance para atacharlo al contexto y luego setearlo
                 Insurance insurance = insuranceService.findById(1L);
-                p.setInsuranceId(insurance);
+                p.setInsurance(insurance);
 
                 //Guardar la poliza
                 policyService.save(p);

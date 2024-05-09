@@ -35,7 +35,7 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 
     @Override // este no va
     public List<Policy> findById(Long id) {
-        String hql = "SELECT p FROM Policy p WHERE p.customerId.id =?1";
+        String hql = "SELECT p FROM Policy p WHERE p.customer.id =?1";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter(1, id);
 
