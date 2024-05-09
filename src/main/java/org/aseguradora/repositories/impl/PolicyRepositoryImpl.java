@@ -32,29 +32,13 @@ public class PolicyRepositoryImpl implements PolicyRepository {
         return query.getResultList();
     }
 
-    @Override
-    @Transactional
-    public List<PolicyDto> findAllDto() {
-//        String hql = "SELECT i.insuranceType, p.coverage, p.expiration FROM Policy p LEFT JOIN Insurance i ON p.insuranceId =?1"; //hay problemas con el cast, hibernate no puede juntar Insurance con Long
-//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-//        query.setParameter(1, 3L);
-
-        return List.of();
-    }
 
     @Override // este no va
-    public Policy findById(Long id) {
-        return this.sessionFactory.openSession().find(Policy.class, id);
-    }
-
-
-    @Transactional
-    public List<Policy>  findByIdObjeto (Customer customer) {
-
-        String hql = "SELECT p FROM Policy p WHERE p.customer.id = ?1";
+    public List<Policy> findById(Long id) {
+        String hql = "SELECT p FROM Policy p WHERE p.customer.id =?1";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter(1, customer.getId());
-        
+        query.setParameter(1, id);
+
         return query.getResultList();
     }
 
@@ -64,6 +48,7 @@ public class PolicyRepositoryImpl implements PolicyRepository {
     public void save(Policy policy) {
         this.sessionFactory.getCurrentSession().save(policy);
     }
+}
 
 
 
@@ -77,16 +62,3 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 //        query.executeUpdate(); // Sirve tambien para delete
 //    }
 
-
-    @Override
-    @Transactional
-    public Object findInsuranceType(){
-        String hql = "SELECT p.insurance FROM Policy p where p.id=?1";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter(1, 4L);
-
-        return query.getSingleResult();
-    }
-
-
-}

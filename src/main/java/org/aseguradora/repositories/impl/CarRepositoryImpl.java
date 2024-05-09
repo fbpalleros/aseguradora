@@ -16,8 +16,6 @@ public class CarRepositoryImpl implements CarRepository {
 
     private SessionFactory sessionFactory; //llama la base de datos
 
-
-
     @Autowired //llama la base de datos
     public CarRepositoryImpl (SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
@@ -36,7 +34,7 @@ public class CarRepositoryImpl implements CarRepository {
 
     @Override
     @Transactional
-    public List<String> findByName() {
+    public List<String> findDistinctName() {
         String hql = "SELECT DISTINCT c.name FROM Car c";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
 
@@ -54,7 +52,7 @@ public class CarRepositoryImpl implements CarRepository {
 
     @Override
     @Transactional
-    public List<String> findByModelWithParameter(String name) {
+    public List<String> findByModelWithParameter(String name) { //este busca modelos dependiendo de la marca
         String hql = "SELECT DISTINCT c.model FROM Car c where c.name=?1";
 
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);

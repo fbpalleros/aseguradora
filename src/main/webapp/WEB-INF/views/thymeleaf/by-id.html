@@ -2,24 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="layout/layout :: head"></head>
 <body>
-	<header th:replace="layout/layout :: header"></header>
-	<main>
-		<div class="container">
-	    <div class="col-sm-12 d-flex justify-content-center gap-3">
-	            <div class="card" style="width: 18rem;">
-	                <div class="card-body justify-content-center">
-	                	<h5 class="card-title">Tipo de poliza</h5>
-	                    <div th:text="${policy.insurance.insuranceType}"></div>
-		    			<h5 class="card-title">Cobertura</h5>
-		    			<div th:text="${policy.coverage}"></div>
-		    			<h5 class="card-title">Vencimiento</h5>
-		    			<div th:text="${policy.expiration}"></div>
-	                </div>
-	            </div>
-	    </div>
-	    </div>
-    </main>
-	<footer th:replace="layout/layout :: footer"></footer>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container d-flex">
+    <div th:each="policy: ${polizas_by_id}">
+        <div th:text="${policy.insuranceId}"></div>
+        <div th:text="${policy.coverage}"></div>
+        <div th:text="${policy.expiration}"></div>
+    </div>
+</div>
+
 </body>
 </html>
-

@@ -9,7 +9,7 @@ public interface CarRepository /*extendsCrudRepository <Car, Long>*/ {
 
     List<Car> findAll();
 
-    List<String> findByName();
+    List<String> findDistinctName();
 
     List<String> findByModel();
 

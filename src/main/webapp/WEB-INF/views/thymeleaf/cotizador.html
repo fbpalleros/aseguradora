@@ -3,44 +3,50 @@
 <body>
 <header th:replace="layout/layout :: header"></header>
 
-    <h1>Selecciona una opción:</h1>
+<div class="container">
+    <div class="d-flex flex-column">
 
-    <form th:action="@{/cotizar}" th:object="${policy}" method="post">
+        <h2>Cotización</h2>
 
-<!--        <label for="select1">Seleccione el nombre:</label>-->
-<!--        <select id="select1" name="name">-->
-<!--            <option th:each="marca:${listado_marcas}"-->
-<!--            th:value="${marca}"-->
-<!--            th:text="${marca}"></option>-->
-<!--        </select>-->
-<!--        <br>-->
+        <form th:action="@{/cotizar}" th:object="${policy}" method="post">
+            <div class="d-flex flex-column gap-3">
+                <div>
+                    <label class="form-label" for="select1">Seleccione el nombre:</label>
+                    <select class="form-select" id="select1" name="name">
+                        <option>Seleccione la marca</option>
+                        <option th:each="marca:${names}"
+                                th:value="${marca}"
+                                th:text="${marca}"></option>
+                    </select>
+                    <br>
+                </div>
 
-<!--        <label for="select2">Seleccione el modelo:</label>-->
-<!--        <select id="select2" name="model">-->
-<!--            <option th:each="modelo:${listado_modelos}"-->
-<!--                    th:value="${modelo}"-->
-<!--                    th:text="${modelo}"></option>-->
-<!--        </select>-->
-<!--        <br>-->
-<!--        <label for="select3">Seleccione el año:</label>-->
-<!--        <select id="select3" name="year">-->
-<!--            <option th:each="car:${listadoAuto}"-->
-<!--                    th:value="${car.id}"-->
-<!--                    th:text="${car.year}"></option>-->
-<!--        </select>-->
+                <div>
+                    <label class="form-label" for="select2">Seleccione el modelo:</label>
+                    <select class="form-select" id="select2" name="model">
+                        <option>Seleccione el modelo</option>
+                        <option th:each="modelo:${models}"
+                                th:value="${modelo}"
+                                th:text="${modelo}"></option>
+                    </select>
+                    <br>
+                </div>
+                <!--                <label for="select3">Seleccione el año:</label>-->
+                <!--                <select id="select3" name="year">-->
+                <!--                    <option th:each="car:${listadoAuto}"-->
+                <!--                            th:value="${car.id}"-->
+                <!--                            th:text="${car.year}"></option>-->
+                <!--                </select>-->
+                <div>
+                    <input class="form-control" type="number" th:field="*{coverage}" id="coverage" name="coverage" placeholder="Ingrese precio estimado" required><br>
+                </div>
+            <button type="submit" class="btn btn-primary">Cotizar</button>
+            </div>
+        </form>
+        <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+    </div>
+</div>
 
-    <input type="number" th:field="*{coverage}" id="coverage" name="coverage" required><br>
-
-
-
-        <button type="submit" class="btn btn-primary">Ingresar</button>
-
-    </form>
-
-<span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
-
-<!--<div th:each="prueba : ${listado_pruebas}" th:text="${prueba}">-->
-<!--</div>-->
 
 <footer th:replace="layout/layout :: footer">
 

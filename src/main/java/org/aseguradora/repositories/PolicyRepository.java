@@ -9,15 +9,8 @@ import java.util.List;
 public interface PolicyRepository {
 
     List<Policy> findAll();
-
-    List<PolicyDto> findAllDto();
-
     //Probablemente debo realizar la consulta desde Costumer
     Policy findById(Long id); //by Customer
-
-    Object findInsuranceType();
-
-    List<Policy> findByIdObjeto(Customer customer);
 
     void save(Policy policy);
 }
