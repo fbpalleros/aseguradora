@@ -10,13 +10,7 @@ public interface PolicyService {
 
     List<Policy> findAll();
 
-    List<PolicyDto> findAllDto();
-
-    Object findInsuranceType();
-
     List<Policy> findById(Long id);
-
-    List<Policy> findByIdObjeto(Customer customer);
 
     void save (Policy policy);
 }

@@ -41,7 +41,7 @@ public class PolizaController {
     @GetMapping("/polizas/{id}")
     public ModelAndView verPolizas(@PathVariable("id")Long id) {
         Customer nuevo = new Customer(id,"fernando" ,"fer@gmail.com");
-        List<Policy> policyList = policyService.findByIdObjeto(nuevo);
+        List<Policy> policyList = policyService.findById(id);
         ModelMap model = new ModelMap();
         model.put("polizas_by_id", policyList);
         return new ModelAndView("by-id", model);

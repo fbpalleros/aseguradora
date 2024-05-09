@@ -6,7 +6,7 @@
 
 <div class="container d-flex">
     <div th:each="policy: ${polizas_by_id}">
-        <div th:text="${policy.insuranceType}"></div>
+        <div th:text="${policy.insuranceId}"></div>
         <div th:text="${policy.coverage}"></div>
         <div th:text="${policy.expiration}"></div>
     </div>
