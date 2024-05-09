@@ -44,9 +44,12 @@ public class CotizacionController {
 
 
     @PostMapping("/cotizar")
-    public String cotizarProducto(@ModelAttribute("policy") Policy policy, HttpServletRequest request) {
+    public String cotizarProducto(@ModelAttribute("policy") Policy policy, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("policy", policy);
+        Policy p = (Policy) session.getAttribute("policy");
+        p.setCoverage((int) (p.getCoverage()*1.2));
+        model.addAttribute("precio_cotizado", p.getCoverage());
         return "resultado";
     }
 
@@ -72,9 +75,6 @@ public class CotizacionController {
                 //Buscar insurance para atacharlo al contexto y luego setearlo
                 Insurance insurance = insuranceService.findById(1L);
                 p.setInsuranceId(insurance);
-
-                Integer precioCotizado = (int) (p.getCoverage() * 1.2);
-                p.setCoverage(precioCotizado);
 
                 //Guardar la poliza
                 policyService.save(p);
