@@ -1,10 +1,8 @@
 package org.aseguradora.controllers;
 
-import org.aseguradora.entity.Car;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
-import org.aseguradora.repositories.CarRepository;
 import org.aseguradora.services.CarService;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.InsuranceService;
@@ -35,31 +33,34 @@ public class CotizacionController {
     @Autowired
     private InsuranceService insuranceService;
 
-    @Autowired
     private CarService carService;
 
+    public CotizacionController(CarService carService){
+        this.carService = carService;
+    }
 
     @GetMapping("/cotizacion")
-    public String buscar(Model model) {
+    public ModelAndView vistarCotizador() {
+        ModelMap model = new ModelMap();
         Policy policy = new Policy();
         List<String> names = carService.findDistinctName();
         List<String> models = carService.findDistinctModelByName("Honda");
 
-        model.addAttribute("models", models);
-        model.addAttribute("names", names);
-        model.addAttribute("policy", policy);
-        return "cotizador";
+        model.put("models", models);
+        model.put("names", names);
+        model.put("policy", policy);
+        return new ModelAndView("cotizador", model);
     }
 
 
     @PostMapping("/cotizar")
-    public String cotizarProducto(@ModelAttribute("policy") Policy policy, Model model, HttpServletRequest request) {
+    public ModelAndView cotizarProducto(@ModelAttribute("policy") Policy policy, ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("policy", policy);
         Policy p = (Policy) session.getAttribute("policy");
         p.setCoverage((int) (p.getCoverage()*1.2));
-        model.addAttribute("precio_cotizado", p.getCoverage());
-        return "resultado";
+        model.put("precio_cotizado", p.getCoverage());
+        return new ModelAndView("resultado", model);
     }
 
     @PostMapping("/crear-poliza")
