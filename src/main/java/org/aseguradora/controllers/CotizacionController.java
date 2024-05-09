@@ -5,6 +5,7 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.repositories.CarRepository;
+import org.aseguradora.services.CarService;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.InsuranceService;
 import org.aseguradora.services.PolicyService;
@@ -34,10 +35,18 @@ public class CotizacionController {
     @Autowired
     private InsuranceService insuranceService;
 
+    @Autowired
+    private CarService carService;
+
 
     @GetMapping("/cotizacion")
     public String buscar(Model model) {
         Policy policy = new Policy();
+        List<String> names = carService.findDistinctName();
+        List<String> models = carService.findDistinctModelByName("Honda");
+
+        model.addAttribute("models", models);
+        model.addAttribute("names", names);
         model.addAttribute("policy", policy);
         return "cotizador";
     }

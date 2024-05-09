@@ -8,12 +8,12 @@
 <body>
 <header th:fragment="header">
 <!-- No pude vincular css para aplicar hover a los links del nav -->
-    <ul class="nav justify-content-center">
+    <ul class="nav justify-content-center mb-4">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Active</a>
+            <a class="nav-link active" aria-current="page" th:href="@{http://localhost:8080/spring/polizas}">Polizas</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" th:href="@{http://localhost:8080/spring/cotizacion}">Cotizar</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
