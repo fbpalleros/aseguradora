@@ -7,4 +7,6 @@ public interface CarService {
     List<String> findDistinctName();
 
     List<String> findDistinctModelByName(String name);
+
+    List<Integer> findDistinctByYear();
 }
