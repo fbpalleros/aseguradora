@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container">
+    <div class="d-flex flex-column">
+
+        <h2>Cotización</h2>
+
+        <form th:action="@{/paso_uno}" th:object="${policy}" method="post">
+            <div class="d-flex flex-column gap-3">
+                <div>
+                    <label class="form-label" for="select1">Seleccione el nombre:</label>
+                    <select class="form-select" id="select1" name="name">
+                        <option>Seleccione la marca</option>
+                        <option th:each="marca:${names}"
+                                th:value="${marca}"
+                                th:text="${marca}"></option>
+                    </select>
+                    <br>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Anterior</button>
+                <button type="submit" class="btn btn-primary">Siguiente</button>
+            </div>
+        </form>
+        <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+    </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

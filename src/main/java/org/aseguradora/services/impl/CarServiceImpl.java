@@ -23,5 +23,9 @@ public class CarServiceImpl implements CarService {
         return carRepository.findByModelWithParameter(name);
     }
 
+    @Override
+    public List<Integer> findDistinctByYear() {
+        return carRepository.findDistinctByYear();
+    }
 
 }
