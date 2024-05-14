@@ -8,15 +8,15 @@
 
         <h2>Cotización</h2>
 
-        <form th:action="@{/paso_uno}" th:object="${policy}" method="post">
+        <form th:action="@{/guardar_paso_tres}" th:object="${almacenar}" method="get">
             <div class="d-flex flex-column gap-3">
                 <div>
                     <label class="form-label" for="select1">Seleccione el año:</label>
-                    <select class="form-select" id="select1" name="name">
-                        <option>Seleccione la marca</option>
-                        <option th:each="marca:${names}"
-                                th:value="${marca}"
-                                th:text="${marca}"></option>
+                    <select class="form-select" id="select1" name="name" th:field="*{anio}">
+                        <option value=""  selected="selected" disabled="disabled"> Seleccione el año</option>
+                        <option th:each="year:${years}"
+                                th:value="${year}"
+                                th:text="${year}"></option>
                     </select>
                     <br>
                 </div>
