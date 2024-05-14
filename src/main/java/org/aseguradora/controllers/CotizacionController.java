@@ -1,6 +1,6 @@
 package org.aseguradora.controllers;
 
-import org.aseguradora.entity.Almacenar;
+import org.aseguradora.entity.dto.AlmacenarDTO;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
@@ -10,7 +10,6 @@ import org.aseguradora.services.InsuranceService;
 import org.aseguradora.services.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -54,30 +53,37 @@ public class CotizacionController {
     }
 
     @GetMapping("/paso_uno")
-    public ModelAndView vistarPasoUno() {
+    public ModelAndView vistaPasoUno() {
         ModelMap model = new ModelMap();
-        Almacenar almacenar = new Almacenar();
+        AlmacenarDTO almacenar = new AlmacenarDTO();
         List<String> names = carService.findDistinctName();
         model.put("names", names);
+        model.put("almacenar", almacenar);
         return new ModelAndView("paso_uno", model);
-
     }
 
-    @GetMapping("/paso_dos")
-    public ModelAndView vistarPasoDos() {
-        ModelMap model = new ModelMap();
-        List<String> models = carService.findDistinctModelByName("Honda");
-        model.put("models", models);
+    @GetMapping("/guardar_paso_uno")
+    public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model){
+        List<String> modelos = carService.findDistinctModelByName(almacenar.getNombre());
+        model.put("modelos", modelos);
+        model.put("almacenar", almacenar);
         return new ModelAndView("paso_dos", model);
+    }
+
+    @GetMapping("/guardar_paso_dos")
+    public ModelAndView guardarPasoDos(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
+        List<Integer> years = carService.findDistinctByYear(almacenar.getModelo());
+        model.put("years", years);
+        model.put("almacenar", almacenar);
+        return new ModelAndView("paso_tres", model);
 
     }
 
-    @GetMapping("/paso_tres")
-    public ModelAndView vistarPasoTres() {
-        ModelMap model = new ModelMap();
-        List<Integer> year = carService.findDistinctByYear();
-        model.put("year", year);
-        return new ModelAndView("paso_tres", model);
+    @GetMapping("/guardar_paso_tres")
+    public ModelAndView guardarPasoTres(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
+        model.put("year", almacenar.getModelo());
+        model.put("almacenar", almacenar);
+        return new ModelAndView("resultado_final", model);
 
     }
 

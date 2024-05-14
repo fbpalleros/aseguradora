@@ -8,5 +8,5 @@ public interface CarService {
 
     List<String> findDistinctModelByName(String name);
 
-    List<Integer> findDistinctByYear();
+    List<Integer> findDistinctByYear(String name);
 }
