@@ -66,15 +66,15 @@ public class CotizacionController {
     public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model){
         List<String> modelos = carService.findDistinctModelByName(almacenar.getNombre());
         model.put("modelos", modelos);
-        model.put("almacenar", almacenar);
+
         return new ModelAndView("paso_dos", model);
     }
 
     @GetMapping("/guardar_paso_dos")
     public ModelAndView guardarPasoDos(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
-        List<Integer> years = carService.findDistinctByYear(almacenar.getModelo());
+        List<Integer> years = carService.findDistinctByNameAndModel(almacenar.getModelo() , almacenar.getNombre());
         model.put("years", years);
-        model.put("almacenar", almacenar);
+
         return new ModelAndView("paso_tres", model);
 
     }
@@ -82,7 +82,7 @@ public class CotizacionController {
     @GetMapping("/guardar_paso_tres")
     public ModelAndView guardarPasoTres(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
         model.put("year", almacenar.getModelo());
-        model.put("almacenar", almacenar);
+
         return new ModelAndView("resultado_final", model);
 
     }
