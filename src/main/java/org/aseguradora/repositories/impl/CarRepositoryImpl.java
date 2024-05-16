@@ -61,10 +61,11 @@ public class CarRepositoryImpl implements CarRepository {
 
     @Override
     @Transactional
-    public List<Integer> findDistinctByYear(String model) {
-        String hql = "SELECT DISTINCT c.anio FROM Car c where c.name=?1";
+    public List<Integer> findDistinctByNameAndModel(String name , String model ) {
+        String hql = "SELECT DISTINCT c.anio FROM Car c WHERE c.name=?1 and c.model=?2"  ;
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter(1, model);
+        query.setParameter(1, name);
+        query.setParameter(2, model);
         return query.getResultList();
     }
 

@@ -10,6 +10,13 @@
 
         <form th:action="@{/guardar_paso_tres}" th:object="${almacenar}" method="get">
             <div class="d-flex flex-column gap-3">
+                <div hidden="hidden">
+                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>
+                </div>
+                <div >
+                    <label class="form-label" th:text="${'usted selecciono el modelo : ' + almacenar.getModelo()}" for="modelo"></label>
+                    <input class="form-control" type="text" th:field="*{modelo}" th:value="${almacenar.getModelo()}" id="modelo" name="modelo" readonly><br>
+                </div>
                 <div>
                     <label class="form-label" for="select1">Seleccione el año:</label>
                     <select class="form-select" id="select1" name="name" th:field="*{anio}">

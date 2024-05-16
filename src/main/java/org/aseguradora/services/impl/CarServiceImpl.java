@@ -24,8 +24,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Integer> findDistinctByYear(String name) {
-        return carRepository.findDistinctByYear(name);
+    public List<Integer> findDistinctByNameAndModel(String name , String model) {
+        return carRepository.findDistinctByNameAndModel(name , model);
     }
 
 }
