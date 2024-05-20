@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hola</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
 <body>
+<header th:replace="layout/layout :: header"></header>
 
+<div class="container">
+    <div class="d-flex flex-column">
+
+        <h2>Cotización</h2>
+
+        <form th:action="@{/crear_poliza}" th:object="${almacenar}" method="get">
+            <div class="d-flex flex-column gap-3">
+                <!--                <div hidden="hidden">-->
+                <!--                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
+                <!--                </div>-->
+
+                <div>
+                    <label class="form-label" for="nombre"> Usted selecciono la Marca :</label>
+                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="modelo" readonly><br>
+                </div>
+                <div >
+                    <label class="form-label" for="modelo"> Usted selecciono el Modelo :</label>
+                    <input class="form-control" type="text" th:field="*{modelo}" th:value="${almacenar.getModelo()}" id="modelo" name="modelo" readonly><br>
+                </div>
+
+                    <div >
+                        <label class="form-label" for="anio"> Usted selecciono el Año :</label>
+                        <input class="form-control" type="text" th:field="*{anio}" th:value="${almacenar.getAnio()}" id="anio" name="anio" readonly><br>
+                    </div>
+                    <div >
+                        <label class="form-label" for="Precio"> El precio de su vehiculo es :</label>
+                        <input class="form-control" type="text" th:field="*{precio}" th:value="${almacenar.getPrecio()}" id="precio" name="precio" readonly><br>
+                    </div>
+                <div>
+                    <label class="form-label" for="cotizacion"> El precio de su cuota por mes seria :</label>
+                    <input class="form-control" type="text" th:field="*{cotizacion}" th:value="${almacenar.getCotizacion()}" id="cotizacion" name="cotizacion" readonly><br>
+                </div>
+
+
+
+                <button type="submit" class="btn btn-primary">Crear Poliza</button>
+            </div>
+        </form>
+        <form th:action="@{/paso_uno}" th:object="${almacenar}" method="get">
+            <button type="submit" class="btn btn-primary">Volver</button>
+
+        </form>
+        <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+    </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

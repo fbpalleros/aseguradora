@@ -14,19 +14,19 @@ INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration)
 -- una poliza no puede pertenecer a dos clientes.
 -- restringir insurance_type para que no se pueda escribir otra categoría. quizas con un select
 
-INSERT INTO auto (name, anio, model) VALUES ('Fiat', 2001, 'Palio');
-INSERT INTO auto (name, anio, model) VALUES ('Fiat', 2004, 'Palio');
-INSERT INTO auto (name, anio, model) VALUES ('Fiat', 2019, 'Argo');
-INSERT INTO auto (name, anio, model) VALUES ('Fiat', 2024, 'Pulse');
-INSERT INTO auto (name, anio, model) VALUES ('Ford', 1998, 'Ka');
-INSERT INTO auto (name, anio, model) VALUES ('Ford', 2015, 'Focus');
-INSERT INTO auto (name, anio, model) VALUES ('Ford', 2021, 'Territory');
-INSERT INTO auto (name, anio, model) VALUES ('Chevrolet', 2008, 'Onix');
-INSERT INTO auto (name, anio, model) VALUES ('Chevrolet', 2016, 'Cruze');
-INSERT INTO auto (name, anio, model) VALUES ('Chevrolet', 2022, 'Tracker');
-INSERT INTO auto (name, anio, model) VALUES ('Honda', 2005, 'Civic');
-INSERT INTO auto (name, anio, model) VALUES ('Honda', 2018, 'HR-V');
-INSERT INTO auto (name, anio, model) VALUES ('Honda', 2023, 'CR-V');
+INSERT INTO auto (name, anio, model , precio) VALUES ('Fiat', 2001, 'Palio' , 1000000);
+INSERT INTO auto (name, anio, model , precio) VALUES ('Fiat', 2004, 'Palio', 2000000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Fiat', 2019, 'Argo' , 3500000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Fiat', 2024, 'Pulse' , 5000000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Ford', 1998, 'Ka' , 900000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Ford', 2015, 'Focus' , 1750000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Ford', 2021, 'Territory' , 3250000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Chevrolet', 2008, 'Onix' , 1500000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Chevrolet', 2016, 'Cruze', 3200000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Chevrolet', 2022, 'Tracker', 8000000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Honda', 2005, 'Civic', 3200000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Honda', 2018, 'HR-V', 7000000);
+INSERT INTO auto (name, anio, model, precio) VALUES ('Honda', 2023, 'CR-V', 7250000);
 
 -- cambiar todos los objeto a minuculas
 

@@ -11,9 +11,15 @@
         <form th:action="@{/guardar_paso_dos}" th:object="${almacenar}" method="get">
             <div class="d-flex flex-column gap-3">
                 <div>
-                    <div hidden="hidden">
-                        <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>
+                    <div >
+                        <label class="form-label" for="nombre"> Usted selecciono la Marca : </label>
+                        <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="modelo" readonly><br>
                     </div>
+
+<!--                    <div hidden="hidden">-->
+<!--                        <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
+<!--                    </div>-->
+
                     <label class="form-label" for="select1">Seleccione el nombre:</label>
                     <select class="form-select" id="select1" name="model" th:field="*{modelo}">
                         <option value=""  selected="selected" disabled="disabled"> Seleccione la modelo</option>
