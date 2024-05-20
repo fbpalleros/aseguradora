@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -67,6 +66,19 @@ public class CarRepositoryImpl implements CarRepository {
         query.setParameter(1, name);
         query.setParameter(2, model);
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public Double findPrice(String name , String model , Integer year ) {
+        String hql = "SELECT DISTINCT  c.precio FROM Car c WHERE c.name=?1 and c.model=?2 and c.anio=?3"  ;
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter(1, name);
+        query.setParameter(2, model);
+        query.setParameter(3, year);
+
+        return (Double) query.getSingleResult();
+
     }
 
 }

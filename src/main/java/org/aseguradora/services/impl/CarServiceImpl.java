@@ -28,4 +28,9 @@ public class CarServiceImpl implements CarService {
         return carRepository.findDistinctByNameAndModel(name , model);
     }
 
+    @Override
+    public Double findPrice(String name , String model , Integer year) {
+        return carRepository.findPrice(name , model , year);
+    }
+
 }

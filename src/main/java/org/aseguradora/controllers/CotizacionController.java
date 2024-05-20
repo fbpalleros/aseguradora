@@ -10,6 +10,7 @@ import org.aseguradora.services.InsuranceService;
 import org.aseguradora.services.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -72,7 +73,7 @@ public class CotizacionController {
 
     @GetMapping("/guardar_paso_dos")
     public ModelAndView guardarPasoDos(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
-        List<Integer> years = carService.findDistinctByNameAndModel(almacenar.getModelo() , almacenar.getNombre());
+        List<Integer> years = carService.findDistinctByNameAndModel(almacenar.getNombre() , almacenar.getModelo());
         model.put("years", years);
 
         return new ModelAndView("paso_tres", model);
@@ -81,10 +82,31 @@ public class CotizacionController {
 
     @GetMapping("/guardar_paso_tres")
     public ModelAndView guardarPasoTres(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
-        model.put("year", almacenar.getModelo());
+        Double precio = carService.findPrice(almacenar.getNombre(),almacenar.getModelo(),almacenar.getAnio());
+
+        Double cotizacion =  precio * 1.20 / 6;
+
+        almacenar.setPrecio(precio);
+        almacenar.setCotizacion(cotizacion);
+
+        model.put("almacenar" ,almacenar);
 
         return new ModelAndView("resultado_final", model);
+    }
 
+    @GetMapping("/crear_poliza")
+    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model ){
+
+        Policy policy = new Policy();
+
+        Customer customer = customerService.findOne(3L); //HARDCODE
+        policy.setCustomer(customer);
+        Insurance insurance = insuranceService.findById(1L);
+        policy.setInsurance(insurance);
+        policy.setCoverage(almacenar.getCotizacion());
+        policyService.save(policy);
+
+        return new ModelAndView("exito", model);
     }
 
 
@@ -93,7 +115,7 @@ public class CotizacionController {
         HttpSession session = request.getSession();
         session.setAttribute("policy", policy);
         Policy p = (Policy) session.getAttribute("policy");
-        p.setCoverage((int) (p.getCoverage()*1.2));
+        p.setCoverage((Double) (p.getCoverage()*1.2));
         model.put("precio_cotizado", p.getCoverage());
         return new ModelAndView("resultado", model);
     }
