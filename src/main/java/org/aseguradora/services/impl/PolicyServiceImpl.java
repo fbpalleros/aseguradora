@@ -4,6 +4,7 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.dto.PolicyDto;
 import org.aseguradora.repositories.PolicyRepository;
+import org.aseguradora.repositories.impl.PolicyRepositoryImpl;
 import org.aseguradora.services.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,11 @@ import java.util.List;
 @Service
 public class PolicyServiceImpl implements PolicyService {
 
-    @Autowired
-    PolicyRepository policyRepository;
+    private PolicyRepository policyRepository;
+
+    public PolicyServiceImpl(PolicyRepository policyRepository){
+        this.policyRepository = policyRepository;
+    }
 
     @Override
     public List<Policy> findAll() {
