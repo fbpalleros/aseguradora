@@ -42,9 +42,8 @@ public class PolizaController {
         return new ModelAndView("by-id", model);
     }
 
-    @GetMapping("/polizas/{id}/{id_policy}")
-    public ModelAndView vePolizaPorId(@PathVariable("id")Long idCustomer, @PathVariable("id_policy")Long idPolicy) {
-        List<Policy> policies = policyService.findByCustomerId(idCustomer);
+    @GetMapping("/polizas/3/{id_policy}")
+    public ModelAndView vePolizaPorId(@PathVariable("id_policy")Long idPolicy) {
         Policy policy = policyService.findById(idPolicy);
         ModelMap model = new ModelMap();
         model.put("policy", policy);
