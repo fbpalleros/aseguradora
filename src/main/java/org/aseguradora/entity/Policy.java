@@ -38,6 +38,12 @@ public class Policy {
         this.coverage = coverage;
     }
 
+    public Policy(Long id, Customer customer, Integer coverage) {
+        this.id = id;
+        this.customer = customer;
+        this.coverage = coverage;
+    }
+
     public Policy(Integer coverage) {
         this.coverage = coverage;
     }
@@ -102,7 +108,7 @@ public class Policy {
         return "Policy{" +
                 "id=" + id +
                 ", insuranceId=" + insurance +
-                ", customerId=" + customer +
+                ", customerId=" + customer.getId() +
                 ", coverage=" + coverage +
                 ", startDate=" + startDate +
                 ", expiration=" + expiration +

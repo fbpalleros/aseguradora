@@ -13,7 +13,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.*;
 
@@ -24,7 +27,7 @@ public class PolicyServiceTest {
     private PolicyRepository policyRepository;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         this.policyRepository = mock(PolicyRepository.class);
         this.policyService = new PolicyServiceImpl(policyRepository);
     }
@@ -57,15 +60,28 @@ public class PolicyServiceTest {
 
 
     @Test
-    public void queSePuedanObtenerLasPolizasDeUnClientePorSuId(){
+    public void queSePuedanObtenerLasPolizasDeUnClientePorSuId() {
         Customer customerMock = new Customer(1L, "facu", "facu@gmail.com");
 
         List<Policy> polizasMock = new ArrayList<>();
-        polizasMock.add(new Policy(1L, 120));
-        polizasMock.add(new Policy(2L, 200));
-        polizasMock.add(new Policy(3L, 400));
+        polizasMock.add(new Policy(1L, customerMock, 120));
+        polizasMock.add(new Policy(2L, customerMock, 200));
+        polizasMock.add(new Policy(3L, customerMock, 400));
+
+        List<Long> customerIdsMock = polizasMock.stream()
+                .map(policy -> policy.getCustomer().getId())
+                .collect(Collectors.toList());
+
+        when(this.policyRepository.findByCustomerId(1L)).thenReturn(polizasMock);
+
+        List<Policy> policies = policyService.findByCustomerId(1L);
+
+        List<Long> customerIds = policies.stream()
+                .map(policy -> policy.getCustomer().getId())
+                .collect(Collectors.toList());
 
 
+        assertThat(customerIds, equalTo(customerIdsMock));
 
     }
 

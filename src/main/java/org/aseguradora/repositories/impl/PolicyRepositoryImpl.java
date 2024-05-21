@@ -63,13 +63,3 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 
 
 
-//    @Override
-//    public void actualizar(Item item) {
-////        this.sessionFactory.getCurrentSession().saveOrUpdate(item);
-//        String hql = "UPDATE Item set descripcion = :descripcion WHERE id = :id";
-//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-//        query.setParameter("descripcion", item.getDescripcion());
-//        query.setParameter("id", item.getId());
-//        query.executeUpdate(); // Sirve tambien para delete
-//    }
-
