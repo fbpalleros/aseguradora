@@ -8,7 +8,7 @@
 
         <h2>Cotización</h2>
 
-        <form th:action="@{/crear_poliza}" th:object="${almacenar}" method="get">
+        <form th:action="@{/crear_poliza}" th:object="${almacenar}" method="post">
             <div class="d-flex flex-column gap-3">
                 <!--                <div hidden="hidden">-->
                 <!--                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->

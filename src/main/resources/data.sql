@@ -28,5 +28,60 @@ INSERT INTO auto (name, anio, model, precio) VALUES ('Honda', 2005, 'Civic', 320
 INSERT INTO auto (name, anio, model, precio) VALUES ('Honda', 2018, 'HR-V', 7000000);
 INSERT INTO auto (name, anio, model, precio) VALUES ('Honda', 2023, 'CR-V', 7250000);
 
--- cambiar todos los objeto a minuculas
+
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Agronomía');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Almagro');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Balvanera');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Barracas');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Caballito');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Chacarita');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Flores');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'La Boca');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Liniers');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'San Nicolás');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Palermo');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Escobar');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'General Rodríguez');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Hurlingham');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Malvinas Argentinas');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Moreno');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'San Fernando');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'San Miguel');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Catamarca', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Chaco', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Catamarca', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Chubut', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Córdoba', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Corrientes', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Entre Ríos', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Formosa', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Jujuy', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('La Pampa', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('La Rioja', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Mendoza', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Misiones', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Neuquén', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Río Negro', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Salta', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('San Juan', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('San Luis', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Santa Cruz', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Santiago del Estero', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Tierra del Fuego', 'Tigre');
+INSERT INTO ciudad (provincia, localidad) VALUES ('Tucumán', 'Tigre');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

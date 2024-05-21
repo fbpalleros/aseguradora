@@ -94,7 +94,7 @@ public class CotizacionController {
         return new ModelAndView("resultado_final", model);
     }
 
-    @GetMapping("/crear_poliza")
+    @PostMapping("/crear_poliza")
     public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model ){
 
         Policy policy = new Policy();

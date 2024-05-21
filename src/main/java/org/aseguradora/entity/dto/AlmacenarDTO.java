@@ -15,7 +15,6 @@ public class AlmacenarDTO {
     }
 
 
-
     public AlmacenarDTO(String nombre, String modelo, Integer anio , Double precio , Double cotizacion) {
         this.nombre = nombre;
         this.modelo = modelo;
