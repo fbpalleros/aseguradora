@@ -64,9 +64,9 @@ public class PolicyServiceTest {
         Customer customerMock = new Customer(1L, "facu", "facu@gmail.com");
 
         List<Policy> polizasMock = new ArrayList<>();
-        polizasMock.add(new Policy(1L, customerMock, 120));
-        polizasMock.add(new Policy(2L, customerMock, 200));
-        polizasMock.add(new Policy(3L, customerMock, 400));
+        polizasMock.add(new Policy(1L, customerMock, 120.00));
+        polizasMock.add(new Policy(2L, customerMock, 200.00));
+        polizasMock.add(new Policy(3L, customerMock, 400.00));
 
         List<Long> customerIdsMock = polizasMock.stream()
                 .map(policy -> policy.getCustomer().getId())
