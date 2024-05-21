@@ -5,15 +5,23 @@ public class AlmacenarDTO {
     public String nombre;
     public String modelo;
     public Integer anio;
+    public Double precio;
+    public Double cotizacion;
+
+
 
     public AlmacenarDTO() {
 
     }
 
-    public AlmacenarDTO(String nombre, String modelo, Integer anio) {
+
+    public AlmacenarDTO(String nombre, String modelo, Integer anio , Double precio , Double cotizacion) {
         this.nombre = nombre;
         this.modelo = modelo;
         this.anio = anio;
+        this.precio=precio;
+        this.cotizacion=cotizacion;
+
     }
 
     public String getNombre() {
@@ -39,4 +47,12 @@ public class AlmacenarDTO {
     public void setAnio(Integer anio) {
         this.anio = anio;
     }
+
+    public Double getPrecio() {return precio;}
+
+    public void setPrecio(Double precio) {this.precio = precio;}
+
+    public Double getCotizacion() {return cotizacion;}
+
+    public void setCotizacion(Double cotizacion) {this.cotizacion = cotizacion;}
 }
