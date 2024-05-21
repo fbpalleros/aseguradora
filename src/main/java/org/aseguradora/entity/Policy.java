@@ -22,7 +22,7 @@ public class Policy {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    private Integer coverage;
+    private Double coverage;
 
     @Column(name = "start_date")
     private Date startDate;
@@ -33,22 +33,22 @@ public class Policy {
     public Policy() {
     }
 
-    public Policy(Long id, Integer coverage) {
+    public Policy(Long id, Double coverage) {
         this.id = id;
         this.coverage = coverage;
     }
 
-    public Policy(Long id, Customer customer, Integer coverage) {
+    public Policy(Long id, Customer customer, Double coverage) {
         this.id = id;
         this.customer = customer;
         this.coverage = coverage;
     }
 
-    public Policy(Integer coverage) {
+    public Policy(Double coverage) {
         this.coverage = coverage;
     }
 
-    public Policy(Long id, Insurance insurance, Customer customer, Integer coverage) {
+    public Policy(Long id, Insurance insurance, Customer customer, Double coverage) {
         this.id = id;
         this.insurance = insurance;
         this.customer = customer;
@@ -79,11 +79,11 @@ public class Policy {
         this.customer = customer;
     }
 
-    public Integer getCoverage() {
+    public Double getCoverage() {
         return coverage;
     }
 
-    public void setCoverage(Integer coverage) {
+    public void setCoverage(Double coverage) {
         this.coverage = coverage;
     }
 
