@@ -3,6 +3,13 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 <header th:replace="layout/layout :: header"></header>
+
+<div th:if="${success != null}">
+    <div class="container">
+        <div class="alert alert-success text-center" th:text="${success}"></div>
+    </div>
+</div>
+
 <div class="container">
     <div class="d-flex justify-content-center gap-3 flex-nowrap">
         <div th:each="poliza: ${polizas_by_id}">

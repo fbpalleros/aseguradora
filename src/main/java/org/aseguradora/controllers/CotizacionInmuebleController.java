@@ -12,11 +12,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -71,7 +69,7 @@ public class CotizacionInmuebleController {
 
 
     @PostMapping("/crear_poliza_inmu")
-    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
+    public ModelAndView cotizarCasa(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash) {
 
         Policy policy = new Policy();
 
@@ -82,7 +80,9 @@ public class CotizacionInmuebleController {
         policy.setCoverage(almacenar.getCotizacion());
         policyService.save(policy);
 
-        return new ModelAndView("exito", model);
+        flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
+
+        return new ModelAndView("redirect:/polizas/3");
     }
 
 

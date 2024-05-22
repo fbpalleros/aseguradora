@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,8 +102,10 @@ public class CotizacionControllerTest {
     }
 
     @Test
-    public void queSePuedaCrearLaPoliza() {
+    public void queSePuedaCrearLaPolizaYSeEnvieElMensajeDeExito() {
         AlmacenarDTO almacenar = new AlmacenarDTO();
+        RedirectAttributes flash = new RedirectAttributesModelMap();
+        flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
 
         Customer customer = new Customer();
         customer.setId(3L);
@@ -114,11 +118,11 @@ public class CotizacionControllerTest {
         policy.setInsurance(insurance);
         policyService.save(policy);
 
-        ModelAndView mav = this.cotizacionController.cotizarAuto(almacenar);
+        ModelAndView mav = this.cotizacionController.cotizarAuto(almacenar, flash);
 
         when(this.customerService.findOne(3L)).thenReturn(customer);
         when(this.insuranceService.findById(1L)).thenReturn(insurance);
-        assertThat(mav.getViewName(), equalToIgnoringCase("exito"));
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/polizas/3"));
         verify(policyService).save(policy);
 
     }

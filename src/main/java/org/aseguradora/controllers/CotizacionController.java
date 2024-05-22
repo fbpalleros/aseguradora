@@ -10,16 +10,13 @@ import org.aseguradora.services.InsuranceService;
 import org.aseguradora.services.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -40,19 +37,6 @@ public class CotizacionController {
         this.customerService = customerService;
         this.policyService = policyService;
     }
-
-//    @GetMapping("/cotizacion")
-//    public ModelAndView vistarCotizador() {
-//        ModelMap model = new ModelMap();
-//        Policy policy = new Policy();
-//        List<String> names = carService.findDistinctName();
-//        List<String> models = carService.findDistinctModelByName("Honda");
-//
-//        model.put("models", models);
-//        model.put("names", names);
-//        model.put("policy", policy);
-//        return new ModelAndView("cotizador", model);
-//    }
 
     @GetMapping("/paso_uno")
     public ModelAndView vistaPasoUno() {
@@ -96,7 +80,7 @@ public class CotizacionController {
     }
 
     @PostMapping("/crear_poliza")
-    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar) {
+    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash) {
 
         Policy policy = new Policy();
 
@@ -107,7 +91,9 @@ public class CotizacionController {
         policy.setCoverage(almacenar.getCotizacion());
         policyService.save(policy);
 
-        return new ModelAndView("exito");
+        flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
+
+        return new ModelAndView("redirect:/polizas/3");
     }
 
 
@@ -149,7 +135,7 @@ public class CotizacionController {
 //            }
 //        }
 //
-//        return new ModelAndView("redirect:/cotizacion");
+//        return new ModelAndView(cotizacion");
 //    }
 
 

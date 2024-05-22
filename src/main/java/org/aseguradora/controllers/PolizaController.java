@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,15 +38,20 @@ public class PolizaController {
     }
 
     @GetMapping("/polizas/{id}")
-    public ModelAndView verPolizas(@PathVariable("id")Long id) {
+    public ModelAndView verPolizas(@PathVariable("id") Long id, @SessionAttribute(name = "mensajeExito", required = false) String mensajeExito) {
+
         List<Policy> policyList = policyService.findByCustomerId(id);
         ModelMap model = new ModelMap();
         model.put("polizas_by_id", policyList);
+
+        if (mensajeExito != null) {
+            model.put("mensajeExito", mensajeExito);
+        }
         return new ModelAndView("by-id", model);
     }
 
     @GetMapping("/polizas/3/{id_policy}")
-    public ModelAndView vePolizaPorId(@PathVariable("id_policy")Long idPolicy) {
+    public ModelAndView vePolizaPorId(@PathVariable("id_policy") Long idPolicy) {
         Policy policy = policyService.findById(idPolicy);
         ModelMap model = new ModelMap();
         model.put("policy", policy);
