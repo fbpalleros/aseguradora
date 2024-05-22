@@ -2,10 +2,7 @@ package org.aseguradora.entity;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Insurance {
@@ -14,9 +11,18 @@ public class Insurance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "insurance_type")
+    @Enumerated(EnumType.STRING)
+    private InsuranceType insuranceType;
 
-    private Integer coverage;
+    public Insurance(Long id, String name, InsuranceType insuranceType, Integer coverage) {
+        this.id = id;
+        this.insuranceType = insuranceType;
+    }
+
+    public Insurance() {
+
+    }
 
     public Long getId() {
         return id;
@@ -26,19 +32,16 @@ public class Insurance {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public InsuranceType getInsuranceType() {
+        return insuranceType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setInsuranceType(InsuranceType insuranceType) {
+        this.insuranceType = insuranceType;
     }
 
-    public Integer getCoverage() {
-        return coverage;
-    }
-
-    public void setCoverage(Integer coverage) {
-        this.coverage = coverage;
+    @Override
+    public String toString() {
+        return this.insuranceType.toString();
     }
 }

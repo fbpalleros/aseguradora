@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+<div class="container d-flex justify-content-center">
+    <div class="col-sm-6 d-flex flex-column gap-3">
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Id</h5>
+                <p class="card-text" th:text="${customer.id}"></p>
+            </div>
+        </div>
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Nombre</h5>
+                <p class="card-text" th:text="${customer.name}"></p>
+            </div>
+        </div>
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Email</h5>
+                <p class="card-text" th:text="${customer.email}"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

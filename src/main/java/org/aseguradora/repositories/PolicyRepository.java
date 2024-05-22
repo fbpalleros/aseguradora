@@ -1,0 +1,18 @@
+package org.aseguradora.repositories;
+
+import org.aseguradora.entity.Customer;
+import org.aseguradora.entity.Policy;
+import org.aseguradora.entity.dto.PolicyDto;
+
+import java.util.List;
+
+public interface PolicyRepository {
+
+    List<Policy> findAll();
+    //Probablemente debo realizar la consulta desde Costumer
+    List<Policy> findByCustomerId(Long id); //by Customer
+
+    Policy findById(Long id);
+
+    void save(Policy policy);
+}

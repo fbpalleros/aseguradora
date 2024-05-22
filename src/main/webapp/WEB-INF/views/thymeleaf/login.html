@@ -1,21 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
 <body>
-<div class="container">
-    <h1>Iniciar Sesión</h1>
-    <form action="#">
-        <label for="usuario">Usuario:</label>
-        <input type="text" id="usuario" name="usuario" placeholder="Ingrese su nombre de usuario">
-        <br>
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña">
-        <br>
-        <button type="submit">Iniciar Sesión</button>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container-sm">
+    <h2>Iniciar Sesión</h2>
+    <form th:action="@{/validar-login}" th:object="${customer}" method="post">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">Nunca compartiremos tu correo electrónico con nadie más.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+        </div>
+<!--        <div class="mb-3 form-check">-->
+<!--            <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+<!--            <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
+<!--        </div>-->
+        <button type="submit" class="btn btn-primary">Ingresar</button>
     </form>
 </div>
+
+
+<span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+
+<footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

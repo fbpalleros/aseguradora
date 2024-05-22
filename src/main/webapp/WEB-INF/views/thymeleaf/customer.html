@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="d-flex justify-content-center">
+    <div class="col-sm-2">
+        <div class="bg-primary-subtle rounded m-2 text-center"
+             th:each="customer: ${customers}">
+            <div th:text="${customer.id}"></div>
+            <div th:text="${customer.name}"></div>
+            <div th:text="${customer.email}"></div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
