@@ -38,27 +38,6 @@ public class CotizacionControllerTest {
         this.cotizacionController = new CotizacionController(carService, insuranceService, customerService, policyService);
     }
 
-//    @Test
-//    public void queAlSolicitarLaPantallaDeCotizacionSeMuestreLaVistaCotizacion() {
-//        List<String> names = new ArrayList<>();
-//        names.add("Fiat");
-//        names.add("Honda");
-//        List<String> models = new ArrayList<>();
-//        models.add("CR-V");
-//        models.add("HR-V");
-//
-//        when(this.carService.findDistinctName()).thenReturn(names);
-//        when(this.carService.findDistinctModelByName("Honda")).thenReturn(models);
-//
-//        //Ejecución
-//        ModelAndView mav = this.cotizacionController.vistarCotizador();
-//        System.out.println(mav.getModel().size());
-//
-//        //Verificación
-//        assertThat(mav.getViewName(), equalToIgnoringCase("cotizador"));
-//        assertThat(mav.getModel().size(), equalTo(3));
-//    }
-
     @Test
     public void queAlSolicitarLaPantallaCotizacionSeMuestreLaVistaPasoUnoConSelectDeMarcas() {
         List<String> names = new ArrayList<>();

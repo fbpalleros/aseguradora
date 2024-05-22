@@ -22,19 +22,21 @@ import java.util.List;
 @Controller
 public class CotizacionInmuebleController {
 
-    @Autowired
     private PolicyService policyService;
 
-    @Autowired
     private CustomerService customerService;
 
-    @Autowired
     private InsuranceService insuranceService;
 
-    @Autowired
     private CityService cityService;
 
-
+    @Autowired
+    public CotizacionInmuebleController(PolicyService policyService, CustomerService customerService, InsuranceService insuranceService, CityService cityService) {
+        this.policyService = policyService;
+        this.customerService = customerService;
+        this.insuranceService = insuranceService;
+        this.cityService = cityService;
+    }
 
     @GetMapping("/paso_uno_inmu")
     public ModelAndView vistaPasoUno() {
@@ -47,30 +49,29 @@ public class CotizacionInmuebleController {
     }
 
     @GetMapping("/guardar_paso_uno_inmu")
-    public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model){
+    public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model) {
         List<String> localidades = cityService.buscarDependiendoLaProvincia(almacenar.getProvincia());
         model.put("localidades", localidades);
 
-       return new ModelAndView("paso_dos_inmu", model);
+        return new ModelAndView("paso_dos_inmu", model);
     }
 
 
     @GetMapping("/guardar_paso_dos_inmu")
-    public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model){
+    public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model) {
 
         Double cotizacion = almacenar.getMetros() * 1.50 / 6;
 
         almacenar.setCotizacion(cotizacion);
 
-        model.put("almacenar" ,almacenar);
+        model.put("almacenar", almacenar);
 
         return new ModelAndView("resultado_final_inmu", model);
     }
 
 
-
     @PostMapping("/crear_poliza_inmu")
-    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model ){
+    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
 
         Policy policy = new Policy();
 
@@ -83,11 +84,6 @@ public class CotizacionInmuebleController {
 
         return new ModelAndView("exito", model);
     }
-
-
-
-
-
 
 
 }

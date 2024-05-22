@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class InsuranceServiceImpl implements InsuranceService {
 
+    private InsuranceRepository insuranceRepository;
 
     @Autowired
-    private InsuranceRepository insuranceRepository;
+    public InsuranceServiceImpl(InsuranceRepository insuranceRepository) {
+        this.insuranceRepository = insuranceRepository;
+    }
 
     @Override
     public Insurance findById(Long id) {
