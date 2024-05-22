@@ -38,6 +38,12 @@ public class Policy {
         this.coverage = coverage;
     }
 
+    public Policy(Long id, Customer customer, Double coverage) {
+        this.id = id;
+        this.customer = customer;
+        this.coverage = coverage;
+    }
+
     public Policy(Double coverage) {
         this.coverage = coverage;
     }
@@ -102,16 +108,10 @@ public class Policy {
         return "Policy{" +
                 "id=" + id +
                 ", insuranceId=" + insurance +
-                ", customerId=" + customer +
+                ", customerId=" + customer.getId() +
                 ", coverage=" + coverage +
                 ", startDate=" + startDate +
                 ", expiration=" + expiration +
                 '}';
     }
-
-//    @OneToMany (cascade =cascadeType.ALL) usar eso hacer una realacion 1 a muchos
-//    private List<Car>
-    // tener todos los Set y get
-    // tener un constructor vacio
-    // no ponerla del lado del 1 sino del muchos usando @manytoOne
 }
