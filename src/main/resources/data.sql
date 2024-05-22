@@ -29,7 +29,7 @@ INSERT INTO auto (name, anio, model, precio) VALUES ('Honda', 2018, 'HR-V', 7000
 INSERT INTO auto (name, anio, model, precio) VALUES ('Honda', 2023, 'CR-V', 7250000);
 
 
-INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Agronomía');
+
 INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Almagro');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Balvanera');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Barracas');
@@ -38,10 +38,8 @@ INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Air
 INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Flores');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'La Boca');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Liniers');
-INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'San Nicolás');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Ciudad Autonoma de Buenos Aires', 'Palermo');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Escobar');
-INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'General Rodríguez');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Hurlingham');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Malvinas Argentinas');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Buenos Aires', 'Moreno');

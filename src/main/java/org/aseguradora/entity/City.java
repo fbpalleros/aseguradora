@@ -10,8 +10,9 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public String provincia;
-    public String localidad;
+    private String provincia;
+
+    private String localidad;
 
 
     public City() {

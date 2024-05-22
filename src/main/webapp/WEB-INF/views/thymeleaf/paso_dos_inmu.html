@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container">
+    <div class="d-flex flex-column">
+
+        <h2>Cotización</h2>
+
+        <form th:action="@{/guardar_paso_dos_inmu}" th:object="${almacenar}" method="get">
+            <div class="d-flex flex-column gap-3">
+                <div>
+
+                    <div >
+                        <label class="form-label" for="provincia"> Usted selecciono la Provincia : </label>
+                        <input class="form-control" type="text" th:field="*{provincia}" th:value="${almacenar.getProvincia()}" id="provincia" name="provincia" readonly><br>
+                    </div>
+
+
+                    <select class="form-select" id="select1" name="localidad" th:field="*{localidad}">
+                        <option value=""  selected="selected" disabled="disabled"> Seleccione la marca</option>
+                        <option th:each="localidad:${localidades}"
+                                th:value="${localidad}"
+                                th:text="${localidad}"></option>
+                    </select>
+                    <br>
+                    <div >
+                        <label class="form-label" for="select1" >Informe los m2 del domicilio:</label>
+                        <input class="form-control" type="metros" th:field="*{metros}" id="metros" name="metros" placeholder="Ingrese los m2" required><br>
+                    </div>
+
+                    <br>
+
+                </div>
+
+                <button type="submit"  class="btn btn-primary">Siguiente</button>
+            </div>
+        </form>
+        <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+    </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
