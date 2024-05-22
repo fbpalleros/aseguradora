@@ -23,9 +23,13 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
-    @Transactional
-    public List<Policy> findById(Long id) {
+    public Policy findById(Long id) {
         return policyRepository.findById(id);
+    }
+
+    @Override
+    public List<Policy> findByCustomerId(Long id) {
+        return policyRepository.findByCustomerId(id);
     }
 
     @Override

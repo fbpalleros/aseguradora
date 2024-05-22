@@ -14,18 +14,20 @@ public class Car {
 
     private String model;
 
-    private Integer year;
+    private Integer anio;
 
-    //private Double price;
+    private Double precio;
+
 
     public Car(){
 
     }
-    public Car ( Long id, String name , String model , Integer year){
+    public Car ( Long id, String name , String model , Integer anio , Double precio){
         this.id = id;
         this.name = name;
         this.model = model;
-        this.year = year;
+        this.anio = anio;
+        this.precio= precio;
     }
 
     public Long getId() {
@@ -52,11 +54,20 @@ public class Car {
         this.model = model;
     }
 
-    public Integer getYear() {
-        return year;
+    public Integer getAnio() {
+        return anio;
     }
 
-    public void setPrice(Integer price) {
-        this.year = year;
+    public void setAnio(Integer anio) {
+        this.anio = anio;
     }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
 }

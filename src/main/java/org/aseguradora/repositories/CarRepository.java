@@ -15,4 +15,7 @@ public interface CarRepository /*extendsCrudRepository <Car, Long>*/ {
 
     List<String> findByModelWithParameter(String name);
 
+    List<Integer> findDistinctByNameAndModel(String name , String model);
+
+    Double findPrice(String name , String model , Integer year);
 }

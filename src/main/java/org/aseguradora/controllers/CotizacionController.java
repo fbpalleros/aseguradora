@@ -1,5 +1,6 @@
 package org.aseguradora.controllers;
 
+import org.aseguradora.entity.dto.AlmacenarDTO;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
@@ -9,6 +10,7 @@ import org.aseguradora.services.InsuranceService;
 import org.aseguradora.services.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,6 +34,7 @@ public class CotizacionController {
     @Autowired
     private InsuranceService insuranceService;
 
+
     private CarService carService;
 
     public CotizacionController(CarService carService){
@@ -51,13 +54,69 @@ public class CotizacionController {
         return new ModelAndView("cotizador", model);
     }
 
+    @GetMapping("/paso_uno")
+    public ModelAndView vistaPasoUno() {
+        ModelMap model = new ModelMap();
+        AlmacenarDTO almacenar = new AlmacenarDTO();
+        List<String> names = carService.findDistinctName();
+        model.put("names", names);
+        model.put("almacenar", almacenar);
+        return new ModelAndView("paso_uno", model);
+    }
+
+    @GetMapping("/guardar_paso_uno")
+    public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model){
+        List<String> modelos = carService.findDistinctModelByName(almacenar.getNombre());
+        model.put("modelos", modelos);
+
+        return new ModelAndView("paso_dos", model);
+    }
+
+    @GetMapping("/guardar_paso_dos")
+    public ModelAndView guardarPasoDos(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
+        List<Integer> years = carService.findDistinctByNameAndModel(almacenar.getNombre() , almacenar.getModelo());
+        model.put("years", years);
+
+        return new ModelAndView("paso_tres", model);
+
+    }
+
+    @GetMapping("/guardar_paso_tres")
+    public ModelAndView guardarPasoTres(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
+        Double precio = carService.findPrice(almacenar.getNombre(),almacenar.getModelo(),almacenar.getAnio());
+
+        Double cotizacion =  precio * 1.20 / 6;
+
+        almacenar.setPrecio(precio);
+        almacenar.setCotizacion(cotizacion);
+
+        model.put("almacenar" ,almacenar);
+
+        return new ModelAndView("resultado_final", model);
+    }
+
+    @PostMapping("/crear_poliza")
+    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model ){
+
+        Policy policy = new Policy();
+
+        Customer customer = customerService.findOne(3L); //HARDCODE
+        policy.setCustomer(customer);
+        Insurance insurance = insuranceService.findById(1L);
+        policy.setInsurance(insurance);
+        policy.setCoverage(almacenar.getCotizacion());
+        policyService.save(policy);
+
+        return new ModelAndView("exito", model);
+    }
+
 
     @PostMapping("/cotizar")
     public ModelAndView cotizarProducto(@ModelAttribute("policy") Policy policy, ModelMap model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("policy", policy);
         Policy p = (Policy) session.getAttribute("policy");
-        p.setCoverage((int) (p.getCoverage()*1.2));
+        p.setCoverage((Double) (p.getCoverage()*1.2));
         model.put("precio_cotizado", p.getCoverage());
         return new ModelAndView("resultado", model);
     }
@@ -72,11 +131,7 @@ public class CotizacionController {
                 Policy p = (Policy) session.getAttribute("policy");
 
                 //Guardar cliente en base de datos
-                Customer customer = new Customer();
-                customer.setName("fer");
-                customer.setEmail("fer@gmail.com");
-                customerService.save(customer);
-
+                Customer customer = customerService.findOne(3L); //HARDCODE
                 //una vez guardado setearlo al policy
                 p.setCustomer(customer);
 

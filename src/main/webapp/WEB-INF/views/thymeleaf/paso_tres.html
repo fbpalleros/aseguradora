@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container">
+    <div class="d-flex flex-column">
+
+        <h2>Cotización</h2>
+
+        <form th:action="@{/guardar_paso_tres}" th:object="${almacenar}" method="get">
+            <div class="d-flex flex-column gap-3">
+<!--                <div hidden="hidden">-->
+<!--                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
+<!--                </div>-->
+
+                <div >
+                    <label class="form-label" for="nombre"> Usted selecciono la Marca </label>
+                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="modelo" readonly><br>
+                </div>
+                <div >
+                    <label class="form-label" for="modelo"> Usted selecciono el Modelo :</label>
+                    <input class="form-control" type="text" th:field="*{modelo}" th:value="${almacenar.getModelo()}" id="modelo" name="modelo" readonly><br>
+                </div>
+                <div>
+                    <label class="form-label" for="select1">Seleccione el año:</label>
+                    <select class="form-select" id="select1" name="name" th:field="*{anio}">
+                        <option value=""  selected="selected" disabled="disabled"> Seleccione el año</option>
+                        <option th:each="year:${years}"
+                                th:value="${year}"
+                                th:text="${year}"></option>
+                    </select>
+                    <br>
+                </div>
+                <button type="submit" class="btn btn-primary">Cotizar</button>
+            </div>
+        </form>
+            <form th:action="@{/paso_uno}" th:object="${almacenar}" method="get">
+                <button type="submit" class="btn btn-primary">Volver</button>
+
+        </form>
+        <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+    </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

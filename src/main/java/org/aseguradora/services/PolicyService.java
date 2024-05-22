@@ -10,7 +10,9 @@ public interface PolicyService {
 
     List<Policy> findAll();
 
-    List<Policy> findById(Long id);
+    Policy findById(Long id);
+
+    List<Policy> findByCustomerId(Long id);
 
     void save (Policy policy);
 }

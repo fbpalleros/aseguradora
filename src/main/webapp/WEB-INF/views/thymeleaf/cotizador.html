@@ -8,7 +8,7 @@
 
         <h2>Cotización</h2>
 
-        <form th:action="@{/cotizar}" th:object="${policy}" method="post">
+        <form th:action="@{/cotizar}" th:object="${policy}" method="get">
             <div class="d-flex flex-column gap-3">
                 <div>
                     <label class="form-label" for="select1">Seleccione el nombre:</label>

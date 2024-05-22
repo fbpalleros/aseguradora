@@ -23,5 +23,14 @@ public class CarServiceImpl implements CarService {
         return carRepository.findByModelWithParameter(name);
     }
 
+    @Override
+    public List<Integer> findDistinctByNameAndModel(String name , String model) {
+        return carRepository.findDistinctByNameAndModel(name , model);
+    }
+
+    @Override
+    public Double findPrice(String name , String model , Integer year) {
+        return carRepository.findPrice(name , model , year);
+    }
 
 }

@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container">
+    <div class="d-flex flex-column">
+
+        <h2>Cotización</h2>
+
+        <form th:action="@{/crear_poliza_inmu}" th:object="${almacenar}" method="post">
+            <div class="d-flex flex-column gap-3">
+                <!--                <div hidden="hidden">-->
+                <!--                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
+                <!--                </div>-->
+
+                <div >
+                    <label class="form-label" for="provincia"> Usted selecciono la Provincia : </label>
+                    <input class="form-control" type="text" th:field="*{provincia}" th:value="${almacenar.getProvincia()}" id="provincia" name="provincia" readonly><br>
+                </div>
+                <div >
+                    <label class="form-label" for="localidad"> Usted selecciono la Localidad :</label>
+                    <input class="form-control" type="text" th:field="*{localidad}" th:value="${almacenar.getLocalidad()}" id="localidad" name="localidad" readonly><br>
+                </div>
+                <div >
+                    <label class="form-label" for="metros"> La cantidad de m2 del domicio es :</label>
+                    <input class="form-control" type="text" th:field="*{metros}" th:value="${almacenar.getMetros()}" id="metros" name="metros" readonly><br>
+                </div>
+
+                <div>
+                    <label class="form-label" for="cotizacion"> El precio de su cuota por mes seria :</label>
+                    <input class="form-control" type="text" th:field="*{cotizacion}" th:value="${almacenar.getCotizacion()}" id="cotizacion" name="cotizacion" readonly><br>
+                </div>
+
+
+
+                <button type="submit" class="btn btn-primary">Crear Poliza</button>
+            </div>
+        </form>
+        <form th:action="@{/paso_uno_inmu}" th:object="${almacenar}" method="get">
+            <button type="submit" class="btn btn-primary">Volver</button>
+
+        </form>
+        <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+    </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
