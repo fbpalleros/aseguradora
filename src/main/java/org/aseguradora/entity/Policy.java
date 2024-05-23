@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import javax.print.attribute.standard.MediaSize;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -30,6 +31,14 @@ public class Policy {
     @Temporal(TemporalType.DATE)
     private Date expiration;
 
+    @PrePersist
+    public void prePersist(){
+        startDate = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 24);
+        expiration = calendar.getTime();
+    }
+
     public Policy() {
     }
 
@@ -54,6 +63,8 @@ public class Policy {
         this.customer = customer;
         this.coverage = coverage;
     }
+
+
 
     public Long getId() {
         return id;
