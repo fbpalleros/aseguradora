@@ -75,13 +75,13 @@ public class CotizacionVidaController {
     }
 
     @PostMapping("/crear_poliza_vida")
-    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash){
+    public ModelAndView cotizarVida(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash){
 
         Policy policy = new Policy();
 
         Customer customer = customerService.findOne(3L); //HARDCODE
         policy.setCustomer(customer);
-        Insurance insurance = insuranceService.findById(1L);
+        Insurance insurance = insuranceService.findById(3L);
         policy.setInsurance(insurance);
         policy.setCoverage(almacenar.getCotizacion());
         policyService.save(policy);
