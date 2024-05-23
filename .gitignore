@@ -2,4 +2,3 @@
 .vscode
 target
 src/main/java/org/aseguradora/config/HibernateConfig.java
-/target/

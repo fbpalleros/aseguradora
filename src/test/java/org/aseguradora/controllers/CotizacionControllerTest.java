@@ -31,8 +31,11 @@ public class CotizacionControllerTest {
     private InsuranceService insuranceService;
     private CarService carService;
 
+    private RedirectAttributes flash;
+
     @BeforeEach
     public void init() {
+        this.flash = mock(RedirectAttributes.class);
         this.policyService = mock(PolicyService.class);
         this.customerService = mock(CustomerService.class);
         this.insuranceService = mock(InsuranceService.class);
