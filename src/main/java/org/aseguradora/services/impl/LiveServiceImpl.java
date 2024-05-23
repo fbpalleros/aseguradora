@@ -10,22 +10,26 @@ import java.util.List;
 @Service
 public class LiveServiceImpl  implements LiveService {
 
+    private LiveRepository liveRepository;
+
     @Autowired
-    private LiveRepository liveService;
+    public LiveServiceImpl(LiveRepository liveRepository) {
+        this.liveRepository = liveRepository;
+    }
 
     @Override
     public List<String> listarTodasLosOficios() {
-        return liveService.listarTodasLosOficios();
+        return liveRepository.listarTodasLosOficios();
     }
 
     @Override
     public List<Integer> buscarAnioPorOficio(String oficio) {
-        return liveService.buscarAnioPorOficio(oficio);
+        return liveRepository.buscarAnioPorOficio(oficio);
     }
 
     @Override
     public Double buscarPrecioPorAnioYOficio(String oficio , Integer anio ) {
-        return liveService.buscarPrecioPorAnioYOficio(oficio , anio);
+        return liveRepository.buscarPrecioPorAnioYOficio(oficio , anio);
     }
 
 }
