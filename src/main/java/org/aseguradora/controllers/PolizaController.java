@@ -24,11 +24,14 @@ import java.util.List;
 public class PolizaController {
 
 
-    @Autowired
     private PolicyService policyService;
+    private CustomerService customerService;
 
     @Autowired
-    private CustomerService customerService;
+    public PolizaController(PolicyService policyService, CustomerService customerService) {
+        this.policyService = policyService;
+        this.customerService = customerService;
+    }
 
     @GetMapping("/polizas")
     public ModelAndView verPolizas() {
@@ -38,15 +41,12 @@ public class PolizaController {
     }
 
     @GetMapping("/polizas/{id}")
-    public ModelAndView verPolizas(@PathVariable("id") Long id, @SessionAttribute(name = "mensajeExito", required = false) String mensajeExito) {
+    public ModelAndView verPolizas(@PathVariable("id") Long id) {
 
         List<Policy> policyList = policyService.findByCustomerId(id);
         ModelMap model = new ModelMap();
         model.put("polizas_by_id", policyList);
 
-        if (mensajeExito != null) {
-            model.put("mensajeExito", mensajeExito);
-        }
         return new ModelAndView("by-id", model);
     }
 
