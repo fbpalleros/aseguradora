@@ -1,10 +1,6 @@
 package org.aseguradora.controllers;
 
-import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
-import org.aseguradora.entity.dto.PolicyDto;
-import org.aseguradora.repositories.InsuranceRepository;
-import org.aseguradora.repositories.impl.InsuranceRepositoryImpl;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

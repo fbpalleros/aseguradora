@@ -1,10 +1,6 @@
 package org.aseguradora.entity;
 
-import org.hibernate.annotations.Fetch;
-import org.springframework.context.annotation.Lazy;
-
 import javax.persistence.*;
-import javax.print.attribute.standard.MediaSize;
 import java.util.Calendar;
 import java.util.Date;
 

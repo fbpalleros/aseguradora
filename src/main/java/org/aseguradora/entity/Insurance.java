@@ -1,7 +1,5 @@
 package org.aseguradora.entity;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 
 @Entity

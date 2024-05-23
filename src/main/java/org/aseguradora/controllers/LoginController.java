@@ -1,8 +1,6 @@
 package org.aseguradora.controllers;
 
 import org.aseguradora.entity.Customer;
-import org.aseguradora.repositories.CustomerRepository;
-import org.aseguradora.repositories.impl.CustomerRepositoryImpl;
 import org.aseguradora.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

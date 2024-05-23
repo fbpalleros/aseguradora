@@ -4,7 +4,6 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.dto.AlmacenarCasaDTO;
-import org.aseguradora.entity.dto.AlmacenarDTO;
 import org.aseguradora.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

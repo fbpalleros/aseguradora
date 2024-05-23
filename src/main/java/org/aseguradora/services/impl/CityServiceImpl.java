@@ -1,6 +1,5 @@
 package org.aseguradora.services.impl;
 
-import org.aseguradora.repositories.CarRepository;
 import org.aseguradora.repositories.CityRepository;
 import org.aseguradora.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
