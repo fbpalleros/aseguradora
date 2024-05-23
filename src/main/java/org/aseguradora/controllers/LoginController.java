@@ -16,6 +16,11 @@ public class LoginController {
     @Autowired
     CustomerService customerService;
 
+    @GetMapping("/")
+    public ModelAndView home(){
+        return new ModelAndView("home");
+    }
+
     @GetMapping("/login")
     public ModelAndView login(){
         return new ModelAndView("login");
