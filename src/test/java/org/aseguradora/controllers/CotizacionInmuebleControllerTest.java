@@ -91,7 +91,7 @@ public class CotizacionInmuebleControllerTest {
 
     @Test
     public void queSeGenereLaPoliza(){
-        AlmacenarDTO almacenar = new AlmacenarDTO();
+        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
         flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
 
         Customer customer = new Customer();

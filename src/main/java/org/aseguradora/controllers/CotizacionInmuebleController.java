@@ -69,7 +69,7 @@ public class CotizacionInmuebleController {
 
 
     @PostMapping("/crear_poliza_inmu")
-    public ModelAndView cotizarCasa(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash) {
+    public ModelAndView cotizarCasa(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, RedirectAttributes flash) {
 
         Policy policy = new Policy();
 

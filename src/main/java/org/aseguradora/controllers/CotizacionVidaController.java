@@ -17,24 +17,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
 public class CotizacionVidaController {
 
-    @Autowired
     private PolicyService policyService;
 
-    @Autowired
     private CustomerService customerService;
 
-    @Autowired
     private InsuranceService insuranceService;
 
-    @Autowired
     private LiveService liveService;
 
+    @Autowired
+    public CotizacionVidaController(PolicyService policyService, CustomerService customerService, InsuranceService insuranceService, LiveService liveService) {
+        this.policyService = policyService;
+        this.customerService = customerService;
+        this.insuranceService = insuranceService;
+        this.liveService = liveService;
+    }
 
     @GetMapping("/paso_uno_vida")
     public ModelAndView vistaPasoUno() {
@@ -71,7 +75,7 @@ public class CotizacionVidaController {
     }
 
     @PostMapping("/crear_poliza_vida")
-    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model ){
+    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash){
 
         Policy policy = new Policy();
 
@@ -82,7 +86,9 @@ public class CotizacionVidaController {
         policy.setCoverage(almacenar.getCotizacion());
         policyService.save(policy);
 
-        return new ModelAndView("exito", model);
+        flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
+
+        return new ModelAndView("redirect:/polizas/3");
     }
 
 
