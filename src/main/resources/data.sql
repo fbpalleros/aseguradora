@@ -70,12 +70,24 @@ INSERT INTO ciudad (provincia, localidad) VALUES ('Tierra del Fuego', 'Tigre');
 INSERT INTO ciudad (provincia, localidad) VALUES ('Tucumán', 'Tigre');
 
 
-
-
-
-
-
-
+INSERT INTO vida (oficio, anio , precio) VALUES ('Chofer Taxi', 1994 , 3000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Chofer Taxi', 1979 , 2500000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Chofer Taxi', 1964 , 1000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Doctor', 1994 , 10000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Doctor', 1979 , 8000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Doctor', 1964 , 5000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Oficinista', 1994 , 2000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Oficinista', 1979 , 1000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Oficinista', 1964 , 800000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Domestico', 1994 , 1000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Domestico', 1979 , 800000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Domestico', 1964 , 500000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Abogado', 1994 , 5000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Abogado', 1979 , 4000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Abogado', 1964 , 3000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1994 , 2000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1979 , 1000000);
+INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1964 , 900000);
 
 
 

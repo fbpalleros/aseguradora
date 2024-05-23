@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="container">
+    <div class="d-flex flex-column">
+
+        <h2>Cotización</h2>
+
+        <form th:action="@{/guardar_paso_dos_vida}" th:object="${almacenar}" method="get">
+            <div class="d-flex flex-column gap-3">
+                <div>
+                    <div >
+                        <label class="form-label" for="oficio"> Usted selecciono el oficio : </label>
+                        <input class="form-control" type="text" th:field="*{oficio}" th:value="${almacenar.getOficio()}" id="oficio" name="oficio" readonly><br>
+                    </div>
+
+<!--                    <div hidden="hidden">-->
+<!--                        <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
+<!--                    </div>-->
+
+                    <label class="form-label" for="select1">Seleccione el Año de nacimiento:</label>
+                    <select class="form-select" id="select1" name="anio" th:field="*{anio}">
+                        <option value=""  selected="selected" disabled="disabled"> Seleccione el año</option>
+                        <option th:each="anio:${anios}"
+                                th:value="${anio}"
+                                th:text="${anio}"></option>
+                    </select>
+                    <br>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Siguiente</button>
+            </div>
+        </form>
+        <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+    </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
