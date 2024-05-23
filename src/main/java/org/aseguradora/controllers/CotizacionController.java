@@ -25,20 +25,23 @@ import java.util.List;
 @Controller
 public class CotizacionController {
 
-    @Autowired
     private PolicyService policyService;
 
-    @Autowired
     private CustomerService customerService;
 
-    @Autowired
     private InsuranceService insuranceService;
-
 
     private CarService carService;
 
-    public CotizacionController(CarService carService){
-        this.carService = carService;
+    public CotizacionController(PolicyService policyService,
+    							CustomerService customerService,
+    							InsuranceService insuranceService,
+    						    CarService carService){
+    	
+        this.policyService 		= policyService;
+        this.customerService 	= customerService;
+        this.insuranceService 	= insuranceService;
+        this.carService 		= carService;
     }
 
     @GetMapping("/cotizacion")

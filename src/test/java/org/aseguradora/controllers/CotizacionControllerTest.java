@@ -35,7 +35,7 @@ public class CotizacionControllerTest {
         this.customerService = mock(CustomerService.class);
         this.insuranceService = mock(InsuranceService.class);
         this.carService = mock(CarService.class);
-        this.cotizacionController = new CotizacionController(carService, insuranceService, customerService, policyService);
+        this.cotizacionController = new CotizacionController(policyService, customerService, insuranceService, carService );
     }
 
 //    @Test
@@ -135,7 +135,7 @@ public class CotizacionControllerTest {
         policy.setInsurance(insurance);
         policyService.save(policy);
 
-        ModelAndView mav = this.cotizacionController.cotizarAuto(almacenar);
+        ModelAndView mav = this.cotizacionController.cotizarAuto(almacenar, new ModelMap());
 
         when(this.customerService.findOne(3L)).thenReturn(customer);
         when(this.insuranceService.findById(1L)).thenReturn(insurance);

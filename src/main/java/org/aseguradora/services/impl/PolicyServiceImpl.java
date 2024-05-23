@@ -14,10 +14,13 @@ import java.util.List;
 @Service
 public class PolicyServiceImpl implements PolicyService {
 
-    @Autowired
     PolicyRepository policyRepository;
 
-    @Override
+    public PolicyServiceImpl(PolicyRepository policyRepository) {
+    	this.policyRepository = policyRepository;
+	}
+
+	@Override
     public List<Policy> findAll() {
         return policyRepository.findAll();
     }
