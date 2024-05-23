@@ -6,50 +6,54 @@
 <div class="container">
     <div class="d-flex flex-column">
 
-        <h2>Cotización</h2>
+        <div class="mb-2">
+            <h2 class="text-center">Cotización</h2>
+        </div>
 
-        <form th:action="@{/cotizar}" th:object="${policy}" method="get">
-            <div class="d-flex flex-column gap-3">
-                <div>
-                    <label class="form-label" for="select1">Seleccione el nombre:</label>
-                    <select class="form-select" id="select1" name="name">
-                        <option>Seleccione la marca</option>
-                        <option th:each="marca:${names}"
-                                th:value="${marca}"
-                                th:text="${marca}"></option>
-                    </select>
-                    <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="../../../../resources/images/pexels-pixabay-162553.jpg" class="card-img-top"
+                         alt="Seguro de auto">
+                    <div class="card-body">
+                        <h5 class="card-title">Seguro de auto</h5>
+                        <p class="card-text">Protege tu vehículo contra accidentes, robos y otros daños.</p>
+                        <a th:href="@{/paso_uno}" class="btn btn-primary">Cotizar</a>
+                    </div>
                 </div>
-
-                <div>
-                    <label class="form-label" for="select2">Seleccione el modelo:</label>
-                    <select class="form-select" id="select2" name="model">
-                        <option>Seleccione el modelo</option>
-                        <option th:each="modelo:${models}"
-                                th:value="${modelo}"
-                                th:text="${modelo}"></option>
-                    </select>
-                    <br>
-                </div>
-                <!--                <label for="select3">Seleccione el año:</label>-->
-                <!--                <select id="select3" name="year">-->
-                <!--                    <option th:each="car:${listadoAuto}"-->
-                <!--                            th:value="${car.id}"-->
-                <!--                            th:text="${car.year}"></option>-->
-                <!--                </select>-->
-                <div>
-                    <input class="form-control" type="number" th:field="*{coverage}" id="coverage" name="coverage" placeholder="Ingrese precio estimado" required><br>
-                </div>
-            <button type="submit" class="btn btn-primary">Cotizar</button>
             </div>
-        </form>
-        <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="src/main/webapp/WEB-INF/images/pexels-mikhail-nilov-6530539.jpg" class="card-img-top"
+                         alt="Seguro de hogar">
+                    <div class="card-body">
+                        <h5 class="card-title">Seguro de hogar</h5>
+                        <p class="card-text">Protege tu casa y tus pertenencias contra incendios, robos y otros
+                            daños.</p>
+                        <a th:href="@{/paso_uno_inmu}" class="btn btn-primary">Cotizar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="src/main/webapp/WEB-INF/images/pexels-josh-willink-11499-69096.jpg" class="card-img-top"
+                         alt="Seguro de vida">
+                    Protege tu familia en caso de fallecimiento o invalidez.
+                    <div class="card-body">
+                        <h5 class="card-title">Seguro de vida</h5>
+                        <p class="card-text">Protege tu familia en caso de fallecimiento o invalidez.</p>
+                        <a th:href="@{/paso_uno_vida}" class="btn btn-primary">Cotizar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+        <footer th:replace="layout/layout :: footer">
 
-<footer th:replace="layout/layout :: footer">
-
-</footer>
+        </footer>
 </body>
 </html>

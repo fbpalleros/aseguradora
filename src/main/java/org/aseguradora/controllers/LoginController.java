@@ -21,6 +21,11 @@ public class LoginController {
         return new ModelAndView("home");
     }
 
+    @GetMapping("/cotizacion")
+    public ModelAndView cotizacion(){
+        return new ModelAndView("cotizador");
+    }
+
     @GetMapping("/login")
     public ModelAndView login(){
         return new ModelAndView("login");
