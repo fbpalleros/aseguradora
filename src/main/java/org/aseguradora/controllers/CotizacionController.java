@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -80,22 +81,24 @@ public class CotizacionController {
     }
 
     @PostMapping("/crear_poliza")
-    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash) {
+    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash, HttpServletRequest request) {
 
         Policy policy = new Policy();
 
-        Customer customer = customerService.findOne(3L); //HARDCODE
-        policy.setCustomer(customer);
-        Insurance insurance = insuranceService.findById(1L);
-        policy.setInsurance(insurance);
-        policy.setCoverage(almacenar.getCotizacion());
-        policyService.save(policy);
+        if (request.getSession().getAttribute("customer") != null) {
 
-        flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
+            Customer customer = customerService.findOne(3L); //HARDCODE
+            policy.setCustomer(customer);
+            Insurance insurance = insuranceService.findById(1L);
+            policy.setInsurance(insurance);
+            policy.setCoverage(almacenar.getCotizacion());
+            policyService.save(policy);
 
+            flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
         return new ModelAndView("redirect:/polizas/3");
+        }
+        return new ModelAndView("redirect:/login");
     }
-
 
 
 }

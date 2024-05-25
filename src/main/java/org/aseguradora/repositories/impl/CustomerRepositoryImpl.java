@@ -41,6 +41,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     @Transactional
+    public Customer findByEmail(String email) {
+        String hql = "SELECT c FROM Customer c WHERE c.email=?1";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter(1, email);
+        return (Customer) query.getSingleResult();
+    }
+
+    @Override
+    @Transactional
     public List<Policy> findPoliciesByIdCustomer(Long id) {
         String hql = "SELECT c.name, p.insurance FROM Customer c JOIN Policy p ON c.id = p.customer.id WHERE p.customer.id = : customer_id";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);

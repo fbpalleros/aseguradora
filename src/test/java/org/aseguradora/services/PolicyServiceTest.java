@@ -57,7 +57,7 @@ public class PolicyServiceTest {
 
     @Test
     public void queSePuedanObtenerLasPolizasDeUnClientePorSuId() {
-        Customer customerMock = new Customer(1L, "facu", "facu@gmail.com");
+        Customer customerMock = new Customer(1L, "facu", "facu@gmail.com", "12345");
 
         List<Policy> polizasMock = new ArrayList<>();
         polizasMock.add(new Policy(1L, customerMock, 120.00));

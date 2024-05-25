@@ -2,7 +2,7 @@ INSERT INTO insurance (insurance_type) VALUES ('AUTOMOTOR');
 INSERT INTO insurance (insurance_type) VALUES ('HOGAR');
 INSERT INTO insurance (insurance_type) VALUES ('PERSONA');
 
-INSERT INTO customer (name, email) VALUES ('John Doe', 'john.doe@example.com');
+INSERT INTO customer (name, email, password) VALUES ('John Doe', 'john.doe@example.com', '12345');
 INSERT INTO customer (name, email) VALUES ('Jane Smith', 'jane.smith@example.com');
 INSERT INTO customer (name, email) VALUES ('Michael Jones', 'michael.jones@example.com');
 
@@ -89,7 +89,10 @@ INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1994 , 2000000);
 INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1979 , 1000000);
 INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1964 , 900000);
 
+INSERT INTO role (name) VALUES ('ROLE_ADMIN');
+INSERT INTO role (name) VALUES ('ROLE_USER');
 
+INSERT INTO customer_roles (customer_id, role_id) VALUES (3, 2);
 
 
 
