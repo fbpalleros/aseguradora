@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -25,11 +29,27 @@ public class CustomerController {
         return new ModelAndView("customer", model);
     }
 
-    @GetMapping("/mis_datos")
-    public ModelAndView verDatosPorId(){
-        ModelMap model = new ModelMap();
-        Customer customer = customerService.findOne(3L);
-        model.put("customer", customer);
-        return new ModelAndView("mis_datos", model);
+//    @GetMapping("/mis_datos")
+//    public ModelAndView verDatosPorId(HttpServletRequest request){
+//        ModelMap model = new ModelMap();
+//        Customer customer = customerService.findOne(3L);
+//        model.put("customer", customer);
+//        return new ModelAndView("mis_datos", model);
+//    }
+
+    @RequestMapping(path = "/mis_datos", method = RequestMethod.GET)
+    public ModelAndView mostrarDatos(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+
+        if (customer != null) {
+            // Crea el ModelAndView con los datos del customer
+            ModelAndView mav = new ModelAndView("mis_datos");
+            mav.addObject("customer", customer);
+            return mav;
+        } else {
+            //si no hay customer en la sesión
+            return new ModelAndView("redirect:/login");
+        }
     }
 }

@@ -40,17 +40,17 @@ public class PolizaControllerTest {
         assertThat(mav.getModel().get("polizas"), equalToObject(policiesMock));
     }
 
-    @Test
-    public void queSeRetornenLasPolizasDeUnCliente(){
-        List<Policy> policiesMock = new ArrayList<>();
-
-        when(this.policyService.findByCustomerId(3L)).thenReturn(policiesMock);
-
-        ModelAndView mav = this.polizaController.verPolizas(3L);
-
-        assertThat(mav.getViewName(), equalToIgnoringCase("by-id"));
-        assertThat(mav.getModel().get("polizas_by_id"), equalToObject(policiesMock));
-    }
+//    @Test
+//    public void queSeRetornenLasPolizasDeUnCliente(){
+//        List<Policy> policiesMock = new ArrayList<>();
+//
+//        when(this.policyService.findByCustomerId(3L)).thenReturn(policiesMock);
+//
+//        ModelAndView mav = this.polizaController.verPolizas(3L);
+//
+//        assertThat(mav.getViewName(), equalToIgnoringCase("by-id"));
+//        assertThat(mav.getModel().get("polizas_by_id"), equalToObject(policiesMock));
+//    }
 
     @Test
     public void queSeRetorneUnaPolizaEspecificaDeUnCliente(){

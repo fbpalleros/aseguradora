@@ -10,8 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
+
+
 
 @Controller
 public class LoginController {
@@ -32,14 +33,15 @@ public class LoginController {
     @GetMapping("/login")
     public ModelAndView login() {
         ModelMap model = new ModelMap();
-        model.put("customer", new Customer());
+        Customer custumer = new Customer();
+        model.put("customer", custumer);
         return new ModelAndView("login", model);
     }
 
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("customer") Customer customer, HttpServletRequest request) {
         ModelMap model = new ModelMap();
-        Customer customerSearched = customerService.validateCredentials(customer.getEmail(), customer.getPassword());
+        Customer customerSearched = customerService.findNameCustumer(customer.getEmail(), customer.getPassword());
         if (customerSearched != null) {
             request.getSession().setAttribute("customer", customerSearched);
             return new ModelAndView("redirect:/mis_datos");

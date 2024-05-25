@@ -18,5 +18,8 @@ public interface CustomerRepository {
 
     void save(Customer customer);
 
+    Customer findNameCustumer(String email, String password);
+
+
 
 }

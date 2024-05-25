@@ -16,4 +16,6 @@ public interface CustomerService {
     boolean customerHasRole(Long customerId, Long roleId);
 
     Customer validateCredentials(String email, String password);
+
+    Customer findNameCustumer(String email, String password);
 }

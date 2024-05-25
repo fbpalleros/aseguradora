@@ -32,10 +32,21 @@ public class PolizaController {
         return new ModelAndView("polizas", model);
     }
 
-    @GetMapping("/polizas/{id}")
-    public ModelAndView verPolizas(@PathVariable("id") Long id) {
+//    @GetMapping("/polizas/{id}")
+//    public ModelAndView verPolizas(@PathVariable("id") Long id) {
+//
+//        List<Policy> policyList = policyService.findByCustomerId(id);
+//        ModelMap model = new ModelMap();
+//        model.put("polizas_by_id", policyList);
+//
+//        return new ModelAndView("by-id", model);
+//    }
 
-        List<Policy> policyList = policyService.findByCustomerId(id);
+    @GetMapping("/polizas/{id}")
+    public ModelAndView verPolizas(HttpServletRequest request ) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        List<Policy> policyList = policyService.findByCustomerId(customer.getId());
         ModelMap model = new ModelMap();
         model.put("polizas_by_id", policyList);
 

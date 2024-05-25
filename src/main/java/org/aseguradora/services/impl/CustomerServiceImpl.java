@@ -56,4 +56,9 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return null;
     }
+
+    @Override
+    public Customer findNameCustumer(String email, String password){
+        return customerRepository.findNameCustumer (email , password);
+    }
 }

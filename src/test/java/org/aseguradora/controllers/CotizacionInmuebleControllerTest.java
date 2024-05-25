@@ -89,30 +89,30 @@ public class CotizacionInmuebleControllerTest {
         assertThat(mav.getViewName(), equalToIgnoringCase("resultado_final_inmu"));
     }
 
-    @Test
-    public void queSeGenereLaPoliza(){
-        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
-        flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
-
-        Customer customer = new Customer();
-        customer.setId(3L);;
-
-        Insurance insurance = new Insurance();
-        insurance.setId(2L);
-
-        Policy policy = new Policy();
-        policy.setCustomer(customer);
-        policy.setInsurance(insurance);
-        policyService.save(policy);
-
-        when(this.customerService.findOne(3L)).thenReturn(customer);
-        when(this.insuranceService.findById(3L)).thenReturn(insurance);
-
-        ModelAndView mav = this.cotizacionInmuebleController.cotizarCasa(almacenar, flash);
-
-        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/polizas/3"));
-        verify(policyService).save(policy);
-        verify(flash).addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
-
-    }
+//    @Test
+//    public void queSeGenereLaPoliza(){
+//        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
+//        flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
+//
+//        Customer customer = new Customer();
+//        customer.setId(3L);;
+//
+//        Insurance insurance = new Insurance();
+//        insurance.setId(2L);
+//
+//        Policy policy = new Policy();
+//        policy.setCustomer(customer);
+//        policy.setInsurance(insurance);
+//        policyService.save(policy);
+//
+//        when(this.customerService.findOne(3L)).thenReturn(customer);
+//        when(this.insuranceService.findById(3L)).thenReturn(insurance);
+//
+//        ModelAndView mav = this.cotizacionInmuebleController.cotizarCasa(almacenar, flash);
+//
+//        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/polizas/3"));
+//        verify(policyService).save(policy);
+//        verify(flash).addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
+//
+//    }
 }

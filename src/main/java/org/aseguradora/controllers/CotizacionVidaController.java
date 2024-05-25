@@ -4,6 +4,7 @@ package org.aseguradora.controllers;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
+import org.aseguradora.entity.dto.AlmacenarCasaDTO;
 import org.aseguradora.entity.dto.AlmacenarDTO;
 import org.aseguradora.entity.dto.AlmacenarVidaDTO;
 import org.aseguradora.services.CustomerService;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -75,20 +78,25 @@ public class CotizacionVidaController {
     }
 
     @PostMapping("/crear_poliza_vida")
-    public ModelAndView cotizarVida(@ModelAttribute("almacenar") AlmacenarDTO almacenar, RedirectAttributes flash){
+    public ModelAndView cotizarVida(@ModelAttribute("almacenar") AlmacenarVidaDTO almacenar, RedirectAttributes flash, HttpServletRequest request) {
 
         Policy policy = new Policy();
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
 
-        Customer customer = customerService.findOne(3L); //HARDCODE
-        policy.setCustomer(customer);
-        Insurance insurance = insuranceService.findById(3L);
-        policy.setInsurance(insurance);
-        policy.setCoverage(almacenar.getCotizacion());
-        policyService.save(policy);
+        if (request.getSession().getAttribute("customer") != null) {
 
-        flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
+            policy.setCustomer(customer);
+            Insurance insurance = insuranceService.findById(3L);
+            policy.setInsurance(insurance);
+            policy.setCoverage(almacenar.getCotizacion());
+            policyService.save(policy);
 
-        return new ModelAndView("redirect:/polizas/3");
+            flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
+            return new ModelAndView("redirect:/polizas/3");
+        }
+
+        return new ModelAndView("redirect:/login");
     }
 
 

@@ -3,7 +3,9 @@ package org.aseguradora.repositories.impl;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.repositories.CustomerRepository;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -48,6 +50,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return (Customer) query.getSingleResult();
     }
 
+
+
     @Override
     @Transactional
     public List<Policy> findPoliciesByIdCustomer(Long id) {
@@ -62,4 +66,24 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     public void save(Customer customer) {
         this.sessionFactory.getCurrentSession().save(customer);
     }
+
+    @Override
+    @Transactional
+    public Customer findNameCustumer(String email, String password) {
+        final Session session = sessionFactory.getCurrentSession();
+
+       return (Customer) session.createCriteria(Customer.class)
+               .add(Restrictions.eq("email", email)) //buscador
+                .add(Restrictions.eq("password", password)) //buscador
+               .uniqueResult();
+
+//        String hql = "SELECT c FROM Customer c WHERE c.email=?1 and c.password=?2";
+//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter(1, email);
+//        query.setParameter(2, password);
+//        return (Customer) query.getSingleResult();
+    }
+
 }
+
+
