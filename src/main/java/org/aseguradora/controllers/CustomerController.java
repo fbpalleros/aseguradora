@@ -2,6 +2,7 @@ package org.aseguradora.controllers;
 
 
 import org.aseguradora.entity.Customer;
+import org.aseguradora.entity.Policy;
 import org.aseguradora.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,27 @@ public class CustomerController {
             return mav;
         } else {
             //si no hay customer en la sesión
+            return new ModelAndView("redirect:/login");
+        }
+    }
+
+    @RequestMapping(path = "/mi_saldo", method = RequestMethod.GET)
+    public ModelAndView mostrarDeuda(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+
+        if (customer != null) {
+            List<Policy> policies = customerService.findPoliciesByCustomerId(customer.getId());
+            model.put("policies", policies);
+            final Double[] saldoTotal = {0.0};
+            policies.forEach(p-> {
+                saldoTotal[0] += p.getCoverage();
+            });
+            model.put("saldo_total", saldoTotal[0]);
+            return new ModelAndView("saldo", model);
+        } else {
+//            si no hay customer en la sesión
             return new ModelAndView("redirect:/login");
         }
     }

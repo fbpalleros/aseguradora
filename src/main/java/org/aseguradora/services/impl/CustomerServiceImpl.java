@@ -1,6 +1,7 @@
 package org.aseguradora.services.impl;
 
 import org.aseguradora.entity.Customer;
+import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.Role;
 import org.aseguradora.repositories.CustomerRepository;
 import org.aseguradora.services.CustomerService;
@@ -32,6 +33,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void save(Customer customer) {
         customerRepository.save(customer);
+    }
+
+    @Override
+    public List<Policy> findPoliciesByCustomerId(Long id) {
+        return customerRepository.findPoliciesByIdCustomer(id);
     }
 
     @Override

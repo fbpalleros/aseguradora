@@ -55,7 +55,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Override
     @Transactional
     public List<Policy> findPoliciesByIdCustomer(Long id) {
-        String hql = "SELECT c.name, p.insurance FROM Customer c JOIN Policy p ON c.id = p.customer.id WHERE p.customer.id = : customer_id";
+        String hql = "SELECT p FROM Customer c JOIN Policy p ON c.id = p.customer.id WHERE p.customer.id = : customer_id";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("customer_id", id);
         return query.getResultList();
@@ -77,11 +77,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 .add(Restrictions.eq("password", password)) //buscador
                .uniqueResult();
 
-//        String hql = "SELECT c FROM Customer c WHERE c.email=?1 and c.password=?2";
-//        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-//        query.setParameter(1, email);
-//        query.setParameter(2, password);
-//        return (Customer) query.getSingleResult();
     }
 
 }
