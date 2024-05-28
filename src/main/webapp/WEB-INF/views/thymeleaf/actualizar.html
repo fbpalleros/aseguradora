@@ -1,43 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="layout/layout :: head"></head>
-    <body>
-    <header th:replace="layout/layout :: header"></header>
-        <div class="container d-flex justify-content-center">
-            <div class="col-sm-6 d-flex flex-column gap-3">
-                <div class="card border-primary">
-                </div>
-                <div class="card border-primary">
-                    <div class="card-body">
-                        <h5 class="card-title">Nombre Anterior</h5>
-                        <p class="card-text" th:text="${customer.name}"></p>
-                        <div > ///
-                            <label class="form-label" for="nombre" >Informe el nuevo nombre:</label>
-                            <input class="form-control" type="metros" th:field="*{nombre}" id="nombre" name="metros" placeholder="Nuevo nombre" required><br>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-primary">
-                    <div class="card-body">
-                        <h5 class="card-title">Email Anterior</h5>
-                        <p class="card-text" th:text="${customer.email}"></p>
-                        <div > ///
-                            <label class="form-label" for="email" >Informe el nuevo mail:</label>
-                            <input class="form-control" type="email" th:field="*{email}" id="email" name="email" placeholder="Nuevo Mail" required><br>
-                        </div>
-                    </div>
-                </div>
+<body>
+<header th:replace="layout/layout :: header"></header>
+<div class="container d-flex justify-content-center">
+    <div class="col-sm-6 d-flex flex-column gap-3">
+        <form th:action="@{/actualizar_datos}" th:object="${customer}" method="post">
+            <input type="hidden" th:field="*{id}">
 
-                <div class="card border-primary">
-                    <div class="card-body">
-                        <h5 class="card-title">Actualizar</h5>
-                        <p class="card-text"></p>
-                        <a th:href="@{/actualizar}" class="btn btn-primary">Ver</a>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Nombre Anterior</h5>
+                    <p class="card-text" th:text="${customer.name}"></p>
+                    <div> ///
+                        <label class="form-label" for="nombre">Informe el nuevo nombre:</label>
+                        <input class="form-control" type="text" th:field="*{name}" id="nombre" name="name" required><br>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Email Anterior</h5>
+                    <p class="card-text" th:text="${customer.email}"></p>
+                    <div> ///
+                        <label class="form-label" for="email">Informe el nuevo mail:</label>
+                        <input class="form-control" type="email" th:field="*{email}" id="email" name="email"
+                               required><br>
+                    </div>
+                </div>
+            </div>
 
-        <footer th:replace="layout/layout :: footer"></footer>
-    </body>
+            <div class="card border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Actualizar</h5>
+                    <button type="submit" class="btn btn-lg btn-primary">Actualizar mis datos</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
 </html>

@@ -50,8 +50,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return (Customer) query.getSingleResult();
     }
 
-
-
     @Override
     @Transactional
     public List<Policy> findPoliciesByIdCustomer(Long id) {
@@ -83,10 +81,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     @Transactional
     public void actualizar(Customer custumer) {
 //        this.sessionFactory.getCurrentSession().saveOrUpdate(item);
-        String hql = "UPDATE Customer set name = :name and email= :email WHERE id = :id";
+        String hql = "UPDATE Customer set name = :name, email = :email WHERE id = :id";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("descripcion", custumer.getName());
-        query.setParameter("descripcion", custumer.getEmail());
+        query.setParameter("name", custumer.getName());
+        query.setParameter("email", custumer.getEmail());
         query.setParameter("id", custumer.getId());
         query.executeUpdate(); // Sirve tambien para delete
     }

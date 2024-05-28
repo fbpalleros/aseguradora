@@ -22,7 +22,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @GetMapping("/customers")
-    public ModelAndView verClientes(){
+    public ModelAndView verClientes() {
         ModelMap model = new ModelMap();
         List<Customer> customers = customerService.findAll();
         model.put("customers", customers);
@@ -63,7 +63,7 @@ public class CustomerController {
             List<Policy> policies = customerService.findPoliciesByCustomerId(customer.getId());
             model.put("policies", policies);
             final Double[] saldoTotal = {0.0};
-            policies.forEach(p-> {
+            policies.forEach(p -> {
                 saldoTotal[0] += p.getCoverage();
             });
             model.put("saldo_total", saldoTotal[0]);
@@ -75,24 +75,20 @@ public class CustomerController {
     }
 
     @GetMapping("/actualizar")
-    public ModelAndView vistaPasoUno() {
+    public ModelAndView vistaActualizar(HttpServletRequest request) {
+        HttpSession session = request.getSession();
         ModelMap model = new ModelMap();
-        Customer customer = new Customer();
+        Customer customerSession = (Customer) session.getAttribute("customer");
+        Customer customer = customerService.findOne(customerSession.getId());
         model.put("customer", customer);
-        return new ModelAndView("actulizar", model);
+        return new ModelAndView("actualizar", model);
     }
 
-//    @PostMapping(path = "/actualizar_dato")
-//    public ModelAndView actulizar( @ModelAttribute("customer") HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        Customer customer = (Customer) session.getAttribute("customer");
-//        ModelMap model = new ModelMap();
-//        customer = customerService.actualizar(customer);
-//
-//
-//        return new ModelAndView("redirect:/login");
-//    }
-
+    @PostMapping(path = "/actualizar_datos")
+    public ModelAndView actualizar(@ModelAttribute("customer") Customer customer) {
+        customerService.actualizar(customer);
+        return new ModelAndView("redirect:/login");
+    }
 
 
 }
