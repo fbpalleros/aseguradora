@@ -3,13 +3,12 @@ package org.aseguradora.controllers;
 
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
+import org.aseguradora.entity.dto.AlmacenarCasaDTO;
 import org.aseguradora.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,4 +73,26 @@ public class CustomerController {
             return new ModelAndView("redirect:/login");
         }
     }
+
+    @GetMapping("/actualizar")
+    public ModelAndView vistaPasoUno() {
+        ModelMap model = new ModelMap();
+        Customer customer = new Customer();
+        model.put("customer", customer);
+        return new ModelAndView("actulizar", model);
+    }
+
+//    @PostMapping(path = "/actualizar_dato")
+//    public ModelAndView actulizar( @ModelAttribute("customer") HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        Customer customer = (Customer) session.getAttribute("customer");
+//        ModelMap model = new ModelMap();
+//        customer = customerService.actualizar(customer);
+//
+//
+//        return new ModelAndView("redirect:/login");
+//    }
+
+
+
 }

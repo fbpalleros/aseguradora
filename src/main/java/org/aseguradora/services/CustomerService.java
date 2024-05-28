@@ -21,4 +21,6 @@ public interface CustomerService {
     Customer validateCredentials(String email, String password);
 
     Customer findNameCustumer(String email, String password);
+
+    void actualizar(Customer custumer);
 }

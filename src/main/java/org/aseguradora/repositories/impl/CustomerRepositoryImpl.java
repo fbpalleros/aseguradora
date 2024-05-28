@@ -79,6 +79,18 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     }
 
+    @Override
+    @Transactional
+    public void actualizar(Customer custumer) {
+//        this.sessionFactory.getCurrentSession().saveOrUpdate(item);
+        String hql = "UPDATE Customer set name = :name and email= :email WHERE id = :id";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("descripcion", custumer.getName());
+        query.setParameter("descripcion", custumer.getEmail());
+        query.setParameter("id", custumer.getId());
+        query.executeUpdate(); // Sirve tambien para delete
+    }
+
 }
 
 

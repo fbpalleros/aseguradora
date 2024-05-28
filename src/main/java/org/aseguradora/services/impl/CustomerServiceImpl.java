@@ -67,4 +67,12 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer findNameCustumer(String email, String password){
         return customerRepository.findNameCustumer (email , password);
     }
+
+
+    @Override
+    public void actualizar(Customer custumer) {
+
+        customerRepository.actualizar(custumer);
+    }
+
 }

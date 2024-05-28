@@ -20,6 +20,8 @@ public interface CustomerRepository {
 
     Customer findNameCustumer(String email, String password);
 
+     void actualizar(Customer custumer);
+
 
 
 }
