@@ -36,6 +36,7 @@
 	        </li>
 	      </ul>
 	    </div>
+		  <a th:href="@{/logout}" class="alert alert-danger" th:if="${session.customer != null}">Cerrar sesión</a>
 	  </div>
 	</nav>
 </header>

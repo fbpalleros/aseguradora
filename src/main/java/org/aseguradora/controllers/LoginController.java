@@ -1,9 +1,6 @@
 package org.aseguradora.controllers;
 
 import org.aseguradora.entity.Customer;
-import org.aseguradora.entity.Role;
-import org.aseguradora.repositories.CustomerRepository;
-import org.aseguradora.repositories.impl.CustomerRepositoryImpl;
 import org.aseguradora.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -22,7 +19,7 @@ public class LoginController {
 
     @GetMapping("/")
     public ModelAndView home() {
-            return new ModelAndView("home");
+        return new ModelAndView("home");
     }
 
     @GetMapping("/cotizacion")
@@ -31,10 +28,14 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ModelAndView login() {
+    public ModelAndView login(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("customer") != null) {
+            return new ModelAndView("redirect:/");
+        }
         ModelMap model = new ModelMap();
-        Customer custumer = new Customer();
-        model.put("customer", custumer);
+        Customer customer = new Customer();
+        model.put("customer", customer);
         return new ModelAndView("login", model);
     }
 
@@ -43,12 +44,20 @@ public class LoginController {
         ModelMap model = new ModelMap();
         Customer customerSearched = customerService.findNameCustumer(customer.getEmail(), customer.getPassword());
         if (customerSearched != null) {
-            request.getSession().setAttribute("customer", customerSearched);
+            HttpSession session = request.getSession();
+            session.setAttribute("customer", customerSearched);
             return new ModelAndView("redirect:/mis_datos");
         } else {
             model.put("error", "Usuario no encontrado");
         }
 
         return new ModelAndView("login", model);
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/";
     }
 }
