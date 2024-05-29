@@ -88,7 +88,7 @@ public class CotizacionController {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
 
-        if (request.getSession().getAttribute("customer") != null) {
+        if (customer != null) {
 
             policy.setCustomer(customer);
             Insurance insurance = insuranceService.findById(1L);
@@ -97,7 +97,7 @@ public class CotizacionController {
             policyService.save(policy);
 
             flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
-        return new ModelAndView("redirect:/polizas/3");
+        return new ModelAndView("redirect:/polizas");
         }
 
         return new ModelAndView("redirect:/login");

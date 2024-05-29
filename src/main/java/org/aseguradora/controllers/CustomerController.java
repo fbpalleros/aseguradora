@@ -3,7 +3,6 @@ package org.aseguradora.controllers;
 
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
-import org.aseguradora.entity.dto.AlmacenarCasaDTO;
 import org.aseguradora.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -4,8 +4,6 @@ package org.aseguradora.controllers;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
-import org.aseguradora.entity.dto.AlmacenarCasaDTO;
-import org.aseguradora.entity.dto.AlmacenarDTO;
 import org.aseguradora.entity.dto.AlmacenarVidaDTO;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.InsuranceService;
@@ -84,7 +82,7 @@ public class CotizacionVidaController {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
 
-        if (request.getSession().getAttribute("customer") != null) {
+        if (customer != null) {
 
             policy.setCustomer(customer);
             Insurance insurance = insuranceService.findById(3L);
@@ -93,7 +91,7 @@ public class CotizacionVidaController {
             policyService.save(policy);
 
             flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
-            return new ModelAndView("redirect:/polizas/3");
+            return new ModelAndView("redirect:/polizas");
         }
 
         return new ModelAndView("redirect:/login");
