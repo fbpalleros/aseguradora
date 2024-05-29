@@ -28,26 +28,16 @@ public class CustomerController {
         return new ModelAndView("customer", model);
     }
 
-//    @GetMapping("/mis_datos")
-//    public ModelAndView verDatosPorId(HttpServletRequest request){
-//        ModelMap model = new ModelMap();
-//        Customer customer = customerService.findOne(3L);
-//        model.put("customer", customer);
-//        return new ModelAndView("mis_datos", model);
-//    }
-
     @RequestMapping(path = "/mis_datos", method = RequestMethod.GET)
     public ModelAndView mostrarDatos(HttpServletRequest request) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
 
         if (customer != null) {
-            // Crea el ModelAndView con los datos del customer
             ModelAndView mav = new ModelAndView("mis_datos");
             mav.addObject("customer", customer);
             return mav;
         } else {
-            //si no hay customer en la sesión
             return new ModelAndView("redirect:/login");
         }
     }
@@ -68,7 +58,6 @@ public class CustomerController {
             model.put("saldo_total", saldoTotal[0]);
             return new ModelAndView("saldo", model);
         } else {
-//            si no hay customer en la sesión
             return new ModelAndView("redirect:/login");
         }
     }
