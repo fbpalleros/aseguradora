@@ -1,5 +1,0 @@
-org\aseguradora\config\DatabaseInitializationConfig.class
-org\aseguradora\config\SpringWebConfig.class
-org\aseguradora\MyServletInitializer.class
-org\aseguradora\config\HibernateConfig.class
-org\aseguradora\controllers\LoginController.class
