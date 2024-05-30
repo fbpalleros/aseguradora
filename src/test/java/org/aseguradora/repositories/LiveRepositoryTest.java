@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.equalToObject;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HibernateConfig.class, LiveRepositoryImpl.class})
@@ -62,17 +63,18 @@ public class LiveRepositoryTest {
         assertThat(lives.size(), equalTo(livesMock.size()));
     }
 
-//    @Test
-//    @Transactional
-//    @Rollback
-//    public void queSeObtengaElPrecioPorAnioYOficio() {
-//        Double livesMock = getPrecio();
-//
-//        Double lives = this.liveRepository.buscarPrecioPorAnioYOficio("Chofer" , 2009);
-//
-//       // assertThat(lives, equalTo(livesMock));
-//        assertThat(lives, equalTo(400000));
-//    }
+    @Test
+    @Transactional
+    @Rollback
+    public void queSeObtengaElPrecioPorAnioYOficio() {
+        Double livesMock = getPrecio();
+
+        Double lives = this.liveRepository.buscarPrecioPorAnioYOficio("Chofer" , 2009);
+
+        assertThat(lives, equalTo(livesMock));
+
+
+    }
 
 
     private void getLives() {
@@ -102,7 +104,7 @@ public class LiveRepositoryTest {
     private Double getPrecio() {
         return (Double) this.sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT  c.precio FROM Live c WHERE c.oficio=?1 and c.anio=?2")
                 .setParameter(1, "Chofer")
-                .setParameter(2, "2009")
+                .setParameter(2, 2009)
                 .getSingleResult();
     }
 
