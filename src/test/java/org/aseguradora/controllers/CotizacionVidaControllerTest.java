@@ -3,11 +3,8 @@ package org.aseguradora.controllers;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
-import org.aseguradora.entity.dto.AlmacenarCasaDTO;
-import org.aseguradora.services.CityService;
-import org.aseguradora.services.CustomerService;
-import org.aseguradora.services.InsuranceService;
-import org.aseguradora.services.PolicyService;
+import org.aseguradora.entity.dto.AlmacenarVidaDTO;
+import org.aseguradora.services.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ModelMap;
@@ -17,24 +14,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 
-public class CotizacionInmuebleControllerTest {
+public class CotizacionVidaControllerTest {
 
-    private CotizacionInmuebleController cotizacionInmuebleController;
+    private CotizacionVidaController cotizacionController;
+
     private PolicyService policyService;
     private CustomerService customerService;
     private InsuranceService insuranceService;
-    private CityService cityService;
+    private LiveService liveService;
 
     private RedirectAttributes flash;
-
     private HttpSession session;
     private HttpServletRequest request;
 
@@ -46,64 +44,66 @@ public class CotizacionInmuebleControllerTest {
         this.policyService = mock(PolicyService.class);
         this.customerService = mock(CustomerService.class);
         this.insuranceService = mock(InsuranceService.class);
-        this.cityService = mock(CityService.class);
-        this.cotizacionInmuebleController = new CotizacionInmuebleController(policyService, customerService, insuranceService, cityService);
+        this.liveService = mock(LiveService.class);
+        this.cotizacionController = new CotizacionVidaController(policyService, customerService, insuranceService, liveService);
     }
 
     @Test
-    public void queAlSolicitarLaPantallaPasoUnoInmuebleSeRetorneLaVista() {
-        List<String> provinciasMock = new ArrayList<>();
-        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
+    public void queAlSolicitarLaPantallaPasoUnoVidaSeRetorneLaVista() {
+        List<String> oficiosMock = new ArrayList<>();
+        AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
 
-        when(this.cityService.listarTodasLasProvincias()).thenReturn(provinciasMock);
+        when(this.liveService.listarTodasLosOficios()).thenReturn(oficiosMock);
 
-        ModelAndView mav = this.cotizacionInmuebleController.vistaPasoUno();
+        ModelAndView mav = this.cotizacionController.vistaPasoUno();
 
-        assertThat(mav.getViewName(), equalToIgnoringCase("paso_uno_inmu"));
-        assertThat(mav.getModel().get("provincias"), equalToObject(provinciasMock));
+        assertThat(mav.getViewName(), equalToIgnoringCase("paso_uno_vida"));
+        assertThat(mav.getModel().get("oficios"), equalToObject(oficiosMock));
         assertThat(mav.getModel().get("almacenar").getClass(), equalToObject(almacenar.getClass()));
         assertThat(mav.getModel().size(), equalTo(2));
     }
 
     @Test
     public void queSeGuardeElPasoUnoYRetorneLaVistaPasoDos() {
-        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
-        almacenar.setProvincia("Buenos Aires");
-        List<String> localidadesMock = new ArrayList<>();
-        localidadesMock.add("Merlo");
-        localidadesMock.add("Morón");
-        localidadesMock.add("Moreno");
+        AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
+        almacenar.setOficio("Camionero");
+        List<Integer> aniosMock = new ArrayList<>();
 
-        when(this.cityService.buscarDependiendoLaProvincia(almacenar.getProvincia())).thenReturn(localidadesMock);
+        when(this.liveService.buscarAnioPorOficio(almacenar.getOficio())).thenReturn(aniosMock);
 
-        ModelAndView mav = this.cotizacionInmuebleController.guardarPasoUno(almacenar, new ModelMap());
+        ModelAndView mav = this.cotizacionController.guardarPasoUno(almacenar, new ModelMap());
 
-        assertThat(mav.getViewName(), equalToIgnoringCase("paso_dos_inmu"));
-        assertThat(mav.getModel().get("localidades"), equalTo(localidadesMock));
+        assertThat(mav.getViewName(), equalToIgnoringCase("paso_dos_vida"));
+        assertThat(mav.getModel().get("anios"), equalTo(aniosMock));
         assertThat(mav.getModel().size(), equalTo(1));
     }
 
     @Test
-    public void queSeGuerdeElPasoDosYRetorneElResultadoFinal() {
-        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
-        almacenar.setMetros(20.00);
+    public void queSeGuardeElPasoDosYRetorneLavistaResultadoFinal(){
+        AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
+        almacenar.setOficio("Camionero");
+        almacenar.setAnio(1970);
 
-        ModelAndView mav = this.cotizacionInmuebleController.guardaPasoDos(almacenar, new ModelMap());
+        Double precio = 0.0;
 
-        assertThat(mav.getModel().get("almacenar").getClass(), equalToObject(almacenar.getClass()));
-        assertThat(mav.getViewName(), equalToIgnoringCase("resultado_final_inmu"));
+        when(this.liveService.buscarPrecioPorAnioYOficio(almacenar.getOficio(), almacenar.getAnio())).thenReturn(precio);
+        ModelAndView mav = this.cotizacionController.guardaPasoDos(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("resultado_final_vida"));
+        assertThat(mav.getModel().get("almacenar"), equalTo(almacenar));
+        assertThat(mav.getModel().size(), equalTo(1));
     }
 
     @Test
     public void queSeGenereLaPolizaSiElUsuarioEstaLogueado(){
-        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
+        AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
         flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
 
         Customer customer = new Customer();
         customer.setId(3L);;
 
         Insurance insurance = new Insurance();
-        insurance.setId(2L);
+        insurance.setId(3L);
 
         Policy policy = new Policy();
         policy.setCustomer(customer);
@@ -116,7 +116,7 @@ public class CotizacionInmuebleControllerTest {
         when(this.customerService.findOne(3L)).thenReturn(customer);
         when(this.insuranceService.findById(3L)).thenReturn(insurance);
 
-        ModelAndView mav = this.cotizacionInmuebleController.cotizarCasa(almacenar, flash, request);
+        ModelAndView mav = this.cotizacionController.cotizarVida(almacenar, flash, request);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/polizas"));
         verify(policyService).save(policy);
@@ -125,13 +125,13 @@ public class CotizacionInmuebleControllerTest {
 
     @Test
     public void queSeRedirijaAlLoginSinElUsuarioNoEstaLogueado() {
-        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
+        AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
         RedirectAttributes flash = new RedirectAttributesModelMap();
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(null);
 
-        ModelAndView mav = this.cotizacionInmuebleController.cotizarCasa(almacenar, flash, request);
+        ModelAndView mav = this.cotizacionController.cotizarVida(almacenar, flash, request);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
     }

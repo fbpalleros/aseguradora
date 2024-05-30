@@ -12,9 +12,16 @@ public interface CustomerRepository {
 
     Customer findOne(Long id);
 
+    Customer findByEmail(String email);
+
     List<Policy> findPoliciesByIdCustomer(Long id);
 
     void save(Customer customer);
+
+    Customer findNameCustumer(String email, String password);
+
+     void actualizar(Customer custumer);
+
 
 
 }

@@ -2,9 +2,10 @@ INSERT INTO insurance (insurance_type) VALUES ('AUTOMOTOR');
 INSERT INTO insurance (insurance_type) VALUES ('HOGAR');
 INSERT INTO insurance (insurance_type) VALUES ('PERSONA');
 
-INSERT INTO customer (name, email) VALUES ('John Doe', 'john.doe@example.com');
-INSERT INTO customer (name, email) VALUES ('Jane Smith', 'jane.smith@example.com');
-INSERT INTO customer (name, email) VALUES ('Michael Jones', 'michael.jones@example.com');
+INSERT INTO customer (name, email, password) VALUES ('John Doe', 'john.doe@example.com', '12345');
+INSERT INTO customer (name, email , password) VALUES ('Jane Smith', 'jane.smith@example.com','111');
+INSERT INTO customer (name, email , password) VALUES ('Michael Jones', 'michael.jones@example.com' , '111');
+INSERT INTO customer (name, email, password) VALUES ('Lugo Fernando', 'fer120793@gmail.com' , '123' );
 
 INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (1, 1, 200000, '2024-01-01', '2025-01-01');
 INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (2, 2, 150000, '2023-05-15', '2024-05-15');
@@ -89,7 +90,10 @@ INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1994 , 2000000);
 INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1979 , 1000000);
 INSERT INTO vida (oficio, anio , precio) VALUES ('Profesor', 1964 , 900000);
 
+INSERT INTO role (name) VALUES ('ROLE_ADMIN');
+INSERT INTO role (name) VALUES ('ROLE_USER');
 
+INSERT INTO customer_roles (customer_id, role_id) VALUES (3, 2);
 
 
 

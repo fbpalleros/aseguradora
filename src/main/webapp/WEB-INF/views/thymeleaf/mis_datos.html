@@ -23,6 +23,21 @@
                 <p class="card-text" th:text="${customer.email}"></p>
             </div>
         </div>
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Mi deuda</h5>
+                <p class="card-text"></p>
+                <a th:href="@{/mi_saldo}" class="btn btn-primary">Ver</a>
+            </div>
+        </div>
+
+        <div class="card border-primary">
+            <div class="card-body">
+                <h5 class="card-title">Actualizar Datos</h5>
+                <p class="card-text"></p>
+                <a th:href="@{/actualizar}" class="btn btn-primary">Ver</a>
+            </div>
+        </div>
     </div>
 </div>
 

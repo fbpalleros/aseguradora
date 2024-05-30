@@ -1,5 +1,6 @@
 package org.aseguradora.controllers;
 
+import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.PolicyService;
@@ -7,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,32 +24,28 @@ public class PolizaControllerTest {
     private CustomerService customerService;
     private PolizaController polizaController;
 
+    private HttpSession session;
+    private HttpServletRequest request;
+
     @BeforeEach
     public void init() {
+        this.session = mock(HttpSession.class);
+        this.request = mock(HttpServletRequest.class);
         this.policyService = mock(PolicyService.class);
         this.customerService = mock(CustomerService.class);
         this.polizaController = new PolizaController(policyService, customerService);
     }
 
     @Test
-    public void queRetorneLaVistaConTodasLasPolizas() {
+    public void queSeRetornenLasPolizasDelUsuario(){
         List<Policy> policiesMock = new ArrayList<>();
+        Customer customer = new Customer();
 
-        when(this.policyService.findAll()).thenReturn(policiesMock);
-
-        ModelAndView mav = this.polizaController.verPolizas();
-
-        assertThat(mav.getViewName(), equalToIgnoringCase("polizas"));
-        assertThat(mav.getModel().get("polizas"), equalToObject(policiesMock));
-    }
-
-    @Test
-    public void queSeRetornenLasPolizasDeUnCliente(){
-        List<Policy> policiesMock = new ArrayList<>();
-
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
         when(this.policyService.findByCustomerId(3L)).thenReturn(policiesMock);
 
-        ModelAndView mav = this.polizaController.verPolizas(3L);
+        ModelAndView mav = this.polizaController.verPolizas(request);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("by-id"));
         assertThat(mav.getModel().get("polizas_by_id"), equalToObject(policiesMock));

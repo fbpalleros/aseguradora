@@ -22,23 +22,21 @@
 	          <li class="nav-item">
 	          <a class="nav-link active" aria-current="page" href="/spring/cotizacion">Cotización</a>
 	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link active" aria-current="page" href="/spring/denuncia">Denuncia</a>
-	        </li>
-	        <li class="nav-item">
+	        <li class="nav-item" th:if="${session.customer != null}">
 	          <a class="nav-link active" aria-current="page" href="/spring/mis_datos">Mis datos</a>
 	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link active" aria-current="page" href="/spring/polizas/3">Mis pólizas</a>
+	        <li class="nav-item" th:if="${session.customer != null}">
+	          <a class="nav-link active" aria-current="page" th:href="'/spring/polizas'">Mis pólizas</a>
 	        </li>
 <!--	        <li class="nav-item">-->
 <!--	          <a class="nav-link active" aria-current="page" href="/spring/denuncia">Denuncia</a>-->
 <!--	        </li>-->
-<!--	        <li class="nav-item">-->
-<!--	          <a class="nav-link active" aria-current="page" href="/spring/login">Login</a>-->
-<!--	        </li>-->
+	        <li class="nav-item" th:if="${session.customer != null}">
+	          <a class="nav-link active" aria-current="page" href="/spring/mi_saldo">Mi saldo</a>
+	        </li>
 	      </ul>
 	    </div>
+		  <a th:href="@{/logout}" class="alert alert-danger" th:if="${session.customer != null}">Cerrar sesión</a>
 	  </div>
 	</nav>
 </header>

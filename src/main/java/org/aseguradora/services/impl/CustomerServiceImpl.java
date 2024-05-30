@@ -1,6 +1,8 @@
 package org.aseguradora.services.impl;
 
 import org.aseguradora.entity.Customer;
+import org.aseguradora.entity.Policy;
+import org.aseguradora.entity.Role;
 import org.aseguradora.repositories.CustomerRepository;
 import org.aseguradora.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +34,45 @@ public class CustomerServiceImpl implements CustomerService {
     public void save(Customer customer) {
         customerRepository.save(customer);
     }
+
+    @Override
+    public List<Policy> findPoliciesByCustomerId(Long id) {
+        return customerRepository.findPoliciesByIdCustomer(id);
+    }
+
+    @Override
+    public boolean customerHasRole(Long customerId, Long roleId) {
+        Customer customer = customerRepository.findOne(customerId);
+        if (customer != null) {
+            for (Role role : customer.getRoles()) {
+                if (role.getId().equals(roleId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Customer validateCredentials(String email, String password) {
+        Customer customer = customerRepository.findByEmail(email);
+        String pass = customer.getPassword();
+        if (pass.equals(password)) {
+            return customer;
+        }
+        return null;
+    }
+
+    @Override
+    public Customer findNameCustumer(String email, String password){
+        return customerRepository.findNameCustumer (email , password);
+    }
+
+
+    @Override
+    public void actualizar(Customer custumer) {
+
+        customerRepository.actualizar(custumer);
+    }
+
 }
