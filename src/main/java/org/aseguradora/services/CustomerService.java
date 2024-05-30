@@ -15,11 +15,7 @@ public interface CustomerService {
 
     List<Policy> findPoliciesByCustomerId(Long id);
 
-    boolean customerHasRole(Long customerId, Long roleId);
+    Customer findNameCustomer(String email, String password);
 
-    Customer validateCredentials(String email, String password);
-
-    Customer findNameCustumer(String email, String password);
-
-    void actualizar(Customer custumer);
+    void actualizar(Customer customer);
 }

@@ -1,6 +1,7 @@
 package org.aseguradora.services;
 
 import org.aseguradora.entity.Customer;
+import org.aseguradora.entity.Policy;
 import org.aseguradora.repositories.CustomerRepository;
 import org.aseguradora.services.impl.CustomerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,5 +48,41 @@ public class CustomerServiceTest {
         assertThat(customer, equalToObject(customerMock));
         assertThat(customer.getId(), equalTo(customerMock.getId()) );
         verify(customerRepository).findOne(1L);
+    }
+
+    @Test
+    public void queSeObtenganLasPolizasDeUnCliente(){
+        Customer customerMock = new Customer();
+        customerMock.setId(1L);
+
+        List<Policy> policiesMock = new ArrayList<>();
+
+        when(this.customerRepository.findPoliciesByIdCustomer(customerMock.getId())).thenReturn(policiesMock);
+
+        List<Policy> policies = this.customerService.findPoliciesByCustomerId(1L);
+
+        assertThat(policies, equalToObject(policiesMock));
+        verify(customerRepository).findPoliciesByIdCustomer(1L);
+    }
+
+    @Test
+    public void queSeObtengaElClientePorSuEmailYPassword(){
+        Customer customerMock = new Customer();
+        customerMock.setId(1L);
+        customerMock.setEmail("john@gmail.com");
+        customerMock.setPassword("123456");
+
+        when(this.customerRepository.findNameCustumer(customerMock.getEmail(), customerMock.getPassword())).thenReturn(customerMock);
+        Customer customer = this.customerService.findNameCustomer("john@gmail.com", "123456");
+
+        assertThat(customer, equalToObject(customerMock));
+        verify(customerRepository).findNameCustumer(customerMock.getEmail(), customerMock.getPassword());
+    }
+
+    @Test
+    public void queSeActualicenLosDatosDelCliente(){
+        Customer customerMock = new Customer();
+        this.customerService.actualizar(customerMock);
+        verify(customerRepository).actualizar(customerMock);
     }
 }
