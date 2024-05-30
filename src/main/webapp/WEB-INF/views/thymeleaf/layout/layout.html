@@ -28,9 +28,9 @@
 	        <li class="nav-item" th:if="${session.customer != null}">
 	          <a class="nav-link active" aria-current="page" th:href="'/spring/polizas'">Mis pólizas</a>
 	        </li>
-<!--	        <li class="nav-item">-->
-<!--	          <a class="nav-link active" aria-current="page" href="/spring/denuncia">Denuncia</a>-->
-<!--	        </li>-->
+	        <li class="nav-item" th:if="${session.customer != null}">
+	          <a class="nav-link active" aria-current="page" href="/spring/misdenuncias">Denuncias</a>  
+	        </li>
 	        <li class="nav-item" th:if="${session.customer != null}">
 	          <a class="nav-link active" aria-current="page" href="/spring/mi_saldo">Mi saldo</a>
 	        </li>
