@@ -12,7 +12,6 @@ public interface CustomerRepository {
 
     Customer findOne(Long id);
 
-    Customer findByEmail(String email);
 
     List<Policy> findPoliciesByIdCustomer(Long id);
 

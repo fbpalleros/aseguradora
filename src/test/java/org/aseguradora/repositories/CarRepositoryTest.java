@@ -14,12 +14,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HibernateConfig.class, CarRepositoryImpl.class})
