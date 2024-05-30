@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+    <div class="container mt-5">
+        <h2 class="text-center">Formulario de Denuncia de Siniestro Persona</h2>
+        <form th:action="@{/submitForm}" th:object="${denuncia}" method="post" class="mt-4">
+      		<input type="hidden" th:field="*{policy.id}">
+      		
+            <div class="mb-3">
+                <label for="poliza" class="form-label">Número de póliza:</label>
+                <input type="text" id="poliza" th:field="*{policy.id}" class="form-control" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="fechaSiniestro" class="form-label">Fecha del siniestro:</label>
+                <input type="date" id="fechaSiniestro" th:field="*{accidentDate}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="horaSiniestro" class="form-label">Hora del siniestro:</label>
+                <input type="time" id="horaSiniestro" th:field="*{accidentHour}" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="descripcionHecho" class="form-label">Breve descripción del hecho:</label>
+                <textarea id="descripcionHecho" th:field="*{description}" rows="3" class="form-control" required></textarea>
+            </div>
+            
+            <button type="button" class="btn btn-secondary" onclick="cargarDocumentacion()">Cargar Documentación</button>
+            <button type="submit" class="btn btn-primary mt-3">Finalizar</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function cargarDocumentacion() {
+            alert("Documentación cargada");
+        }
+    </script>
+    <footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

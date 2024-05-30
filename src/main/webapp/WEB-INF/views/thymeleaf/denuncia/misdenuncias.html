@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div th:if="${denuncias.size() == 0}" class="alert alert-success" role="alert">
+   	<span>No hay denuncias registradas</span>
+</div>
+<main class="container mt-5">
+    <h1 class="text-center mb-4">Mis denuncias</h1>
+	<div class="d-flex justify-content-center gap-3 flex-nowrap">
+	    <div th:each="denuncia: ${denuncias}">
+	        <div class="card" style="width: 18rem;">
+	            <div class="card-body">
+	                <h5 class="card-title" th:text="'Tipo: ' +  ${denuncia.policy.insurance.insuranceType}"></h5>
+	                <p class="card-text" th:text="'Fecha: ' + ${denuncia.accidentDate}"></p>
+	                <p class="card-text" th:text="'Hora ' + ${denuncia.accidentHour}"></p>
+	              
+	            </div>
+	        </div>
+	    </div>
+    </div>
+    <div class="d-grid gap-2 col-4 mx-auto mt-5">
+	    <a th:href="@{/denuncia}" class="btn btn-primary">Crear Denuncia</a>
+	</div>
+</main>
+ 
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
