@@ -1,24 +1,22 @@
 package org.aseguradora.services;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.repositories.PolicyRepository;
 import org.aseguradora.services.impl.PolicyServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.mockito.Mockito.*;
 
 public class PolicyServiceTest {
-
 
     private PolicyService policyService;
 
@@ -37,7 +35,7 @@ public class PolicyServiceTest {
         polizasMock.add(new Policy());
         polizasMock.add(new Policy());
 
-        Mockito.when(this.policyRepository.findAll()).thenReturn(polizasMock);
+        when(this.policyRepository.findAll()).thenReturn(polizasMock);
 
         List<Policy> policies = policyService.findAll();
 
@@ -80,5 +78,9 @@ public class PolicyServiceTest {
 
 
         assertThat(customerIds, equalTo(customerIdsMock));
+
     }
+
+
+
 }

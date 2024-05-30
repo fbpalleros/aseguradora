@@ -1,8 +1,6 @@
 package org.aseguradora.repositories.impl;
 
-import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
-import org.aseguradora.entity.dto.PolicyDto;
 import org.aseguradora.repositories.PolicyRepository;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

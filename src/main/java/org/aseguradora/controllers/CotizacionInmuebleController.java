@@ -4,7 +4,6 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.dto.AlmacenarCasaDTO;
-import org.aseguradora.entity.dto.AlmacenarDTO;
 import org.aseguradora.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,29 +11,29 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 public class CotizacionInmuebleController {
 
-    @Autowired
     private PolicyService policyService;
 
-    @Autowired
     private CustomerService customerService;
 
-    @Autowired
     private InsuranceService insuranceService;
 
-    @Autowired
     private CityService cityService;
 
-
+    @Autowired
+    public CotizacionInmuebleController(PolicyService policyService, CustomerService customerService, InsuranceService insuranceService, CityService cityService) {
+        this.policyService = policyService;
+        this.customerService = customerService;
+        this.insuranceService = insuranceService;
+        this.cityService = cityService;
+    }
 
     @GetMapping("/paso_uno_inmu")
     public ModelAndView vistaPasoUno() {
@@ -47,30 +46,29 @@ public class CotizacionInmuebleController {
     }
 
     @GetMapping("/guardar_paso_uno_inmu")
-    public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model){
+    public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model) {
         List<String> localidades = cityService.buscarDependiendoLaProvincia(almacenar.getProvincia());
         model.put("localidades", localidades);
 
-       return new ModelAndView("paso_dos_inmu", model);
+        return new ModelAndView("paso_dos_inmu", model);
     }
 
 
     @GetMapping("/guardar_paso_dos_inmu")
-    public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model){
+    public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model) {
 
         Double cotizacion = almacenar.getMetros() * 1.50 / 6;
 
         almacenar.setCotizacion(cotizacion);
 
-        model.put("almacenar" ,almacenar);
+        model.put("almacenar", almacenar);
 
         return new ModelAndView("resultado_final_inmu", model);
     }
 
 
-
     @PostMapping("/crear_poliza_inmu")
-    public ModelAndView cotizarAuto(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model ){
+    public ModelAndView cotizarCasa(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, RedirectAttributes flash) {
 
         Policy policy = new Policy();
 
@@ -81,13 +79,10 @@ public class CotizacionInmuebleController {
         policy.setCoverage(almacenar.getCotizacion());
         policyService.save(policy);
 
-        return new ModelAndView("exito", model);
+        flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
+
+        return new ModelAndView("redirect:/polizas/3");
     }
-
-
-
-
-
 
 
 }

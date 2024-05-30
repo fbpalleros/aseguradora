@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,35 +31,17 @@ public class CotizacionControllerTest {
     private InsuranceService insuranceService;
     private CarService carService;
 
+    private RedirectAttributes flash;
+
     @BeforeEach
     public void init() {
+        this.flash = mock(RedirectAttributes.class);
         this.policyService = mock(PolicyService.class);
         this.customerService = mock(CustomerService.class);
         this.insuranceService = mock(InsuranceService.class);
         this.carService = mock(CarService.class);
-        this.cotizacionController = new CotizacionController(policyService, customerService, insuranceService, carService );
+        this.cotizacionController = new CotizacionController(carService, insuranceService, customerService, policyService);
     }
-
-//    @Test
-//    public void queAlSolicitarLaPantallaDeCotizacionSeMuestreLaVistaCotizacion() {
-//        List<String> names = new ArrayList<>();
-//        names.add("Fiat");
-//        names.add("Honda");
-//        List<String> models = new ArrayList<>();
-//        models.add("CR-V");
-//        models.add("HR-V");
-//
-//        when(this.carService.findDistinctName()).thenReturn(names);
-//        when(this.carService.findDistinctModelByName("Honda")).thenReturn(models);
-//
-//        //Ejecución
-//        ModelAndView mav = this.cotizacionController.vistarCotizador();
-//        System.out.println(mav.getModel().size());
-//
-//        //Verificación
-//        assertThat(mav.getViewName(), equalToIgnoringCase("cotizador"));
-//        assertThat(mav.getModel().size(), equalTo(3));
-//    }
 
     @Test
     public void queAlSolicitarLaPantallaCotizacionSeMuestreLaVistaPasoUnoConSelectDeMarcas() {
@@ -121,8 +105,10 @@ public class CotizacionControllerTest {
     }
 
     @Test
-    public void queSePuedaCrearLaPoliza() {
+    public void queSePuedaCrearLaPolizaYSeEnvieElMensajeDeExito() {
         AlmacenarDTO almacenar = new AlmacenarDTO();
+        RedirectAttributes flash = new RedirectAttributesModelMap();
+        flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
 
         Customer customer = new Customer();
         customer.setId(3L);
@@ -135,11 +121,11 @@ public class CotizacionControllerTest {
         policy.setInsurance(insurance);
         policyService.save(policy);
 
-        ModelAndView mav = this.cotizacionController.cotizarAuto(almacenar, new ModelMap());
+        ModelAndView mav = this.cotizacionController.cotizarAuto(almacenar, flash);
 
         when(this.customerService.findOne(3L)).thenReturn(customer);
         when(this.insuranceService.findById(1L)).thenReturn(insurance);
-        assertThat(mav.getViewName(), equalToIgnoringCase("exito"));
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/polizas/3"));
         verify(policyService).save(policy);
 
     }
