@@ -26,17 +26,14 @@ public class CotizacionController {
 
     private PolicyService policyService;
 
-    private CustomerService customerService;
-
     private InsuranceService insuranceService;
 
     private CarService carService;
 
     @Autowired
-    public CotizacionController(CarService carService, InsuranceService insuranceService, CustomerService customerService, PolicyService policyService) {
+    public CotizacionController(CarService carService, InsuranceService insuranceService, PolicyService policyService) {
         this.carService = carService;
         this.insuranceService = insuranceService;
-        this.customerService = customerService;
         this.policyService = policyService;
     }
 
@@ -52,33 +49,42 @@ public class CotizacionController {
 
     @GetMapping("/guardar_paso_uno")
     public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
-        List<String> modelos = carService.findDistinctModelByName(almacenar.getNombre());
-        model.put("modelos", modelos);
-
-        return new ModelAndView("paso_dos", model);
+        if (almacenar.getNombre() != null && !almacenar.getNombre().isEmpty()) {
+            List<String> modelos = carService.findDistinctModelByName(almacenar.getNombre());
+            model.put("modelos", modelos);
+            return new ModelAndView("paso_dos", model);
+        }
+        return new ModelAndView("redirect:/paso_uno");
     }
 
     @GetMapping("/guardar_paso_dos")
     public ModelAndView guardarPasoDos(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
-        List<Integer> years = carService.findDistinctByNameAndModel(almacenar.getNombre(), almacenar.getModelo());
-        model.put("years", years);
-
-        return new ModelAndView("paso_tres", model);
+        if (almacenar.getNombre() != null && !almacenar.getNombre().isEmpty()) {
+            List<Integer> years = carService.findDistinctByNameAndModel(almacenar.getNombre(), almacenar.getModelo());
+            model.put("years", years);
+            return new ModelAndView("paso_tres", model);
+        }
+        return new ModelAndView("redirect:/paso_uno");
 
     }
 
     @GetMapping("/guardar_paso_tres")
     public ModelAndView guardarPasoTres(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
-        Double precio = carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio());
 
-        Double cotizacion = precio * 1.20 / 6;
+        if (almacenar.getNombre() != null && almacenar.getModelo() != null && almacenar.getAnio() != null) {
+            Double precio = carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio());
 
-        almacenar.setPrecio(precio);
-        almacenar.setCotizacion(cotizacion);
+            Double cotizacion = precio * 1.20 / 6;
 
-        model.put("almacenar", almacenar);
+            almacenar.setPrecio(precio);
+            almacenar.setCotizacion(cotizacion);
 
-        return new ModelAndView("resultado_final", model);
+            model.put("almacenar", almacenar);
+
+            return new ModelAndView("resultado_final", model);
+        }
+
+        return new ModelAndView("redirect:/paso_uno");
     }
 
     @PostMapping("/crear_poliza")
@@ -97,7 +103,7 @@ public class CotizacionController {
             policyService.save(policy);
 
             flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
-        return new ModelAndView("redirect:/polizas");
+            return new ModelAndView("redirect:/polizas");
         }
 
         return new ModelAndView("redirect:/login");

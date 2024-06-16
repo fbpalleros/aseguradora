@@ -23,16 +23,13 @@ public class CotizacionInmuebleController {
 
     private PolicyService policyService;
 
-    private CustomerService customerService;
-
     private InsuranceService insuranceService;
 
     private CityService cityService;
 
     @Autowired
-    public CotizacionInmuebleController(PolicyService policyService, CustomerService customerService, InsuranceService insuranceService, CityService cityService) {
+    public CotizacionInmuebleController(PolicyService policyService, InsuranceService insuranceService, CityService cityService) {
         this.policyService = policyService;
-        this.customerService = customerService;
         this.insuranceService = insuranceService;
         this.cityService = cityService;
     }
@@ -49,23 +46,32 @@ public class CotizacionInmuebleController {
 
     @GetMapping("/guardar_paso_uno_inmu")
     public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model) {
-        List<String> localidades = cityService.buscarDependiendoLaProvincia(almacenar.getProvincia());
-        model.put("localidades", localidades);
+        if (almacenar.getProvincia() != null) {
 
-        return new ModelAndView("paso_dos_inmu", model);
+            List<String> localidades = cityService.buscarDependiendoLaProvincia(almacenar.getProvincia());
+            model.put("localidades", localidades);
+
+            return new ModelAndView("paso_dos_inmu", model);
+        }
+
+        return new ModelAndView("redirect:/paso_uno_inmu");
     }
 
 
     @GetMapping("/guardar_paso_dos_inmu")
     public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model) {
 
-        Double cotizacion = almacenar.getMetros() * 1.50 / 6;
+        if (almacenar.getProvincia() != null) {
 
-        almacenar.setCotizacion(cotizacion);
+            Double cotizacion = almacenar.getMetros() * 1.50 / 6;
 
-        model.put("almacenar", almacenar);
+            almacenar.setCotizacion(cotizacion);
 
-        return new ModelAndView("resultado_final_inmu", model);
+            model.put("almacenar", almacenar);
+
+            return new ModelAndView("resultado_final_inmu", model);
+        }
+        return new ModelAndView("redirect:/paso_uno_inmu");
     }
 
 
