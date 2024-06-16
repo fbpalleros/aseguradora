@@ -28,7 +28,6 @@ public class CotizacionVidaControllerTest {
     private CotizacionVidaController cotizacionController;
 
     private PolicyService policyService;
-    private CustomerService customerService;
     private InsuranceService insuranceService;
     private LiveService liveService;
 
@@ -42,10 +41,9 @@ public class CotizacionVidaControllerTest {
         this.request = mock(HttpServletRequest.class);
         this.flash = mock(RedirectAttributes.class);
         this.policyService = mock(PolicyService.class);
-        this.customerService = mock(CustomerService.class);
         this.insuranceService = mock(InsuranceService.class);
         this.liveService = mock(LiveService.class);
-        this.cotizacionController = new CotizacionVidaController(policyService, customerService, insuranceService, liveService);
+        this.cotizacionController = new CotizacionVidaController(policyService, insuranceService, liveService);
     }
 
     @Test
@@ -64,6 +62,15 @@ public class CotizacionVidaControllerTest {
     }
 
     @Test
+    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnGuardarPasoUno(){
+        AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
+
+        ModelAndView mav = this.cotizacionController.guardarPasoUno(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno_vida"));
+    }
+
+    @Test
     public void queSeGuardeElPasoUnoYRetorneLaVistaPasoDos() {
         AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
         almacenar.setOficio("Camionero");
@@ -79,7 +86,16 @@ public class CotizacionVidaControllerTest {
     }
 
     @Test
-    public void queSeGuardeElPasoDosYRetorneLavistaResultadoFinal(){
+    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnGuardarPasoDos(){
+        AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
+
+        ModelAndView mav = this.cotizacionController.guardaPasoDos(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno_vida"));
+    }
+
+    @Test
+    public void queSeGuardeElPasoDosYRetorneLavistaResultadoFinal() {
         AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
         almacenar.setOficio("Camionero");
         almacenar.setAnio(1970);
@@ -95,12 +111,13 @@ public class CotizacionVidaControllerTest {
     }
 
     @Test
-    public void queSeGenereLaPolizaSiElUsuarioEstaLogueado(){
+    public void queSeGenereLaPolizaSiElUsuarioEstaLogueado() {
         AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
         flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
 
         Customer customer = new Customer();
-        customer.setId(3L);;
+        customer.setId(3L);
+        ;
 
         Insurance insurance = new Insurance();
         insurance.setId(3L);
@@ -113,7 +130,6 @@ public class CotizacionVidaControllerTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
 
-        when(this.customerService.findOne(3L)).thenReturn(customer);
         when(this.insuranceService.findById(3L)).thenReturn(insurance);
 
         ModelAndView mav = this.cotizacionController.cotizarVida(almacenar, flash, request);
