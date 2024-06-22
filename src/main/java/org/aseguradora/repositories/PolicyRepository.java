@@ -13,4 +13,6 @@ public interface PolicyRepository {
     Policy findById(Long id);
 
     void save(Policy policy);
+
+    void update(Policy policy);
 }

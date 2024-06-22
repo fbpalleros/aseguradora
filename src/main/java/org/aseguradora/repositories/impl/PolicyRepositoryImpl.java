@@ -57,6 +57,12 @@ public class PolicyRepositoryImpl implements PolicyRepository {
     public void save(Policy policy) {
         this.sessionFactory.getCurrentSession().save(policy);
     }
+
+    @Override
+    @Transactional
+    public void update(Policy policy) {
+        this.sessionFactory.getCurrentSession().update(policy);
+    }
 }
 
 
