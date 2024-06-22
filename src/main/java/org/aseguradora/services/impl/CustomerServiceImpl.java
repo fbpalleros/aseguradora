@@ -4,16 +4,21 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.Role;
 import org.aseguradora.repositories.CustomerRepository;
+import org.aseguradora.repositories.PolicyRepository;
 import org.aseguradora.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     CustomerRepository customerRepository;
+
+    @Autowired
+    PolicyRepository policyRepository;
 
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository) {
@@ -49,5 +54,18 @@ public class CustomerServiceImpl implements CustomerService {
     public void actualizar(Customer customer) {
         customerRepository.actualizar(customer);
     }
+
+    @Override
+    public Policy pay(Policy policy) {
+        policy.setCoverage(0.0);
+        policyRepository.update(policy);
+        return policy;
+    }
+
+    @Override
+    public Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy) {
+        return customerRepository.findPolicyByIdCustomer(idCustomer, idPolicy);
+    }
+
 
 }

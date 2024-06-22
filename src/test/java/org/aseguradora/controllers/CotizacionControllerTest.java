@@ -1,6 +1,6 @@
 package org.aseguradora.controllers;
 
-import org.aseguradora.entity.Customer;
+ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.dto.AlmacenarDTO;
