@@ -71,7 +71,7 @@ public class CotizacionController {
     @GetMapping("/guardar_paso_tres")
     public ModelAndView guardarPasoTres(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
 
-        if (almacenar.getNombre() != null && almacenar.getModelo() != null && almacenar.getAnio() != null) {
+        if (almacenar.getNombre() != null && almacenar.getModelo() != null && almacenar.getAnio() != null && almacenar.getType() != null) {
             Double precio = carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio());
 
             Double cotizacion = precio * 1.20 / 6;
@@ -100,6 +100,7 @@ public class CotizacionController {
             Insurance insurance = insuranceService.findById(1L);
             policy.setInsurance(insurance);
             policy.setCoverage(almacenar.getCotizacion());
+            policy.setType(almacenar.getType());
             policyService.save(policy);
 
             flash.addFlashAttribute("success", "Ha generado una nueva póliza!");

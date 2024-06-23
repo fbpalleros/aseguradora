@@ -133,6 +133,7 @@ public class CotizacionControllerTest {
         almacenar.setNombre("Fiat");
         almacenar.setModelo("Palio");
         almacenar.setAnio(2001);
+        almacenar.setType(1L);
         Double precioMock = 2000.00;
 
         when(this.carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio())).thenReturn(precioMock);
@@ -145,6 +146,8 @@ public class CotizacionControllerTest {
     @Test
     public void queSePuedaCrearLaPolizaYSeEnvieElMensajeDeExito() {
         AlmacenarDTO almacenar = new AlmacenarDTO();
+        almacenar.setCotizacion(2000.00);
+        almacenar.setType(1L);
         RedirectAttributes flash = new RedirectAttributesModelMap();
         flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
         Customer customer = new Customer();
@@ -156,6 +159,8 @@ public class CotizacionControllerTest {
         Policy policy = new Policy();
         policy.setCustomer(customer);
         policy.setInsurance(insurance);
+        policy.setCoverage(almacenar.getCotizacion());
+        policy.setType(almacenar.getType());
         policyService.save(policy);
 
         when(request.getSession()).thenReturn(session);
@@ -167,7 +172,6 @@ public class CotizacionControllerTest {
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/polizas"));
         verify(policyService).save(policy);
-
     }
 
     @Test
