@@ -27,6 +27,8 @@ public class Policy {
     @Temporal(TemporalType.DATE)
     private Date expiration;
 
+    private Long type;
+
     @PrePersist
     public void prePersist(){
         startDate = new Date();
@@ -110,15 +112,25 @@ public class Policy {
         this.expiration = expiration;
     }
 
+    public void setType(Long type) {
+        this.type = type;
+    }
+
+    public Long getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return "Policy{" +
                 "id=" + id +
-                ", insuranceId=" + insurance +
+//                ", insuranceId=" + insurance +
                 ", customerId=" + customer.getId() +
                 ", coverage=" + coverage +
                 ", startDate=" + startDate +
                 ", expiration=" + expiration +
+                ", type=" + type +
                 '}';
     }
+
 }
