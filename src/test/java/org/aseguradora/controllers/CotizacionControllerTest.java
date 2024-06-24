@@ -133,7 +133,7 @@ public class CotizacionControllerTest {
         almacenar.setNombre("Fiat");
         almacenar.setModelo("Palio");
         almacenar.setAnio(2001);
-        almacenar.setType(1L);
+        almacenar.setType(1);
         Double precioMock = 2000.00;
 
         when(this.carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio())).thenReturn(precioMock);
@@ -147,7 +147,7 @@ public class CotizacionControllerTest {
     public void queSePuedaCrearLaPolizaYSeEnvieElMensajeDeExito() {
         AlmacenarDTO almacenar = new AlmacenarDTO();
         almacenar.setCotizacion(2000.00);
-        almacenar.setType(1L);
+        almacenar.setType(1);
         RedirectAttributes flash = new RedirectAttributesModelMap();
         flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
         Customer customer = new Customer();

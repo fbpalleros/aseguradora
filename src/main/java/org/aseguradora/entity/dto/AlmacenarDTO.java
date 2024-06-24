@@ -7,7 +7,7 @@ public class AlmacenarDTO {
     public Integer anio;
     public Double precio;
     public Double cotizacion;
-    public Long type;
+    public Integer type;
 
 
     public AlmacenarDTO() {
@@ -56,11 +56,11 @@ public class AlmacenarDTO {
 
     public void setCotizacion(Double cotizacion) {this.cotizacion = cotizacion;}
 
-    public Long getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Long type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
