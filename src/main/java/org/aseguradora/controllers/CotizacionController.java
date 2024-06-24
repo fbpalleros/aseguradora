@@ -74,10 +74,10 @@ public class CotizacionController {
         if (almacenar.getNombre() != null && almacenar.getModelo() != null && almacenar.getAnio() != null && almacenar.getType() != null) {
             Double precio = carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio());
 
-            Double cotizacion = precio * 1.20 / 6;
+            Double quote = carService.applyQuote(precio, almacenar.getType());
 
             almacenar.setPrecio(precio);
-            almacenar.setCotizacion(cotizacion);
+            almacenar.setCotizacion(quote);
 
             model.put("almacenar", almacenar);
 

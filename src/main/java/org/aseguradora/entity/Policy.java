@@ -27,7 +27,7 @@ public class Policy {
     @Temporal(TemporalType.DATE)
     private Date expiration;
 
-    private Long type;
+    private Integer type;
 
     @PrePersist
     public void prePersist(){
@@ -112,11 +112,11 @@ public class Policy {
         this.expiration = expiration;
     }
 
-    public void setType(Long type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public Long getType() {
+    public Integer getType() {
         return type;
     }
 
