@@ -38,6 +38,10 @@ public class PolicyServiceImpl implements PolicyService {
         policyRepository.save(policy);
     }
 
+    @Override
+    public void delete(Policy policy) {
+        policyRepository.delete(policy);
+    }
 
 
 }

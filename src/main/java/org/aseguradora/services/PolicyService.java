@@ -14,4 +14,5 @@ public interface PolicyService {
 
     void save (Policy policy);
 
+    void delete(Policy policy);
 }
