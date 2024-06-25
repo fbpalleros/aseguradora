@@ -15,4 +15,6 @@ public interface PolicyRepository {
     void save(Policy policy);
 
     void update(Policy policy);
+
+    void delete(Policy policy);
 }

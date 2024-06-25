@@ -7,6 +7,7 @@ import org.aseguradora.services.PolicyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,6 +25,7 @@ public class PolizaControllerTest {
     private CustomerService customerService;
     private PolizaController polizaController;
 
+    private RedirectAttributes flash;
     private HttpSession session;
     private HttpServletRequest request;
 
@@ -31,6 +33,7 @@ public class PolizaControllerTest {
     public void init() {
         this.session = mock(HttpSession.class);
         this.request = mock(HttpServletRequest.class);
+        this.flash = mock(RedirectAttributes.class);
         this.policyService = mock(PolicyService.class);
         this.customerService = mock(CustomerService.class);
         this.polizaController = new PolizaController(policyService, customerService);
@@ -52,16 +55,89 @@ public class PolizaControllerTest {
     }
 
     @Test
+    public void queRetorneAlLoginSiSeQuiereNavegarALasPolizasYElUsuarioNoSeEncuentra(){
+        Customer customer = null;
+        List<Policy> policiesMock = new ArrayList<>();
+
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
+        when(this.customerService.findPoliciesByCustomerId(1L)).thenReturn(policiesMock);
+
+        ModelAndView mav = this.polizaController.verPolizas(request);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
+    }
+
+    @Test
     public void queSeRetorneUnaPolizaEspecificaDeUnCliente(){
+        Customer customer = new Customer();
         Policy policyMock = new Policy();
         policyMock.setId(3L);
 
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
         when(this.policyService.findById(policyMock.getId())).thenReturn(policyMock);
 
-        ModelAndView mav = this.polizaController.vePolizaPorId(3L);
+        ModelAndView mav = this.polizaController.verPolizaPorId(3L, request);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("policy_by_id"));
         assertThat(mav.getModel().get("policy"), equalToObject(policyMock));
+    }
+
+    @Test
+    public void queRetorneAlLoginSiSeQuiereNavegarAUnaPolizaYElUsuarioNoSeEncuentra(){
+        Customer customer = null;
+        Policy policy = new Policy(1L, customer, 2000.00);
+
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
+        when(this.policyService.findById(1L)).thenReturn(policy);
+
+        ModelAndView mav = this.polizaController.verPolizaPorId(1L, request);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
+    }
+
+    @Test
+    public void queSePuedaEliminarLaPolizaSiExiste(){
+        Customer customer = new Customer();
+        customer.setId(1L);
+        customer.setName("Facu");
+        Policy p1 = new Policy(1L, customer, 2000.00);
+
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
+        when(this.policyService.findById(1L)).thenReturn(p1);
+
+        ModelAndView mav =  this.polizaController.anularPoliza(p1.getId(), request, flash);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/polizas"));
+    }
+
+    @Test
+    public void queRetorneAlLoginSiLaPolizaNoExiste(){
+        Customer customer = new Customer();
+        customer.setId(1L);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
+        when(this.policyService.findById(1L)).thenReturn(null);
+        ModelAndView mav = this.polizaController.anularPoliza(1L, request, flash);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
+    }
+
+    @Test
+    public void queRetorneAlLoginSiElUsuarioNoSeEncuentraYNoSeElimineLaPoliza(){
+        Customer customer = null;
+        Policy p1 = new Policy(1L, customer, 2000.00);
+
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
+        when(this.policyService.findById(1L)).thenReturn(p1);
+
+        ModelAndView mav =  this.polizaController.anularPoliza(p1.getId(), request, flash);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
     }
 
 }

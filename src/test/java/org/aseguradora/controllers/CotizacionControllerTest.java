@@ -100,14 +100,6 @@ public class CotizacionControllerTest {
 
     }
 
-    @Test
-    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnGuardarPasoTres() {
-        AlmacenarDTO almacenar = new AlmacenarDTO();
-
-        ModelAndView mav = this.cotizacionController.guardarPasoTres(almacenar, new ModelMap());
-
-        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno"));
-    }
 
     @Test
     public void queAlSeleccionarElModeloSeGuardeElValorYRetorneLaVistaPasoTres() {
@@ -127,6 +119,15 @@ public class CotizacionControllerTest {
     }
 
     @Test
+    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnGuardarPasoTres() {
+        AlmacenarDTO almacenar = new AlmacenarDTO();
+
+        ModelAndView mav = this.cotizacionController.guardarPasoTres(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno"));
+    }
+
+    @Test
     public void queAlCotizarSeMuestreElPrecioDelVehiculoYSuCuota() {
 
         AlmacenarDTO almacenar = new AlmacenarDTO();
@@ -135,8 +136,10 @@ public class CotizacionControllerTest {
         almacenar.setAnio(2001);
         almacenar.setType(1);
         Double precioMock = 2000.00;
+        Double quote = 2600.00;
 
         when(this.carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio())).thenReturn(precioMock);
+        when(this.carService.applyQuote(precioMock, almacenar.getType())).thenReturn(quote);
         ModelAndView mav = this.cotizacionController.guardarPasoTres(almacenar, new ModelMap());
 
         assertThat(mav.getViewName(), equalToIgnoringCase("resultado_final"));
