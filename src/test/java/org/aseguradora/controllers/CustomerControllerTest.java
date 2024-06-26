@@ -144,6 +144,24 @@ public class CustomerControllerTest {
         assertThat(mav.getModel().get("customer"), equalToObject(customer));
     }
 
+    @Test
+    public void queRetorneUnaListaDePolizasPagadas(){
+        Customer customer = new Customer();
+        customer.setId(1L);
+        Policy p1 = new Policy(1L, customer, 1000.00);
+        Policy p2 = new Policy(2L, customer, 1000.00);
+        List<Policy> policies = new ArrayList<>();
+        policies.add(p1);
+        policies.add(p2);
+
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
+        when(this.customerService.findPaidPoliciesByCustomerId(customer.getId())).thenReturn(policies);
+        ModelAndView mav = this.customerController.mostrarPagos(request);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("mis_pagos"));
+        assertThat(mav.getModel().get("policies"), equalToObject(policies));
+    }
 
 
 

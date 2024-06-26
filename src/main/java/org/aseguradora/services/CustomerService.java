@@ -23,4 +23,6 @@ public interface CustomerService {
     Policy pay(Policy policy);
 
     Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy);
+
+    List<Policy> findPaidPoliciesByCustomerId(Long id);
 }
