@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -65,6 +66,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy) {
         return customerRepository.findPolicyByIdCustomer(idCustomer, idPolicy);
+    }
+
+    @Override
+    public List<Policy> findPaidPoliciesByCustomerId(Long id) {
+        List<Policy> allPolicies = customerRepository.findPoliciesByIdCustomer(id);
+        Double paid = 0.0;
+        List<Policy> paidPolicies = allPolicies.stream().filter(policy -> policy.getCoverage().equals(paid)).collect(Collectors.toList());
+        return paidPolicies;
     }
 
 

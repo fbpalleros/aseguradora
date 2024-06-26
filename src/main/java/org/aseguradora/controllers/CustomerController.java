@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,6 +97,19 @@ public class CustomerController {
     @PostMapping(path = "/actualizar_datos")
     public ModelAndView actualizar(@ModelAttribute("customer") Customer customer) {
         customerService.actualizar(customer);
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/mis_pagos")
+    public ModelAndView mostrarPagos(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+        if (customer != null) {
+            List<Policy> paidPolicies = customerService.findPaidPoliciesByCustomerId(customer.getId());
+            model.put("policies", paidPolicies);
+            return new ModelAndView("mis_pagos", model);
+        }
         return new ModelAndView("redirect:/login");
     }
 
