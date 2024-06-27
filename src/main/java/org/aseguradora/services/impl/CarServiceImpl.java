@@ -42,7 +42,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Double applyQuote(Double price, Integer type) {
+    public Double applyQuote(Double price, Integer type) throws IllegalStateException {
         switch (type) {
             case 1:
                 return (double) Math.round(price * QUOTE_1);

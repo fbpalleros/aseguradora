@@ -143,7 +143,26 @@ public class CotizacionControllerTest {
         ModelAndView mav = this.cotizacionController.guardarPasoTres(almacenar, new ModelMap());
 
         assertThat(mav.getViewName(), equalToIgnoringCase("resultado_final"));
+        assertThat(mav.getModel().containsKey("almacenar"), is(true));
         assertThat(mav.getModel().get("almacenar"), equalToObject(almacenar));
+    }
+
+    @Test
+    public void queArrojeExcepcionSiElTipoNoExiste() throws IllegalStateException{
+        AlmacenarDTO almacenar = new AlmacenarDTO();
+        almacenar.setNombre("Fiat");
+        almacenar.setModelo("Palio");
+        almacenar.setAnio(2001);
+        almacenar.setType(4);
+        Double precioMock = 2000.00;
+        ModelMap model = new ModelMap();
+        doThrow(IllegalStateException.class).when(this.carService).applyQuote(precioMock, almacenar.getType());
+        when(this.carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio())).thenReturn(precioMock);
+        ModelAndView mav = this.cotizacionController.guardarPasoTres(almacenar, model);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno"));
+        assertThat(model.containsKey("error"), is(true));
+        assertThat(model.get("error"), equalTo("Cobertura inexistente"));
     }
 
     @Test

@@ -72,16 +72,20 @@ public class CotizacionController {
     public ModelAndView guardarPasoTres(@ModelAttribute("almacenar") AlmacenarDTO almacenar, ModelMap model) {
 
         if (almacenar.getNombre() != null && almacenar.getModelo() != null && almacenar.getAnio() != null && almacenar.getType() != null) {
-            Double precio = carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio());
-
-            Double quote = carService.applyQuote(precio, almacenar.getType());
-
-            almacenar.setPrecio(precio);
-            almacenar.setCotizacion(quote);
-
-            model.put("almacenar", almacenar);
-
-            return new ModelAndView("resultado_final", model);
+            try {
+                Double precio = carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio());
+                Double quote = carService.applyQuote(precio, almacenar.getType());
+                almacenar.setPrecio(precio);
+                almacenar.setCotizacion(quote);
+                model.put("almacenar", almacenar);
+                return new ModelAndView("resultado_final", model);
+            } catch (IllegalStateException e){
+                model.put("error", "Cobertura inexistente");
+                return new ModelAndView("redirect:/paso_uno");
+            } catch (Exception e) {
+                model.put("error", "Ha ocurrido un error, intente nuevamente");
+                return new ModelAndView("redirect:/paso_uno");
+            }
         }
 
         return new ModelAndView("redirect:/paso_uno");

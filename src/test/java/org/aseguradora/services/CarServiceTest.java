@@ -20,13 +20,13 @@ public class CarServiceTest {
     private CarRepository carRepository;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         this.carRepository = mock(CarRepository.class);
         this.carService = new CarServiceImpl(carRepository);
     }
 
     @Test
-    public void queSeObtenganSinRepetirLasMarcasDeLosAutomoviles(){
+    public void queSeObtenganSinRepetirLasMarcasDeLosAutomoviles() {
         List<String> namesMock = new ArrayList<>();
         namesMock.add("Ford");
         namesMock.add("Fiat");
@@ -43,7 +43,7 @@ public class CarServiceTest {
     }
 
     @Test
-    public void queSeObtenganLosModelosSegunSuMarca(){
+    public void queSeObtenganLosModelosSegunSuMarca() {
         List<String> modelsMock = new ArrayList<>();
         modelsMock.add("Palio");
         modelsMock.add("Mobi");
@@ -59,7 +59,7 @@ public class CarServiceTest {
     }
 
     @Test
-    public void queSeObtenganLosAniosDeLosAutomoviles(){
+    public void queSeObtenganLosAniosDeLosAutomoviles() {
         List<Integer> yearsMock = new ArrayList<>();
         when(this.carRepository.findDistinctByNameAndModel("Fiat", "Palio")).thenReturn(yearsMock);
 
@@ -70,7 +70,7 @@ public class CarServiceTest {
     }
 
     @Test
-    public void queSeObtengaElPrecioDelVehiculo(){
+    public void queSeObtengaElPrecioDelVehiculo() {
         Double priceMock = 120000.00;
 
         when(this.carRepository.findPrice("Fiat", "Palio", 2001)).thenReturn(priceMock);
@@ -80,5 +80,31 @@ public class CarServiceTest {
         assertThat(price, equalToObject(priceMock));
         verify(carRepository).findPrice("Fiat", "Palio", 2001);
     }
+
+    @Test
+    public void queSeApliqueLaCuotaCorrespondienteSegunElTipoDeCobertura1() {
+        Double priceMock = 120000.00;
+        Integer type = 1;
+
+        Double QUOTE_1 = 1.30 / 6;
+
+        Double quote = this.carService.applyQuote(priceMock, type);
+
+        assertThat(quote, equalTo(priceMock * QUOTE_1));
+    }
+
+    @Test
+    public void queSeApliqueLaCuotaCorrespondienteSegunElTipoDeCobertura2() {
+        Double priceMock = 120000.00;
+        Integer type = 2;
+
+        Double QUOTE_2 = 1.15 / 6;
+
+        Double quote = this.carService.applyQuote(priceMock, type);
+
+        assertThat(quote, equalTo(priceMock * QUOTE_2));
+    }
+
+
 
 }

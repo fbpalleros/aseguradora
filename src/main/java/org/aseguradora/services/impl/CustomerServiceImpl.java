@@ -18,12 +18,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     CustomerRepository customerRepository;
 
-    @Autowired
     PolicyRepository policyRepository;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, PolicyRepository policyRepository) {
         this.customerRepository = customerRepository;
+        this.policyRepository = policyRepository;
     }
 
     @Override
@@ -57,15 +57,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy) {
+        return customerRepository.findPolicyByIdCustomer(idCustomer, idPolicy);
+    }
+
+    @Override
     public Policy pay(Policy policy) {
         policy.setCoverage(0.0);
         policyRepository.update(policy);
         return policy;
-    }
-
-    @Override
-    public Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy) {
-        return customerRepository.findPolicyByIdCustomer(idCustomer, idPolicy);
     }
 
     @Override
