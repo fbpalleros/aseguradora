@@ -42,7 +42,7 @@ public class LoginController {
     @RequestMapping(path = "/validar-login", method = RequestMethod.POST)
     public ModelAndView validarLogin(@ModelAttribute("customer") Customer customer, HttpServletRequest request) {
         ModelMap model = new ModelMap();
-        Customer customerSearched = customerService.findNameCustumer(customer.getEmail(), customer.getPassword());
+        Customer customerSearched = customerService.findNameCustomer(customer.getEmail(), customer.getPassword());
         if (customerSearched != null) {
             HttpSession session = request.getSession();
             session.setAttribute("customer", customerSearched);

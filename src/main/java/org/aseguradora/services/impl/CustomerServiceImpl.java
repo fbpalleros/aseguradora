@@ -4,20 +4,26 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.Role;
 import org.aseguradora.repositories.CustomerRepository;
+import org.aseguradora.repositories.PolicyRepository;
 import org.aseguradora.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     CustomerRepository customerRepository;
 
+    PolicyRepository policyRepository;
+
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, PolicyRepository policyRepository) {
         this.customerRepository = customerRepository;
+        this.policyRepository = policyRepository;
     }
 
     @Override
@@ -41,38 +47,34 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean customerHasRole(Long customerId, Long roleId) {
-        Customer customer = customerRepository.findOne(customerId);
-        if (customer != null) {
-            for (Role role : customer.getRoles()) {
-                if (role.getId().equals(roleId)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Customer validateCredentials(String email, String password) {
-        Customer customer = customerRepository.findByEmail(email);
-        String pass = customer.getPassword();
-        if (pass.equals(password)) {
-            return customer;
-        }
-        return null;
-    }
-
-    @Override
-    public Customer findNameCustumer(String email, String password){
+    public Customer findNameCustomer(String email, String password){
         return customerRepository.findNameCustumer (email , password);
     }
 
+    @Override
+    public void actualizar(Customer customer) {
+        customerRepository.actualizar(customer);
+    }
 
     @Override
-    public void actualizar(Customer custumer) {
-
-        customerRepository.actualizar(custumer);
+    public Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy) {
+        return customerRepository.findPolicyByIdCustomer(idCustomer, idPolicy);
     }
+
+    @Override
+    public Policy pay(Policy policy) {
+        policy.setCoverage(0.0);
+        policyRepository.update(policy);
+        return policy;
+    }
+
+    @Override
+    public List<Policy> findPaidPoliciesByCustomerId(Long id) {
+        List<Policy> allPolicies = customerRepository.findPoliciesByIdCustomer(id);
+        Double paid = 0.0;
+        List<Policy> paidPolicies = allPolicies.stream().filter(policy -> policy.getCoverage().equals(paid)).collect(Collectors.toList());
+        return paidPolicies;
+    }
+
 
 }

@@ -12,13 +12,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CustomerController {
 
+    private CustomerService customerService;
+
     @Autowired
-    CustomerService customerService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @GetMapping("/customers")
     public ModelAndView verClientes() {
@@ -62,19 +68,48 @@ public class CustomerController {
         }
     }
 
+    @GetMapping("/pagar/{id}")
+    public ModelAndView pagar(@PathVariable("id") Long id, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+        if (customer != null) {
+            Policy policy = customerService.findPolicyByIdCustomer(customer.getId(), id);
+            customerService.pay(policy);
+            return new ModelAndView("redirect:/mi_saldo", model);
+        }
+        return new ModelAndView("redirect:/polizas");
+    }
+
     @GetMapping("/actualizar")
     public ModelAndView vistaActualizar(HttpServletRequest request) {
         HttpSession session = request.getSession();
         ModelMap model = new ModelMap();
         Customer customerSession = (Customer) session.getAttribute("customer");
-        Customer customer = customerService.findOne(customerSession.getId());
-        model.put("customer", customer);
-        return new ModelAndView("actualizar", model);
+        if (customerSession != null) {
+            Customer customer = customerService.findOne(customerSession.getId());
+            model.put("customer", customer);
+            return new ModelAndView("actualizar", model);
+        }
+        return new ModelAndView("redirect:/login");
     }
 
     @PostMapping(path = "/actualizar_datos")
     public ModelAndView actualizar(@ModelAttribute("customer") Customer customer) {
         customerService.actualizar(customer);
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/mis_pagos")
+    public ModelAndView mostrarPagos(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+        if (customer != null) {
+            List<Policy> paidPolicies = customerService.findPaidPoliciesByCustomerId(customer.getId());
+            model.put("policies", paidPolicies);
+            return new ModelAndView("mis_pagos", model);
+        }
         return new ModelAndView("redirect:/login");
     }
 

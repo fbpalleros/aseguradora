@@ -12,7 +12,6 @@ public interface CustomerRepository {
 
     Customer findOne(Long id);
 
-    Customer findByEmail(String email);
 
     List<Policy> findPoliciesByIdCustomer(Long id);
 
@@ -20,8 +19,7 @@ public interface CustomerRepository {
 
     Customer findNameCustumer(String email, String password);
 
-     void actualizar(Customer custumer);
+    void actualizar(Customer custumer);
 
-
-
+    Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy);
 }

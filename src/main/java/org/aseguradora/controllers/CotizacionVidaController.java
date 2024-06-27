@@ -27,16 +27,13 @@ public class CotizacionVidaController {
 
     private PolicyService policyService;
 
-    private CustomerService customerService;
-
     private InsuranceService insuranceService;
 
     private LiveService liveService;
 
     @Autowired
-    public CotizacionVidaController(PolicyService policyService, CustomerService customerService, InsuranceService insuranceService, LiveService liveService) {
+    public CotizacionVidaController(PolicyService policyService, InsuranceService insuranceService, LiveService liveService) {
         this.policyService = policyService;
-        this.customerService = customerService;
         this.insuranceService = insuranceService;
         this.liveService = liveService;
     }
@@ -52,27 +49,39 @@ public class CotizacionVidaController {
     }
 
     @GetMapping("/guardar_paso_uno_vida")
-    public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarVidaDTO almacenar, ModelMap model){
-        List<Integer> anios = liveService.buscarAnioPorOficio(almacenar.getOficio());
-        model.put("anios", anios);
+    public ModelAndView guardarPasoUno(@ModelAttribute("almacenar") AlmacenarVidaDTO almacenar, ModelMap model) {
 
-        return new ModelAndView("paso_dos_vida", model);
+        if (almacenar.getOficio() != null) {
+
+            List<Integer> anios = liveService.buscarAnioPorOficio(almacenar.getOficio());
+            model.put("anios", anios);
+
+            return new ModelAndView("paso_dos_vida", model);
+        }
+
+        return new ModelAndView("redirect:/paso_uno_vida");
     }
 
 
     @GetMapping("/guardar_paso_dos_vida")
-    public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarVidaDTO almacenar, ModelMap model){
+    public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarVidaDTO almacenar, ModelMap model) {
 
-        Double precio = liveService.buscarPrecioPorAnioYOficio(almacenar.getOficio(),almacenar.getAnio());
+        if (almacenar.getOficio() != null && almacenar.getAnio() != null) {
 
-        Double cotizacion =  precio * 0.50 / 6;
+            Double precio = liveService.buscarPrecioPorAnioYOficio(almacenar.getOficio(), almacenar.getAnio());
 
-        almacenar.setPrecio(precio);
-        almacenar.setCotizacion(cotizacion);
+            Double cotizacion = precio * 0.50 / 6;
 
-        model.put("almacenar" ,almacenar);
+            almacenar.setPrecio(precio);
+            almacenar.setCotizacion(cotizacion);
 
-        return new ModelAndView("resultado_final_vida", model);
+            model.put("almacenar", almacenar);
+
+            return new ModelAndView("resultado_final_vida", model);
+        }
+
+        return new ModelAndView("redirect:/paso_uno_vida");
+
     }
 
     @PostMapping("/crear_poliza_vida")

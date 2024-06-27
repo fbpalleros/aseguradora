@@ -1,6 +1,6 @@
 package org.aseguradora.controllers;
 
-import org.aseguradora.entity.Customer;
+ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.entity.dto.AlmacenarDTO;
@@ -30,7 +30,6 @@ public class CotizacionControllerTest {
     private CotizacionController cotizacionController;
 
     private PolicyService policyService;
-    private CustomerService customerService;
     private InsuranceService insuranceService;
     private CarService carService;
 
@@ -44,10 +43,9 @@ public class CotizacionControllerTest {
         this.request = mock(HttpServletRequest.class);
         this.flash = mock(RedirectAttributes.class);
         this.policyService = mock(PolicyService.class);
-        this.customerService = mock(CustomerService.class);
         this.insuranceService = mock(InsuranceService.class);
         this.carService = mock(CarService.class);
-        this.cotizacionController = new CotizacionController(carService, insuranceService, customerService, policyService);
+        this.cotizacionController = new CotizacionController(carService, insuranceService, policyService);
     }
 
     @Test
@@ -63,6 +61,24 @@ public class CotizacionControllerTest {
 
         assertThat(mav.getViewName(), equalToIgnoringCase("paso_uno"));
         assertThat(mav.getModel().get("names"), equalToObject(names));
+    }
+
+    @Test
+    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnGuardarPasoUno() { //si se intenta saltear un paso mediante rutas
+        AlmacenarDTO almacenar = new AlmacenarDTO();
+
+        ModelAndView mav = this.cotizacionController.guardarPasoUno(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno"));
+    }
+
+    @Test
+    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnGuardarPasoDos() { //si se intenta saltear un paso mediante rutas
+        AlmacenarDTO almacenar = new AlmacenarDTO();
+
+        ModelAndView mav = this.cotizacionController.guardarPasoDos(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno"));
     }
 
     @Test
@@ -84,9 +100,13 @@ public class CotizacionControllerTest {
 
     }
 
+
     @Test
     public void queAlSeleccionarElModeloSeGuardeElValorYRetorneLaVistaPasoTres() {
         AlmacenarDTO almacenar = new AlmacenarDTO();
+        almacenar.setNombre("Fiat");
+        almacenar.setModelo("Palio");
+        almacenar.setAnio(2001);
         List<Integer> years = new ArrayList<>();
 
         when(this.carService.findDistinctByNameAndModel(almacenar.getNombre(), almacenar.getModelo())).thenReturn(years);
@@ -99,21 +119,57 @@ public class CotizacionControllerTest {
     }
 
     @Test
+    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnGuardarPasoTres() {
+        AlmacenarDTO almacenar = new AlmacenarDTO();
+
+        ModelAndView mav = this.cotizacionController.guardarPasoTres(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno"));
+    }
+
+    @Test
     public void queAlCotizarSeMuestreElPrecioDelVehiculoYSuCuota() {
 
         AlmacenarDTO almacenar = new AlmacenarDTO();
+        almacenar.setNombre("Fiat");
+        almacenar.setModelo("Palio");
+        almacenar.setAnio(2001);
+        almacenar.setType(1);
         Double precioMock = 2000.00;
+        Double quote = 2600.00;
 
         when(this.carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio())).thenReturn(precioMock);
+        when(this.carService.applyQuote(precioMock, almacenar.getType())).thenReturn(quote);
         ModelAndView mav = this.cotizacionController.guardarPasoTres(almacenar, new ModelMap());
 
         assertThat(mav.getViewName(), equalToIgnoringCase("resultado_final"));
+        assertThat(mav.getModel().containsKey("almacenar"), is(true));
         assertThat(mav.getModel().get("almacenar"), equalToObject(almacenar));
+    }
+
+    @Test
+    public void queArrojeExcepcionSiElTipoNoExiste() throws IllegalStateException{
+        AlmacenarDTO almacenar = new AlmacenarDTO();
+        almacenar.setNombre("Fiat");
+        almacenar.setModelo("Palio");
+        almacenar.setAnio(2001);
+        almacenar.setType(4);
+        Double precioMock = 2000.00;
+        ModelMap model = new ModelMap();
+        doThrow(IllegalStateException.class).when(this.carService).applyQuote(precioMock, almacenar.getType());
+        when(this.carService.findPrice(almacenar.getNombre(), almacenar.getModelo(), almacenar.getAnio())).thenReturn(precioMock);
+        ModelAndView mav = this.cotizacionController.guardarPasoTres(almacenar, model);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno"));
+        assertThat(model.containsKey("error"), is(true));
+        assertThat(model.get("error"), equalTo("Cobertura inexistente"));
     }
 
     @Test
     public void queSePuedaCrearLaPolizaYSeEnvieElMensajeDeExito() {
         AlmacenarDTO almacenar = new AlmacenarDTO();
+        almacenar.setCotizacion(2000.00);
+        almacenar.setType(1);
         RedirectAttributes flash = new RedirectAttributesModelMap();
         flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
         Customer customer = new Customer();
@@ -125,19 +181,19 @@ public class CotizacionControllerTest {
         Policy policy = new Policy();
         policy.setCustomer(customer);
         policy.setInsurance(insurance);
+        policy.setCoverage(almacenar.getCotizacion());
+        policy.setType(almacenar.getType());
         policyService.save(policy);
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
 
-        when(this.customerService.findOne(3L)).thenReturn(customer);
         when(this.insuranceService.findById(1L)).thenReturn(insurance);
 
         ModelAndView mav = this.cotizacionController.cotizarAuto(almacenar, flash, request);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/polizas"));
         verify(policyService).save(policy);
-
     }
 
     @Test

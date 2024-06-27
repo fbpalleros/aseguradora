@@ -29,7 +29,6 @@ public class CotizacionInmuebleControllerTest {
 
     private CotizacionInmuebleController cotizacionInmuebleController;
     private PolicyService policyService;
-    private CustomerService customerService;
     private InsuranceService insuranceService;
     private CityService cityService;
 
@@ -44,10 +43,9 @@ public class CotizacionInmuebleControllerTest {
         this.request = mock(HttpServletRequest.class);
         this.flash = mock(RedirectAttributes.class);
         this.policyService = mock(PolicyService.class);
-        this.customerService = mock(CustomerService.class);
         this.insuranceService = mock(InsuranceService.class);
         this.cityService = mock(CityService.class);
-        this.cotizacionInmuebleController = new CotizacionInmuebleController(policyService, customerService, insuranceService, cityService);
+        this.cotizacionInmuebleController = new CotizacionInmuebleController(policyService, insuranceService, cityService);
     }
 
     @Test
@@ -63,6 +61,15 @@ public class CotizacionInmuebleControllerTest {
         assertThat(mav.getModel().get("provincias"), equalToObject(provinciasMock));
         assertThat(mav.getModel().get("almacenar").getClass(), equalToObject(almacenar.getClass()));
         assertThat(mav.getModel().size(), equalTo(2));
+    }
+
+    @Test
+    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnPasoUno() {
+        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
+
+        ModelAndView mav = this.cotizacionInmuebleController.guardarPasoUno(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno_inmu"));
     }
 
     @Test
@@ -84,8 +91,18 @@ public class CotizacionInmuebleControllerTest {
     }
 
     @Test
+    public void queRegreseALaVistaPasoUnoSiElObjetoAlmacenarNoContieneDatosEnPasoDos() {
+        AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
+
+        ModelAndView mav = this.cotizacionInmuebleController.guardaPasoDos(almacenar, new ModelMap());
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/paso_uno_inmu"));
+    }
+
+    @Test
     public void queSeGuerdeElPasoDosYRetorneElResultadoFinal() {
         AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
+        almacenar.setProvincia("Buenos Aires");
         almacenar.setMetros(20.00);
 
         ModelAndView mav = this.cotizacionInmuebleController.guardaPasoDos(almacenar, new ModelMap());
@@ -95,12 +112,13 @@ public class CotizacionInmuebleControllerTest {
     }
 
     @Test
-    public void queSeGenereLaPolizaSiElUsuarioEstaLogueado(){
+    public void queSeGenereLaPolizaSiElUsuarioEstaLogueado() {
         AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
         flash.addFlashAttribute("mensajeExito", "Ha generado una nueva póliza!");
 
         Customer customer = new Customer();
-        customer.setId(3L);;
+        customer.setId(3L);
+        ;
 
         Insurance insurance = new Insurance();
         insurance.setId(2L);
@@ -113,7 +131,6 @@ public class CotizacionInmuebleControllerTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
 
-        when(this.customerService.findOne(3L)).thenReturn(customer);
         when(this.insuranceService.findById(3L)).thenReturn(insurance);
 
         ModelAndView mav = this.cotizacionInmuebleController.cotizarCasa(almacenar, flash, request);

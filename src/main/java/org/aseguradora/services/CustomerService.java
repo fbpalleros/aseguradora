@@ -4,6 +4,7 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomerService {
 
@@ -15,11 +16,13 @@ public interface CustomerService {
 
     List<Policy> findPoliciesByCustomerId(Long id);
 
-    boolean customerHasRole(Long customerId, Long roleId);
+    Customer findNameCustomer(String email, String password);
 
-    Customer validateCredentials(String email, String password);
+    void actualizar(Customer customer);
 
-    Customer findNameCustumer(String email, String password);
+    Policy pay(Policy policy);
 
-    void actualizar(Customer custumer);
+    Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy);
+
+    List<Policy> findPaidPoliciesByCustomerId(Long id);
 }

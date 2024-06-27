@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
@@ -38,15 +40,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         String hql = "SELECT c FROM Customer c WHERE c.id=?1";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter(1, id);
-        return (Customer) query.getSingleResult();
-    }
-
-    @Override
-    @Transactional
-    public Customer findByEmail(String email) {
-        String hql = "SELECT c FROM Customer c WHERE c.email=?1";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter(1, email);
         return (Customer) query.getSingleResult();
     }
 
@@ -87,6 +80,15 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         query.setParameter("email", custumer.getEmail());
         query.setParameter("id", custumer.getId());
         query.executeUpdate(); // Sirve tambien para delete
+    }
+
+    @Override
+    @Transactional
+    public Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy) {
+        List<Policy> policies = findPoliciesByIdCustomer(idCustomer);
+        Stream<Policy> policyStream = policies.stream().filter(policy -> policy.getId().equals(idPolicy));
+        Optional<Policy> policy = policyStream.findFirst();
+        return policy.get();
     }
 
 }

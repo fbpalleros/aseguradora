@@ -16,13 +16,15 @@ public class InsuranceRepositoryImpl implements InsuranceRepository {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public InsuranceRepositoryImpl(SessionFactory sessionFactory){
+    public InsuranceRepositoryImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
     public List<Insurance> findAll() {
-       return List.of();
+        String hql = "SELECT i FROM Insurance i";
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        return query.getResultList();
     }
 
     @Override

@@ -13,4 +13,6 @@ public interface PolicyService {
     List<Policy> findByCustomerId(Long id);
 
     void save (Policy policy);
+
+    void delete(Policy policy);
 }
