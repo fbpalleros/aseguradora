@@ -4,11 +4,14 @@
 <body>
 <header th:replace="layout/layout :: header"></header>
 
-<div th:if="${denuncias.size() == 0}" class="alert alert-success" role="alert">
+
+<main class="container mt-3">
+    <h1 class="text-center mb-2">Mis denuncias</h1>
+    
+    <div th:if="${denuncias.size() == 0}" class="alert alert-secondary text-center justify-content-center" role="alert">
    	<span>No hay denuncias registradas</span>
-</div>
-<main class="container mt-5">
-    <h1 class="text-center mb-4">Mis denuncias</h1>
+	</div>
+    
 	<div class="d-flex justify-content-center gap-3 flex-nowrap">
 	    <div th:each="denuncia: ${denuncias}">
 	        <div class="card" style="width: 18rem;">
@@ -21,8 +24,8 @@
 	        </div>
 	    </div>
     </div>
-    <div class="d-grid gap-2 col-4 mx-auto mt-5">
-	    <a th:href="@{/denuncia}" class="btn btn-primary">Crear Denuncia</a>
+    <div class="d-grid gap-2 col-4 mx-auto my-3">
+	    <a th:href="@{/denuncia}" class="btn btn-secondary">Crear Denuncia</a>
 	</div>
 </main>
  

@@ -107,7 +107,7 @@ public class CotizacionController {
             policy.setType(almacenar.getType());
             policyService.save(policy);
 
-            flash.addFlashAttribute("success", "Ha generado una nueva póliza!");
+            flash.addFlashAttribute("secondary", "Ha generado una nueva póliza!");
             return new ModelAndView("redirect:/polizas");
         }
 

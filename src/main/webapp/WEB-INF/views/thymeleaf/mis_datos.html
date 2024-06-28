@@ -3,39 +3,42 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 <header th:replace="layout/layout :: header"></header>
-<div class="container d-flex justify-content-center">
-    <div class="col-sm-6 d-flex flex-column gap-3">
-        <div class="card border-primary">
+	<div class="my-2">
+      <h2 class="text-center">Mis datos</h2>
+    </div>
+	<div class="container d-flex justify-content-center">
+    	<div class="col-sm-6 d-flex flex-column gap-2 mb-3">
+        	<div class="card border-secondary">
+            	<div class="card-body">
+                	<h5 class="card-title text-center">Numero de cliente</h5>
+                	<p class="card-text text-center" th:text="${customer.id}"></p>
+            	</div>
+        </div>
+        <div class="card border-secondary">
             <div class="card-body">
-                <h5 class="card-title">Id</h5>
-                <p class="card-text" th:text="${customer.id}"></p>
+                <h5 class="card-title text-center">Nombre:</h5>
+                <p  class="card-text text-center" th:text="${customer.name}"></p>
             </div>
         </div>
-        <div class="card border-primary">
+        <div class="card border-secondary">
             <div class="card-body">
-                <h5 class="card-title">Nombre</h5>
-                <p class="card-text" th:text="${customer.name}"></p>
+                <h5 class="card-title text-center">Email</h5>
+                <p class="card-text text-center" th:text="${customer.email}"></p>
             </div>
         </div>
-        <div class="card border-primary">
+        <div class="card border-secondary">
             <div class="card-body">
-                <h5 class="card-title">Email</h5>
-                <p class="card-text" th:text="${customer.email}"></p>
-            </div>
-        </div>
-        <div class="card border-primary">
-            <div class="card-body">
-                <h5 class="card-title">Mi deuda</h5>
+                <h5 class="card-title text-center">Mi deuda</h5>
                 <p class="card-text"></p>
-                <a th:href="@{/mi_saldo}" class="btn btn-primary">Ver</a>
+                <a th:href="@{/mi_saldo}" class="btn btn-secondary  align-items: center justify-content: center">Ver</a>
             </div>
         </div>
 
-        <div class="card border-primary">
+        <div class="card border-secondary">
             <div class="card-body">
-                <h5 class="card-title">Actualizar Datos</h5>
+                <h5 class="card-title text-center">Actualizar Datos</h5>
                 <p class="card-text"></p>
-                <a th:href="@{/actualizar}" class="btn btn-primary">Ver</a>
+                <a th:href="@{/actualizar}" class="btn btn-secondary align-items: center justify-content: center">Ver</a>
             </div>
         </div>
     </div>

@@ -6,10 +6,10 @@
 <div class="container">
     <div class="d-flex flex-column">
 
-        <h2>Cotización</h2>
+        <h2 class=" text-center my-2">Cotización</h2>
 
         <form th:action="@{/guardar_paso_dos}" th:object="${almacenar}" method="get">
-            <div class="d-flex flex-column gap-3">
+            <div class="d-flex flex-column gap-1">
                 <div>
                     <div >
                         <label class="form-label" for="nombre"> Usted selecciono la Marca : </label>
@@ -29,8 +29,10 @@
                     </select>
                     <br>
                 </div>
-
-                <button type="submit" class="btn btn-primary">Siguiente</button>
+				<div class="col-md-12">
+	                <button type="submit" class="btn btn-secondary col-auto">Siguiente</button>
+	               	<button type="submit" class="btn btn-secondary col-auto">Volver</button>
+	            </div>
             </div>
         </form>
         <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>

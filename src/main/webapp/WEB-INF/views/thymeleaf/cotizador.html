@@ -1,49 +1,46 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head th:replace="layout/layout :: head"></head>
 <body>
 <header th:replace="layout/layout :: header"></header>
 
 <div class="container">
     <div class="d-flex flex-column">
-
         <div class="mb-2">
             <h2 class="text-center">Cotización</h2>
         </div>
 
-        <div class="row">
+        <div class="row py-4">
             <div class="col-md-4">
                 <div class="card mb-3">
-                    <img src="../../../../resources/images/pexels-pixabay-162553.jpg" class="card-img-top"
-                         alt="Seguro de auto">
-                    <div class="card-body">
-                        <h5 class="card-title">Seguro de auto</h5>
+                    <img th:src="@{images/auto.png}" class="card-img-top mt-1" alt="Seguro de auto">
+                    <div class="card-body row">
+                        <h5 class="card-title text-center">Seguro de auto</h5>
                         <p class="card-text">Protege tu vehículo contra accidentes, robos y otros daños.</p>
-                        <a th:href="@{/paso_uno}" class="btn btn-primary">Cotizar</a>
+                        <a th:href="@{/paso_uno}" class="btn btn-secondary align-items: center" >Cotizar</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card mb-3">
-                    <img src="src/main/webapp/WEB-INF/images/pexels-mikhail-nilov-6530539.jpg" class="card-img-top"
-                         alt="Seguro de hogar">
-                    <div class="card-body">
-                        <h5 class="card-title">Seguro de hogar</h5>
+                    <img th:src="@{images/casa.png}" class="card-img-top mt-1" alt="Seguro de hogar">
+                    <div class="card-body row">
+                        <h5 class="card-title text-center">Seguro de hogar</h5>
                         <p class="card-text">Protege tu casa y tus pertenencias contra incendios, robos y otros
                             daños.</p>
-                        <a th:href="@{/paso_uno_inmu}" class="btn btn-primary">Cotizar</a>
+                        <a th:href="@{/paso_uno_inmu}" class="btn btn-secondary align-items: center">Cotizar</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="card mb-3">
-                    <img src="src/main/webapp/WEB-INF/images/pexels-josh-willink-11499-69096.jpg" class="card-img-top"
-                         alt="Seguro de vida">
-                    <div class="card-body">
-                        <h5 class="card-title">Seguro de vida</h5>
+                    <img th:src="@{images/persona1.png}" class="card-img-top mt-1" alt="Seguro de auto">
+                    <div class="card-body row">
+                        <h5 class="card-title text-center">Seguro de vida</h5>
                         <p class="card-text">Protege tu familia en caso de fallecimiento o invalidez.</p>
-                        <a th:href="@{/paso_uno_vida}" class="btn btn-primary">Cotizar</a>
+                        <a th:href="@{/paso_uno_vida}" class="btn btn-secondary align-items: center">Cotizar</a>
                     </div>
                 </div>
             </div>

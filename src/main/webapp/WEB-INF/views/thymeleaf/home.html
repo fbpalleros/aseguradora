@@ -6,54 +6,90 @@
 
 
 
-<main class="container mt-5">
+<main class="container mt-3">
     <h1 class="text-center mb-4">Protege lo que más te importa</h1>
 
     <div class="row">
         <div class="col-md-4">
             <div class="card mb-3">
-                <img src="../../../../resources/images/pexels-pixabay-162553.jpg" class="card-img-top" alt="Seguro de auto">
-                <div class="card-body">
-                    <h5 class="card-title">Seguro de auto</h5>
-                    <p class="card-text">Protege tu vehículo contra accidentes, robos y otros daños.</p>
-                    <a th:href="@{/paso_uno}" class="btn btn-primary">Cotizar</a>
+				<img th:src="@{images/auto.png}" class="card-img-top" alt="Seguro de auto">                
+				<div class="card-body row">
+                <h5 class="card-title text-center">Seguro de auto</h5>
+                <p class="card-text">Protege tu vehículo contra accidentes, robos y otros daños.</p>
+                <a th:href="@{/paso_uno}" class="btn btn-secondary align-items: center">Cotizar</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card mb-3">
-                <img src="src/main/webapp/WEB-INF/images/pexels-mikhail-nilov-6530539.jpg" class="card-img-top" alt="Seguro de hogar">
-                <div class="card-body">
-                    <h5 class="card-title">Seguro de hogar</h5>
+                <img th:src="@{images/casa.png}" class="card-img-top" alt="Seguro de hogar">
+                <div class="card-body row">
+                    <h5 class="card-title text-center">Seguro de hogar</h5>
                     <p class="card-text">Protege tu casa y tus pertenencias contra incendios, robos y otros daños.</p>
-                    <a th:href="@{/paso_uno_inmu}" class="btn btn-primary">Cotizar</a>
+                    <a th:href="@{/paso_uno_inmu}" class="btn btn-secondary align-items: center">Cotizar</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card mb-3">
-                <img src="src/main/webapp/WEB-INF/images/pexels-josh-willink-11499-69096.jpg" class="card-img-top" alt="Seguro de vida">
-                <div class="card-body">
-                    <h5 class="card-title">Seguro de vida</h5>
+                <img th:src="@{images/persona1.png}" class="card-img-top mt-1" alt="Seguro de vida">
+                <div class="card-body row">
+                    <h5 class="card-title text-center">Seguro de vida</h5>
                     <p class="card-text">Protege tu familia en caso de fallecimiento o invalidez.</p>
-                    <a th:href="@{/paso_uno_vida}" class="btn btn-primary">Cotizar</a>
+                    <a th:href="@{/paso_uno_vida}" class="btn btn-secondary align-items: center">Cotizar</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row mt-5">
+    <div class="row mt-3">
         <div class="col-md-6">
-            <h2>¿Por qué elegir Seguros XYZ?</h2>
-            <ul>
-                <li>Amplia cobertura de seguros</li>
-                <li>Precios competitivos</li>
-                <li>Atención al cliente de primer nivel</li>
-                <li>Sin pagos iniciales</li>
-                <li>Facilidad para realizar pagos</li>
+            <h2>¿Por qué elegir VIVIR Seguros?</h2>
+            <ul >
+                <li class="my-2">Amplia cobertura de seguros.</li>
+                <li class="mb-2">Precios competitivos.</li>
+                <li class="mb-2">Atención al cliente de primer nivel.</li>
+                <li class="mb-2">Sin pagos iniciales.</li>
+                <li class="mb-2">Facilidad para realizar pagos.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <h2>¿Que hacer ante un siniestro?</h2>
+            <ul >
+                <a class="dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Robo / Hurto / Incendio / Destrucción total
+                                </a>
+	            	<a class=" dropdown-item"><p>Realizá la denuncia policial en la comisaría correspondiente al lugar del hecho.
+					Deben figurar todos los datos correctos de la unidad, coincidiendo con los de la cédula o título: Nº DE DOMINIO/ MOTOR/CHASIS o CUADRO.
+					Tenés un plazo de 3 días para hacernos la denuncia de tu siniestro A TRAVÉS DE:
+					nuestra APP
+					nuestra Web
+					llamando al 0810-345-0492
+					Deberás ADJUNTAR la siguiente documentación
+					Título de propiedad.
+					DNI de Titular y cónyuge (si hubiere).
+					Denuncia policial.</p></a>
+                                <br>
+                <a class="dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                   ¿Chocaste?
+                                </a><br>
+                <a class="dropdown-toggle text-bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Daños parciales
+                                </a><br>
+                <a class="dropdown-toggle text-bold" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Daños de terceros
+                                </a><br>
+                       	
             </ul>
         </div>
     </div>
 </main>
+	<footer th:replace="layout/layout :: footer">
+
+    </footer>
+    
+</body>
