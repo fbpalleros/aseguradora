@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+
+</head>
 <body>
 <header th:replace="layout/layout :: header"></header>
-
-<div class="d-flex justify-content-center gap-3 flex-nowrap">
-    <div th:each="poliza: ${policies}">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title" th:text="'Vencimiento: ' +  ${poliza.expiration}"></h5>
-                <p class="alert alert-danger card-text" th:text="'$ ' + ${poliza.coverage}"></p>
-                <a class="card-text text-decoration-none" th:href="@{/pagar/} + ${poliza.id}"><button class="btn btn-xs btn-secondary">Pagar</button></a>
+<div class="mt-2">
+      <h2 class="text-center">Mis saldo</h2>
+    </div>
+<div class="container mt-2">
+        <div class="row">
+            <div class="col-md-4 mb-3" th:each="poliza : ${policies}">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="'Vencimiento: ' + ${poliza.expiration}"></h5>
+                        <p class="alert alert-danger card-text" th:text="'$ ' + ${poliza.coverage}"></p>
+                        <a th:href="@{/pagar/} + ${poliza.id}" class="card-text text-decoration-none">
+                            <button class="btn btn-xs btn-secondary">Pagar</button>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div th:text="'Saldo total: ' + ${saldo_total}">
-
-</div>
+	<div class="container mt-2 mb-2">
+        <div class="text-center">
+            <div class="saldo-recuadro">
+                <span class="saldo-negrita" th:text="'Saldo total: ' + ${saldo_total}"></span>
+            </div>
+        </div>
+    </div>
 
 <footer th:replace="layout/layout :: footer"></footer>
 </body>
