@@ -6,7 +6,7 @@
 <div class="container">
     <div class="d-flex flex-column">
 
-        <h1 class=" text-center my-2">Cotización</h1>
+        <h2 class=" text-center my-2">Cotización</h2>
 
         <form th:action="@{/guardar_paso_dos}" th:object="${almacenar}" method="get">
             <div class="d-flex flex-column gap-1">
@@ -31,7 +31,7 @@
                 </div>
 				<div class="col-md-12">
 	                <button type="submit" class="btn btn-secondary col-auto">Siguiente</button>
-	               	<button type="submit" class="btn btn-secondary col-auto">Volver</button>
+	               	<button type="button" class="btn btn-secondary col-auto" onclick="history.back()">Volver</button>
 	            </div>
             </div>
         </form>

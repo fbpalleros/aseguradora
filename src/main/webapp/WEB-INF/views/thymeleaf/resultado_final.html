@@ -6,7 +6,7 @@
 <div class="container">
     <div class="d-flex flex-column">
 
-        <h1 class="my-3 text-center">Cotización vehiculo</h1>
+        <h2 class="my-3 text-center">Cotización vehiculo</h2>
 
         <form th:action="@{/crear_poliza}" th:object="${almacenar}" method="post">
             <div class="d-flex flex-column gap-2">
@@ -47,7 +47,7 @@
                 </div>
                 <div class=col-md-12>
 	                <button type="submit" class="btn btn-secondary col-auto">Crear póliza</button>
-	                <button type="submit" class="btn btn-secondary col-auto">Volver</button>
+	                <button type="button" class="btn btn-secondary col-auto" onclick="history.back()">Volver</button>
             	</div>
             </div>
         </form>
