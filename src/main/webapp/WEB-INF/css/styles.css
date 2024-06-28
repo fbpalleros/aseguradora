@@ -35,3 +35,7 @@ height:100px;
     white-space: normal; /* Permite que el texto se ajuste al ancho de la pantalla */
     word-wrap: break-word; /* Permite que el texto se ajuste al ancho de la pantalla */
 }
+
+.bold-text {
+            font-weight: bold;
+        }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="layout/layout :: head"></head>
 <body>
@@ -27,7 +27,7 @@
                         <h5 class="card-title text-center" th:text="'Vencimiento: ' + ${poliza.expiration}"></h5>
                         <p class="card-text mt-2" th:text="${poliza.insurance}"></p>
                         <p class="card-text" th:text="${poliza.customer}"></p>
-                        <a th:href="@{/polizas/} + ${poliza.id}" class="btn btn-secondary">Ver</a>
+                         <a th:href="@{/polizas/} + ${poliza.id}" class="btn btn-secondary w-100 text-center">Ver</a>
                     </div>
                 </div>
             </div>
