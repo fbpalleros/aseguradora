@@ -22,6 +22,9 @@
 	        <li class="nav-item">
 	          <a class="nav-link active" aria-current="page" href="/spring/">Home</a>
 	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="/spring/institucional">Institucional</a>
+	        </li>
 	          <li class="nav-item">
 	          <a class="nav-link active" aria-current="page" href="/spring/cotizacion">Cotización</a>
 	        </li>
@@ -40,6 +43,9 @@
 			  <li class="nav-item" th:if="${session.customer != null}">
 				  <a class="nav-link active" aria-current="page" href="/spring/mis_pagos">Mis pagos</a>
 			  </li>
+			  <li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="/spring/contact">Contacto</a>
+	        </li>
 	      </ul>
 	    </div>
 	    	<a th:href="@{/login}" class="text-decoration-none" th:if="${session.customer == null}"><button class="btn btn-outline-success btn-xs" type="button">Iniciar sesión</button></a>

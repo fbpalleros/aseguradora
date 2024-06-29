@@ -98,4 +98,39 @@ html, body {
 .siniestro-titulo{
 	font-style: italic;
 	color: #042b53;
+	text-align: center;
 }
+
+.contact-text{
+	font-style: italic;
+	color: #042b53;
+}
+
+.border-contact{
+	 border: 1px solid #042b53;
+    border-radius: 0.25rem;
+}
+
+.full-width-container {
+            background-color: #bccdf5; 
+            padding: 20px 0;
+            width:100%;
+        }
+.custom-list {
+            list-style-type: disc; 
+            padding-left: 20px; 
+            text-align: left;
+        }
+        
+.container-custom {
+            max-width: 1200px; /* Ajusta el ancho máximo del contenido */
+
+        }
+        
+.color-contact{
+	background-color: #bccdf5
+}
+
+.custom-list li {
+            margin-bottom: 10px; /* Espaciado entre elementos de la lista */
+        }        
