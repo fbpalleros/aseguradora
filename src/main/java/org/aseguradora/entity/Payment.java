@@ -1,7 +1,7 @@
 package org.aseguradora.entity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Payment {
@@ -9,12 +9,8 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String paymentId;
-    private LocalDate date;
-    private double amount;
-    private String method;
-    private String status;
+    private Date date;
+    private Double amount;
 
     @ManyToOne
     @JoinColumn(name = "policy_id")
@@ -24,6 +20,11 @@ public class Payment {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @PrePersist
+    public void prePersist(){
+        date = new Date();
+    }
+
     public Long getId() {
         return id;
     }
@@ -32,44 +33,20 @@ public class Payment {
         this.id = id;
     }
 
-    public String getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Policy getPolicy() {
@@ -86,5 +63,15 @@ public class Payment {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", amount=" + amount +
+                ", policy=" + policy.getId() +
+                ", date=" + date +
+                '}';
     }
 }
