@@ -114,22 +114,4 @@ public class CustomerServiceTest {
         verify(this.policyRepository).update(policy);
     }
 
-    @Test
-    public void queRetorneUnaListaConLasPolizasPagadas(){
-        Customer customer = new Customer();
-        customer.setId(1L);
-        List<Policy> policies = new ArrayList<>();
-        Policy p1 = new Policy(1L, customer, 2000.00);
-        Policy p2 = new Policy(2L, customer, 2000.00);
-        Policy p3 = new Policy(3L, customer, 0.00);
-        policies.add(p1);
-        policies.add(p2);
-        policies.add(p3);
-
-        when(this.customerRepository.findPoliciesByIdCustomer(customer.getId())).thenReturn(policies);
-        List<Policy> paidPolicies = this.customerService.findPaidPoliciesByCustomerId(customer.getId());
-
-        assertThat(paidPolicies.size(), equalTo(1));
-
-    }
 }

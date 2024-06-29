@@ -4,7 +4,6 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CustomerService {
 
@@ -24,5 +23,4 @@ public interface CustomerService {
 
     Policy findPolicyByIdCustomer(Long idCustomer, Long idPolicy);
 
-    List<Policy> findPaidPoliciesByCustomerId(Long id);
 }

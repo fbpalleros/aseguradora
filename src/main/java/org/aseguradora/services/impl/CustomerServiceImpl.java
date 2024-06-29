@@ -2,7 +2,6 @@ package org.aseguradora.services.impl;
 
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
-import org.aseguradora.entity.Role;
 import org.aseguradora.repositories.CustomerRepository;
 import org.aseguradora.repositories.PolicyRepository;
 import org.aseguradora.services.CustomerService;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -68,13 +65,6 @@ public class CustomerServiceImpl implements CustomerService {
         return policy;
     }
 
-    @Override
-    public List<Policy> findPaidPoliciesByCustomerId(Long id) {
-        List<Policy> allPolicies = customerRepository.findPoliciesByIdCustomer(id);
-        Double paid = 0.0;
-        List<Policy> paidPolicies = allPolicies.stream().filter(policy -> policy.getCoverage().equals(paid)).collect(Collectors.toList());
-        return paidPolicies;
-    }
 
 
 }
