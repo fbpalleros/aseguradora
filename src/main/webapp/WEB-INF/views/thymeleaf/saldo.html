@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="layout/layout :: head"></head>
+<head th:replace="layout/layout :: head">
+
+</head>
 <body>
 <header th:replace="layout/layout :: header"></header>
 
-<div class="d-flex justify-content-center gap-3 flex-nowrap">
-    <div th:each="poliza: ${policies}">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title" th:text="'Vencimiento: ' +  ${poliza.expiration}"></h5>
-                <p class="alert alert-danger card-text" th:text="'$ ' + ${poliza.coverage}"></p>
-                <a class="card-text text-decoration-none" th:href="@{/pagar/} + ${poliza.id}"><button class="btn btn-xs btn-success">Pagar</button></a>
+	<div class="">
+      <h2 class="text-center">Mi saldo</h2>
+    </div>
+	<div class="container mt-2">
+        <div class="row">
+            <div class="col-md-4 mb-3" th:each="poliza : ${policies}">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-center" th:text="'Vencimiento: ' + ${poliza.expiration}"></h5>
+                        <p class="alert card-text" th:classappend="${poliza.coverage} == 0 ? alert-success : alert-danger" th:text="'$ ' + ${poliza.coverage}"></p>
+                        <a th:href="@{/pagar/} + ${poliza.id}" class="card-text text-decoration-none">
+                            <button class="btn btn-xs btn-secondary w-100">Pagar</button>
+                            
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div th:text="'Saldo total: ' + ${saldo_total}">
-
-</div>
+	<div class="container mt-2 mb-2">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="saldo-recuadro">
+                <span th:text="'Saldo total: ' + ${saldo_total}"></span>
+            </div>
+            <div class="button-wrapper">
+                <button type="button" class="btn btn-secondary" onclick="history.back()">Volver</button>
+            </div>
+        </div>
+    </div>
 
 <footer th:replace="layout/layout :: footer"></footer>
 </body>

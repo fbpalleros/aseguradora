@@ -24,12 +24,12 @@ public class SpringWebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/resources/core/css/");
+    	// Register resource handler for images
+    	registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/images/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/resources/core/js/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
-        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/static/images/");
     }
-
 
     // https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html
     // Spring + Thymeleaf
@@ -45,7 +45,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
         templateResolver.setTemplateMode(TemplateMode.HTML);
         // Template cache is true by default. Set to false if you want
         // templates to be automatically updated when modified.
-        templateResolver.setCacheable(true);
+        templateResolver.setCacheable(false);
         return templateResolver;
     }
 
@@ -72,7 +72,5 @@ public class SpringWebConfig implements WebMvcConfigurer {
         viewResolver.setTemplateEngine(templateEngine());
         return viewResolver;
     }
-
-
 
 }

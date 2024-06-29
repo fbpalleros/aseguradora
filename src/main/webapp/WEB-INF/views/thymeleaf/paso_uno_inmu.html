@@ -6,7 +6,7 @@
 <div class="container">
     <div class="d-flex flex-column">
 
-        <h2>Cotización</h2>
+        <h2 class="text-center">Cotización inmueble</h2>
 
         <form th:action="@{/guardar_paso_uno_inmu}" th:object="${almacenar}" method="get">
             <div class="d-flex flex-column gap-3">
@@ -21,7 +21,8 @@
                     <br>
                 </div>
 
-                <button type="submit"  class="btn btn-primary">Siguiente</button>
+                <button type="submit"  class="btn btn-secondary">Siguiente</button>
+                <button type="button" class="btn btn-secondary" onclick="history.back()">Volver</button>
             </div>
         </form>
         <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>

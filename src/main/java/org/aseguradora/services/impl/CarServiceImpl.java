@@ -16,12 +16,11 @@ public class CarServiceImpl implements CarService {
     private final Double QUOTE_3 = 1.20 / 6;
 
 
-    @Autowired
     public CarServiceImpl(CarRepository carRepository) {
-        this.carRepository = carRepository;
-    }
+		this.carRepository = carRepository;
+	}
 
-    @Override
+	@Override
     public List<String> findDistinctName() {
         return carRepository.findDistinctName();
     }

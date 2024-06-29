@@ -1,5 +1,6 @@
 package org.aseguradora.services.impl;
 
+import org.aseguradora.repositories.CarRepository;
 import org.aseguradora.repositories.CityRepository;
 import org.aseguradora.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,8 @@ import java.util.List;
 @Service
 public class CityServiceImpl implements CityService {
 
-    private CityRepository cityRepository;
-
     @Autowired
-    public CityServiceImpl(CityRepository cityRepository) {
-        this.cityRepository = cityRepository;
-    }
+    private CityRepository cityRepository;
 
     @Override
     public List<String> listarTodasLasProvincias() {

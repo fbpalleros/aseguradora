@@ -4,19 +4,21 @@
 <body>
 <header th:replace="layout/layout :: header"></header>
 
-<div class="d-flex justify-content-center gap-3 flex-nowrap">
-    <div th:each="poliza: ${polizas}">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title" th:text="'Vencimiento: ' +  ${poliza.expiration}"></h5>
-                <p class="card-text" th:text="${poliza.insurance}"></p>
-                <p class="card-text" th:text="${poliza.customer}"></p>
-                <a th:href="'polizas/' + ${poliza.id}" class="btn btn-primary" th:text="${poliza.coverage}"></a>
+<div class="container mt-3">
+        <div class="row" th:each="poliza : ${polizas}">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="'Vencimiento: ' + ${poliza.expiration}"></h5>
+                        <p class="card-text" th:text="${poliza.insurance}"></p>
+                        <p class="card-text" th:text="${poliza.customer}"></p>
+                        <a th:href="'polizas/' + ${poliza.id}" class="btn btn-secondary" th:text="${poliza.coverage}"></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+    
 <footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

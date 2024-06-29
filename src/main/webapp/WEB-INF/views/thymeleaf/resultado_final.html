@@ -6,10 +6,10 @@
 <div class="container">
     <div class="d-flex flex-column">
 
-        <h2>Cotización</h2>
+        <h2 class="my-3 text-center">Cotización vehiculo</h2>
 
         <form th:action="@{/crear_poliza}" th:object="${almacenar}" method="post">
-            <div class="d-flex flex-column gap-3">
+            <div class="d-flex flex-column gap-2">
                 <!--                <div hidden="hidden">-->
                 <!--                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
                 <!--                </div>-->
@@ -45,11 +45,14 @@
                     <input class="form-control" type="text" th:field="*{type}" th:value="${almacenar.type}" id="type"
                            name="type" readonly><br>
                 </div>
-                <button type="submit" class="btn btn-primary">Crear Poliza</button>
+                <div class=col-md-12>
+	                <button type="submit" class="btn btn-secondary col-auto">Crear póliza</button>
+	                <button type="button" class="btn btn-secondary col-auto" onclick="history.back()">Volver</button>
+            	</div>
             </div>
         </form>
         <form th:action="@{/paso_uno}" th:object="${almacenar}" method="get">
-            <button type="submit" class="btn btn-primary">Volver</button>
+            
 
         </form>
         <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>

@@ -1,19 +1,45 @@
-<!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="layout/layout :: head"></head>
+
 <body>
 <header th:replace="layout/layout :: header"></header>
-<div class="container">
-    <div class="d-flex justify-content-center gap-3 flex-nowrap">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title" th:text="'Vencimiento: ' + ${policy.expiration}"></h5>
-                <p class="card-text" th:text="${policy.coverage}"></p>
-                <a class="text-decoration-none" th:href="@{/anular/} + ${policy.id}" onclick="return confirm('¿Desea dar de baja la póliza?');"><button type="button" class="btn btn-xs btn-danger">Anular</button></a>
+
+<div class="container-wrapper">
+        <div class="content">
+            <div class="container mt-3">
+                <h2 class="text-center my-3">Mi póliza</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-center bold-text" th:text="'Vencimiento: ' + ${policy.expiration}"></h5>
+                                <p class="card-text" th:text="'Cobertura Póliza: ' + ${policy.coverage}"></p>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a class="text-decoration-none w-100" th:href="@{/anular/} + ${policy.id}" onclick="return confirm('¿Desea dar de baja la póliza?');">
+                                            <button type="button" class="btn btn-danger w-100">Anular</button>
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="text-decoration-none w-100" th:href="@{/pagar/} + ${policy.id}">
+                                            <button type="button" class="btn btn-secondary w-100">Pagar</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-wrapper1">
+                <button type="button" class="btn btn-secondary" onclick="history.back()">Volver</button>
             </div>
         </div>
+        <footer class="footer" th:replace="layout/layout :: footer"></footer>
     </div>
-</div>
-
 </body>
+
 </html>
+
+

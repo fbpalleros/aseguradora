@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="my-2">
+      <h2 class="text-center">Institucional</h2>
+    </div>
+
+<div class="row mt-4 mb-3">
+    <h2 class="siniestro-titulo">¿Quiénes somos?</h2>
+        <div class=" col-md-6">
+ 		</div>
+		<div class="text-center">
+		<p>VIVIR Seguros S.A. es una aseguradora nacional que tiene por objeto brindar tranquilidad a sus clientes y Productores Asesores de Seguros.<br>
+		Nace de la visión de sus directivos, que cuentan con una larga trayectoria en el mercado asegurador, con el propósito de<br>
+		enfocarse en la cobertura de vehiculos, inmuebles y vida.<br>
+		Enfocados en priorizar el vínculo a largo plazo con Productores, clientes y aliados estratégicos, VIVIR SEGUROS S.A. <br>
+		se posiciona como una alternativa de excelencia para el resguardo de la seguridad patrimonial,<BR>
+		brindando la mejor atención, servicio y asesoramiento.
+		</p></div>
+</div>
+<div class="full-width-container">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img th:src="@{images/trayectoria.png}" class="card-img-top mt-2" alt="Trayectoria">
+                    <div class="card-body">
+                        <h5 class="card-title">Trayectoria</h5>
+                        <p class="card-text">VIVIR SEGUROS es el resultado de la visión de dirigentes con una larga trayectoria en el mercado asegurador, quienes decidieron brindar una solución a las necesidades de los asegurados.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img th:src="@{images/liderazgo.png}" class="card-img-top mt-2" alt="Liderazgo">
+                    <div class="card-body">
+                        <h5 class="card-title">Liderazgo en el Mercado</h5>
+                        <p class="card-text">Es líder absoluto del mercado de seguro de vehículos, inmuebles y personales, con más de un millón y medio de pólizas emitidas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img th:src="@{images/compromiso.png}" class="card-img-top mt-2" alt="Compromiso">
+                    <div class="card-body">
+                        <h5 class="card-title">Compromiso</h5>
+                        <p class="card-text">Brindamos seguridad al patrimonio de los asegurados a través del cumplimiento de nuestras obligaciones, en un contexto de servicio de calidad y asesoramiento personalizado, a clientes y Productores Asesores de Seguros.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+	
+	<h2 class="mt-4 mb-3 siniestro-titulo">Responsabilidad social</h2>
+
+	<div class="text-center">
+		<h3 class="text-center mb-2">Construyendo juntos la cultura de seguridad vial</h3>
+		<p class="mt-2 mb-5">Con la principal misión de generar conciencia sobre una conducción responsable,así como en el uso de los elementos de seguridad,<br>
+		el programa de Responsabilidad Social se involucra con la comunidad realizando acciones concretas de prevención de accidentes. A través de la difusión,<br>
+		capacitación y diversas iniciativas con aliados del sector público y privado, VIVIR Seguros desarrolla este programa con el compromiso de contribuir<br>
+		en disminuir la estadística nacional de accidentes y muertes por la conducción indebida.
+		Te invitamos a que conozcas nuestras acciones más recientes.
+		</p>
+	</div>
+	
+
+
+	<footer th:replace="layout/layout :: footer">
+
+    </footer>
+    
+</body>

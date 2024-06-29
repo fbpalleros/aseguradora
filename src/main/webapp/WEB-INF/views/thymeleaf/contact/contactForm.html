@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<div class="card-header">
+    <h2 class="text-center" >Formulario de Contacto</h2>
+</div>
+<div class=" container my-2">
+    <div class="d-flex justify-content-center">
+        <div class="col-md-12">
+            <div class="color-contact  card border-contact">      
+                <div class=" contact-text card-body">
+                    <form class="color-contact"th:action="@{/contact}" method="post">
+                        <div class="mb-2">
+                            <label for="nombre" class="contact-text  form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="email" class="contact-text  form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email"  required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="telefono" class="contact-text  form-label">Número de Teléfono</label>
+                            <input type="tel" class="form-control" id="telefono"  required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="asunto" class="contact-text form-label">Asunto</label>
+                            <input type="text" class="form-control" id="asunto"  required>
+                        </div>
+                        <div class="mb-2">
+                            <label for="mensaje" class="contact-text form-label">Mensaje</label>
+                            <textarea class="form-control" id="mensaje" rows="2"  required></textarea>
+                        </div>
+                    </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <button type="submit" class=" mb-3 btn btn-secondary">Enviar</button>
+</div>
+<footer th:replace="layout/layout :: footer">
+
+        </footer>
+</body>
+</html>
