@@ -2,8 +2,10 @@ package org.aseguradora.controllers;
 
 
 import org.aseguradora.entity.Customer;
+import org.aseguradora.entity.Payment;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.services.CustomerService;
+import org.aseguradora.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,18 +14,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class CustomerController {
 
     private CustomerService customerService;
 
+    private PaymentService paymentService;
+
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, PaymentService paymentService) {
         this.customerService = customerService;
+        this.paymentService = paymentService;
     }
 
     @GetMapping("/customers")
@@ -74,11 +77,43 @@ public class CustomerController {
         Customer customer = (Customer) session.getAttribute("customer");
         ModelMap model = new ModelMap();
         if (customer != null) {
+            Payment payment = new Payment();
             Policy policy = customerService.findPolicyByIdCustomer(customer.getId(), id);
-            customerService.pay(policy);
-            return new ModelAndView("redirect:/mi_saldo", model);
+            payment.setPolicy(policy);
+            payment.setCustomer(customer);
+            payment.setAmount(policy.getCoverage());
+            model.put("payment", payment);
+            return new ModelAndView("pago", model);
         }
         return new ModelAndView("redirect:/polizas");
+    }
+
+    @PostMapping("/pago-prueba")
+    public ModelAndView pagarConTarjeta(@ModelAttribute("payment") Payment payment, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        if (customer != null) {
+            Long idPolicy = payment.getPolicy().getId();
+            paymentService.save(payment);
+            Policy policy = customerService.findPolicyByIdCustomer(customer.getId(), idPolicy);
+            customerService.pay(policy);
+            return new ModelAndView("redirect:/mis_pagos");
+        }
+
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/mis_pagos")
+    public ModelAndView mostrarPagos(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+        if (customer != null) {
+            List<Payment> paidPolicies = paymentService.findByCustomerId(customer.getId());
+            model.put("policies", paidPolicies);
+            return new ModelAndView("mis_pagos", model);
+        }
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/actualizar")
@@ -97,19 +132,6 @@ public class CustomerController {
     @PostMapping(path = "/actualizar_datos")
     public ModelAndView actualizar(@ModelAttribute("customer") Customer customer) {
         customerService.actualizar(customer);
-        return new ModelAndView("redirect:/login");
-    }
-
-    @GetMapping("/mis_pagos")
-    public ModelAndView mostrarPagos(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        Customer customer = (Customer) session.getAttribute("customer");
-        ModelMap model = new ModelMap();
-        if (customer != null) {
-            List<Policy> paidPolicies = customerService.findPaidPoliciesByCustomerId(customer.getId());
-            model.put("policies", paidPolicies);
-            return new ModelAndView("mis_pagos", model);
-        }
         return new ModelAndView("redirect:/login");
     }
 
