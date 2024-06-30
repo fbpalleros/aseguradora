@@ -64,7 +64,7 @@ html, body {
     flex: 1;
 }
 .footer {
-    background-color: #f8f9fa;
+    background-color: #bccdf5; 
     padding: 1rem 0;
 }
 .button-wrapper1 {
@@ -134,3 +134,62 @@ html, body {
 .custom-list li {
             margin-bottom: 10px; /* Espaciado entre elementos de la lista */
         }        
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.footer-logo img {
+    height: 50px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.footer-column {
+    margin: 0 10px;
+}
+
+.footer-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-column li {
+    margin: 5px 0;
+}
+
+.footer-column a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #042b53;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+.back-to-top.show {
+    display: block;
+}
