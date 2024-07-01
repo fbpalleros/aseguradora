@@ -28,6 +28,9 @@
                         <p class="card-text mt-2" th:text="${poliza.insurance}"></p>
                         <p class="card-text" th:text="${poliza.customer}"></p>
                          <a th:href="@{/polizas/} + ${poliza.id}" class="btn btn-secondary w-100 text-center">Ver</a>
+                        <a class="text-decoration-none w-100" th:href="@{'/polizas/' + ${poliza.id} + '/pdf'}">
+                            <button type="button" class="btn btn-danger w-100">PDF</button>
+                        </a>
                     </div>
                 </div>
             </div>
