@@ -9,9 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class InstitucionalController {
 
     @GetMapping("/institucional")
-    public ModelAndView showContact(Model model) {
+    public ModelAndView showContact() {
         return new ModelAndView("institucional");
-
     }
 
     
