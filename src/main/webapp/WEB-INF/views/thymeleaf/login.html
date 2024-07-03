@@ -4,7 +4,7 @@
 <header th:replace="layout/layout :: header"></header>
 
 <div class="container-sm">
-    <h2>Iniciar Sesión</h2>
+    <h2 class="title">Iniciar Sesión</h2>
     <form th:action="@{/validar-login}" th:object="${customer}" method="post">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Correo electrónico</label>
