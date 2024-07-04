@@ -13,9 +13,7 @@ import java.util.List;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Denuncia;
 import org.aseguradora.entity.Policy;
-import org.aseguradora.repositories.CustomerRepository;
 import org.aseguradora.repositories.DenunciaRepository;
-import org.aseguradora.services.impl.CustomerServiceImpl;
 import org.aseguradora.services.impl.DenunciaServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +22,6 @@ public class DenunciaServiceTest {
 
     private DenunciaService denunciaService;
     private DenunciaRepository denunciaRepository;
-    private CustomerRepository customerRepository;
 
     @BeforeEach
     public void init(){
