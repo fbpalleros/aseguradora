@@ -9,10 +9,12 @@ import org.aseguradora.entity.Policy;
 import org.aseguradora.repositories.impl.CustomerRepositoryImpl;
 import org.aseguradora.repositories.impl.PolicyRepositoryImpl;
 import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,6 +26,7 @@ import static org.hamcrest.Matchers.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {HibernateConfig.class, CustomerRepositoryImpl.class})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class CustomerRepositoryTest {
 
     @Autowired
@@ -31,31 +34,16 @@ class CustomerRepositoryTest {
 
     private CustomerRepository customerRepository;
 
-    private PolicyRepository policyRepository;
-
     @BeforeEach
     public void init() {
-        this.policyRepository = new PolicyRepositoryImpl(this.sessionFactory);
         this.customerRepository = new CustomerRepositoryImpl(this.sessionFactory);
-    }
-
-    @Test
-    @Transactional
-    @Rollback
-    public void queSeObtenganTodosLosClientes() {
-//        List<Customer> customersMock = getCustomers();
         getCustomers();
-        List<Customer> customers = this.customerRepository.findAll();
-
-//        assertThat(customers, equalTo(customersMock));
-        assertThat(customers.size(), equalTo(4));
     }
 
     @Test
     @Transactional
     @Rollback
     public void queSeObtengaUnClientePorSuId() {
-        getCustomers();
         Customer customerMock = getCustomer();
         Customer customer = this.customerRepository.findOne(1L);
 
@@ -67,7 +55,6 @@ class CustomerRepositoryTest {
     @Transactional
     @Rollback //solo funciona individualmente
     public void queSeObtenganLasPolizasDeUnCliente() {
-        getCustomers();
         List<Policy> policiesMock = getPoliciesByCustomerId();
         List<Policy> policies = this.customerRepository.findPoliciesByIdCustomer(1L);
 
@@ -79,8 +66,6 @@ class CustomerRepositoryTest {
     @Transactional
     @Rollback //solo funciona individualmente
     public void queSeObtengaLaPolizaEspecificaDeUnCliente(){
-        getCustomers();
-        List<Policy> policiesMock = getPoliciesByCustomerId();
         Policy policy = this.customerRepository.findPolicyByIdCustomer(1L, 1L);
 
         assertThat(policy.getId(), equalTo(1L));

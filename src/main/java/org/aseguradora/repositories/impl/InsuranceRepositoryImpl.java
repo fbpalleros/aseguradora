@@ -21,13 +21,6 @@ public class InsuranceRepositoryImpl implements InsuranceRepository {
     }
 
     @Override
-    public List<Insurance> findAll() {
-        String hql = "SELECT i FROM Insurance i";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        return query.getResultList();
-    }
-
-    @Override
     @Transactional
     public Insurance findById(Long id) {
         String hql = "SELECT i FROM Insurance i WHERE i.id=?1";

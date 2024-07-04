@@ -204,7 +204,7 @@ public class CustomerControllerTest {
         ModelAndView mav = this.customerController.mostrarPagos(request);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("mis_pagos"));
-        assertThat(mav.getModel().get("policies"), equalToObject(paidPolicies));
+        assertThat(mav.getModel().get("payments"), equalToObject(paidPolicies));
     }
 
 }

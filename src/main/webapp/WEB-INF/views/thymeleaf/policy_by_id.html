@@ -13,9 +13,7 @@
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
                             <div class="card-body">
-                            	<!--<div th:if="${poliza.insurance.toString()=='HOGAR'}"><img th:src="@{images/casa.png}" class="card-img-top mt-1" alt="Seguro de casa"></div>
-		                    	<div th:if="${poliza.insurance.toString()=='AUTOMOTOR'}"><img th:src="@{images/auto.png}" class="card-img-top mt-1" alt="Seguro de auto"></div>
-		                    	<div th:if="${poliza.insurance.toString()=='PERSONA'}"><img th:src="@{images/persona.png}" class="card-img-top mt-1" alt="Seguro personal"></div>-->
+
                                 <h5 class="card-title text-center bold-text" th:text="'Vencimiento: ' + ${#dates.format(policy.expiration, 'dd-MM-yyyy')}"></h5>
                                 
                                 <p class="card-title text-center" th:text="'Cobertura Póliza: ' + ${policy.coverage}"></p>

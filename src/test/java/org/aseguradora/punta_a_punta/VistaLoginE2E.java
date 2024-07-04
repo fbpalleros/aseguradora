@@ -138,9 +138,22 @@ public class VistaLoginE2E {
         assertThat(url, containsStringIgnoringCase("/spring/polizas"));
     }
 
+    @Test
+    void deberiaEnviarFormularioDeContacto(){
+        vistaLogin.darClickEnLinkContacto();
+        enviarFormularioDeContacto();
+
+        String url = vistaLogin.obtenerURLActual();
+        String message = vistaLogin.obtenerMensajeExito();
+
+        assertThat(url, containsStringIgnoringCase("/spring/contact"));
+        assertThat(message, equalToIgnoringCase("¡Formulario enviado correctamente!"));
+
+    }
+
     private void iniciarSesion() {
-        vistaLogin.escribirEmail("john.doe@example.com");
-        vistaLogin.escribirClave("12345");
+        vistaLogin.escribirEmail("example@example.com");
+        vistaLogin.escribirClave("111");
         vistaLogin.darClickEnIniciarSesion();
     }
 
@@ -154,6 +167,15 @@ public class VistaLoginE2E {
         vistaLogin.darClickEnElBotonSiguienteDeGuardarPasoUno();
         vistaLogin.seleccionarTipoDeCobertura(value);
         vistaLogin.darClickEnElBotonCotizar();
+    }
+
+    private void enviarFormularioDeContacto(){
+        vistaLogin.escribirNombreEnContacto("Facundo");
+        vistaLogin.escribirEmailEnContacto("facu@gmail.com");
+        vistaLogin.escribirTelefonoEnContacto("1154784952");
+        vistaLogin.escribirAsuntoEnContacto("Cotizacion");
+        vistaLogin.escribirMensajeEnContacto("Buenas tardes, me gustaría solicitar cotizacion para automotor");
+        vistaLogin.darClickEnBotonEnviarContacto();
     }
 
 }

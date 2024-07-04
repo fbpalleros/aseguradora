@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -25,7 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {HibernateConfig.class, CustomerRepositoryImpl.class})
+@ContextConfiguration(classes = {HibernateConfig.class, CustomerRepositoryImpl.class, PolicyRepositoryImpl.class})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class PolicyRepositoryTest {
 
     @Autowired
@@ -41,6 +43,7 @@ public class PolicyRepositoryTest {
         this.customerRepository = Mockito.mock(CustomerRepository.class);
         this.insuranceRepository = Mockito.mock(InsuranceRepository.class);
         this.policyRepository = new PolicyRepositoryImpl(this.sessionFactory);
+        dadoQueExistenPolizas();
     }
 
     @Test
@@ -61,7 +64,7 @@ public class PolicyRepositoryTest {
         this.policyRepository.save(policy);
 
         Policy policyObtain = (Policy) this.sessionFactory.getCurrentSession()
-										                  .createQuery("FROM Policy WHERE id = 1")
+										                  .createQuery("FROM Policy WHERE id = 4")
 										                  .getSingleResult();
 
         assertThat(policyObtain, equalTo(policy));
@@ -71,16 +74,15 @@ public class PolicyRepositoryTest {
     @Transactional
     @Rollback
     public void queSeObteganLasPolizasDeUnCliente() {
-        List<Policy> policies = dadoQueExistenPolizas();
 
         List<Policy> policiesObtains = this.policyRepository.findByCustomerId(1L);
 
-        assertThat(policiesObtains.size(), equalTo(policies.size()));
+        assertThat(policiesObtains.size(), equalTo(2));
 
     }
 
     private List<Policy> dadoQueExistenPolizas() {
-        Customer c1 = this.customerRepository.findOne(1L);
+        Customer c1 = new Customer(1L, "John", "John@gmail.com", "12345");
         Customer c2 = this.customerRepository.findOne(2L);
         Mockito.when(this.customerRepository.findOne(1L)).thenReturn(c1);
         Mockito.when(this.customerRepository.findOne(2L)).thenReturn(c2);
@@ -95,7 +97,7 @@ public class PolicyRepositoryTest {
 //        this.policyRepository.save(p1);
 //        this.policyRepository.save(p2);
 //        this.policyRepository.save(p3);
-        
+        this.sessionFactory.getCurrentSession().save(c1);
         this.sessionFactory.getCurrentSession().save(p1);
         this.sessionFactory.getCurrentSession().save(p2);
         this.sessionFactory.getCurrentSession().save(p3);

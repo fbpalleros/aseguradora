@@ -30,17 +30,6 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void queSeObtengaUnaListaConTodosLosClientes(){
-        List<Customer> customersMock = new ArrayList<>();
-
-        when(this.customerRepository.findAll()).thenReturn(customersMock);
-        List<Customer> customers = this.customerService.findAll();
-
-        assertThat(customers, equalTo(customersMock));
-        verify(customerRepository).findAll();
-    }
-
-    @Test
     public void queSeObtengaUnClientePorSuId(){
         Customer customerMock = new Customer();
         customerMock.setId(1L);

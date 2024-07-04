@@ -29,14 +29,6 @@ public class CustomerController {
         this.paymentService = paymentService;
     }
 
-    @GetMapping("/customers")
-    public ModelAndView verClientes() {
-        ModelMap model = new ModelMap();
-        List<Customer> customers = customerService.findAll();
-        model.put("customers", customers);
-        return new ModelAndView("customer", model);
-    }
-
     @RequestMapping(path = "/mis_datos", method = RequestMethod.GET)
     public ModelAndView mostrarDatos(HttpServletRequest request) {
         HttpSession session = request.getSession();

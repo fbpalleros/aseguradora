@@ -5,6 +5,8 @@ import org.aseguradora.entity.Insurance;
 import org.aseguradora.entity.InsuranceType;
 import org.aseguradora.repositories.impl.InsuranceRepositoryImpl;
 import org.hibernate.SessionFactory;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,19 +31,8 @@ public class InsuranceRepositoryTest {
 
     @BeforeEach
     public void init(){
+        getInsurances();
         this.insuranceRepository = new InsuranceRepositoryImpl(this.sessionFactory);
-    }
-
-    @Test
-    @Transactional
-    @Rollback
-    public void queSeObtenganLosSeguros(){
-
-        List<Insurance> insurancesMock = getInsurances();
-        List<Insurance> insurances = this.insuranceRepository.findAll();
-
-        assertThat(insurances, equalTo(insurancesMock));
-        assertThat(insurances.size(), equalTo(3));
     }
 
     @Test
@@ -55,21 +46,18 @@ public class InsuranceRepositoryTest {
         assertThat(insurance.getId(), equalTo(1L));
     }
 
-    private List<Insurance> getInsurances(){
-        Insurance i1 = new Insurance(1L, "Automotor", InsuranceType.AUTOMOTOR, 1000);
-        Insurance i2 = new Insurance(2L, "Persona", InsuranceType.PERSONA, 1000);
-        Insurance i3 = new Insurance(3L, "Hogar", InsuranceType.HOGAR, 1000);
+    private void getInsurances(){
+        Insurance i1 = new Insurance(1L,  InsuranceType.AUTOMOTOR);
+        Insurance i2 = new Insurance(2L,  InsuranceType.PERSONA);
+        Insurance i3 = new Insurance(3L,  InsuranceType.HOGAR);
 
         this.sessionFactory.getCurrentSession().save(i1);
         this.sessionFactory.getCurrentSession().save(i2);
         this.sessionFactory.getCurrentSession().save(i3);
 
-        return this.sessionFactory.getCurrentSession().createQuery("SELECT i FROM Insurance i")
-                .getResultList();
     }
 
     private Insurance getInsuranceById(){
-        getInsurances();
         return (Insurance) this.sessionFactory.getCurrentSession().createQuery("SELECT i FROM Insurance i WHERE i.id=?1")
                 .setParameter(1, 1L)
                 .getSingleResult();

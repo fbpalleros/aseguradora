@@ -28,14 +28,6 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     @Transactional
-    public List<Customer> findAll() {
-        String hql = "SELECT c FROM Customer c";
-        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
-        return query.getResultList();
-    }
-
-    @Override
-    @Transactional
     public Customer findOne(Long id) {
         String hql = "SELECT c FROM Customer c WHERE c.id=?1";
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
