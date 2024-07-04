@@ -13,7 +13,7 @@ public class Insurance {
     @Enumerated(EnumType.STRING)
     private InsuranceType insuranceType;
 
-    public Insurance(Long id, String name, InsuranceType insuranceType, Integer coverage) {
+    public Insurance(Long id, InsuranceType insuranceType) {
         this.id = id;
         this.insuranceType = insuranceType;
     }

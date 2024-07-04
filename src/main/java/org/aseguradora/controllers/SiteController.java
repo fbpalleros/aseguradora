@@ -12,6 +12,7 @@ public class SiteController {
     public ModelAndView proteccion() {
         return new ModelAndView("site/proteccion");
     }
+
     @GetMapping("/quejas")
     public ModelAndView quejas() {
         return new ModelAndView("site/quejas");

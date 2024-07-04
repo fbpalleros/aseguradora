@@ -120,32 +120,21 @@ public class CustomerControllerTest {
         Policy p1 = new Policy(1L, customer, 1000.00);
         Policy p2 = new Policy(1L, customer, 0.0);
 
+        Payment payment = new Payment();
+
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.customerService.findPolicyByIdCustomer(customer.getId(), p1.getId())).thenReturn(p1);
         when(this.customerService.pay(p1)).thenReturn((p2));
 
         ModelAndView mav = this.customerController.pagar(1L, request);
+        mav.addObject(payment);
 
-        assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/mi_saldo"));
+        assertThat(mav.getViewName(), equalToIgnoringCase("pago"));
         assertThat(p2.getCoverage(), equalTo(0.0));
-        verify(this.customerService).pay(p1);
+        assertThat(mav.getModel().get("payment"), equalToObject(payment));
     }
 
-    @Test
-    public void queRetorneLaVistaActualizarSiExisteUsuario() {
-        Customer customer = new Customer();
-        customer.setId(1L);
-
-        when(request.getSession()).thenReturn(session);
-        when(session.getAttribute("customer")).thenReturn(customer);
-        when(this.customerService.findOne(customer.getId())).thenReturn(customer);
-
-        ModelAndView mav = this.customerController.vistaActualizar(request);
-
-        assertThat(mav.getViewName(), equalToIgnoringCase("actualizar"));
-        assertThat(mav.getModel().get("customer"), equalToObject(customer));
-    }
 
     @Test
     public void queAlIntentarPagarUnaPolizaRetorneLaVentanaDePago(){
@@ -188,6 +177,21 @@ public class CustomerControllerTest {
     }
 
     @Test
+    public void queRetorneLaVistaActualizarSiExisteUsuario() {
+        Customer customer = new Customer();
+        customer.setId(1L);
+
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("customer")).thenReturn(customer);
+        when(this.customerService.findOne(customer.getId())).thenReturn(customer);
+
+        ModelAndView mav = this.customerController.vistaActualizar(request);
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("actualizar"));
+        assertThat(mav.getModel().get("customer"), equalToObject(customer));
+    }
+
+    @Test
     public void queSeRetorneLaVentanaMisPagos(){
         Customer customer = new Customer();
         customer.setId(1L);
@@ -200,10 +204,8 @@ public class CustomerControllerTest {
         ModelAndView mav = this.customerController.mostrarPagos(request);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("mis_pagos"));
-        assertThat(mav.getModel().get("policies"), equalToObject(paidPolicies));
+        assertThat(mav.getModel().get("payments"), equalToObject(paidPolicies));
     }
-
-
 
 }
 

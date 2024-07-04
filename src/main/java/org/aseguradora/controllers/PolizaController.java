@@ -4,6 +4,7 @@ import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.PolicyService;
+import org.aseguradora.view.pdf.PolizaPdfView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -57,6 +60,23 @@ public class PolizaController {
             return new ModelAndView("policy_by_id", model);
         }
         return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/polizas/{id_policy}/pdf")
+    public void exportToPDF(@PathVariable("id_policy") Long idPolicy, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        if (customer != null) {
+            response.setContentType("application/pdf");
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=policy_" + ".pdf";
+            response.setHeader(headerKey, headerValue);
+
+            Policy policy = policyService.findById(idPolicy);
+
+            PolizaPdfView exporter = new PolizaPdfView(policy);
+            exporter.export(response);
+        }
     }
 
     @GetMapping("/anular/{id_policy}")

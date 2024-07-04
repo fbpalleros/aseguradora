@@ -5,7 +5,7 @@
 <header th:replace="layout/layout :: header"></header>
     <div class="container mt-3">
         <div class="alert alert-info" role="alert">
-            <h4 class="alert-heading text-center">¡Formulario enviado correctamente!</h4>
+            <h4 class="alert-heading text-center" id="mensaje_exito_contacto">¡Formulario enviado correctamente!</h4>
             <p th:text="${message}" class="text-center"></p>
         </div>
         <a href="/spring" class="btn btn-secondary mb-3">Volver a la pagina principal</a>
