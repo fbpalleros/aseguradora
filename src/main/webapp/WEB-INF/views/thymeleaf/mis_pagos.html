@@ -8,22 +8,25 @@
       <h2 class="text-center">Mis pagos</h2>
     </div>
     
-   	<div th:if="${policies.size() == 0}" class="alert alert-info text-center justify-content-center" role="alert">
+   	<div th:if="${payments.size() == 0}" class="alert alert-info text-center justify-content-center" role="alert">
    	<span>No hay pagos registrados</span>
 	</div>
 
 <div class="container mt-3">
-        <div class="row">
-            <div class="col-md-4 mb-4" th:each="poliza: ${policies}">
-                <div class="card h-100" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="'Fecha de pago: '"></h5>
-                        <p class="alert alert-info card-text" th:text="'ID ' + ${poliza.id}"></p>
-                    </div>
+    <div class="row">
+        <div class="col-md-4 mb-4" th:each="payment: ${payments}">
+            <div class="card h-100" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title text-center" th:text="'Pago '"></h5>
+                    <p class="alert alert-info card-text" th:text="'ID: ' + ${payment.id}"></p>
+                    <p class="alert alert-info card-text" th:text="'Fecha: ' + ${#dates.format(payment.date, 'dd-MM-yyyy')}"></p>
+                    <p class="alert alert-info card-text" th:text="'Monto: ' + ${payment.amount}"></p>
+                    
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
 <footer class="footer" th:replace="layout/layout :: footer"></footer>
