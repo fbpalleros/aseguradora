@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<body>
+<div><h2 class="text-center mb-2">Preguntas Frecuentes</h2></div>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div th:each="section : ${faqs}">
+                <h2 class="fs-2" th:text="${section.title}"></h2>
+                <ul>
+                    <li th:each="faq : ${section.questions}">
+                        <p th:text="${faq.question}"></p>
+                        <p th:text="${faq.answer}"></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+	<footer th:replace="layout/layout :: footer">
+
+    </footer>
+
+</body>
+</html>
+ 

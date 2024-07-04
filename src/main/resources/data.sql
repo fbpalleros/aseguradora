@@ -2,16 +2,18 @@ INSERT INTO insurance (insurance_type) VALUES ('AUTOMOTOR');
 INSERT INTO insurance (insurance_type) VALUES ('HOGAR');
 INSERT INTO insurance (insurance_type) VALUES ('PERSONA');
 
-INSERT INTO customer (name, email, password) VALUES ('John Doe', 'john.doe@example.com', '12345');
-INSERT INTO customer (name, email , password) VALUES ('Jane Smith', 'jane.smith@example.com','111');
-INSERT INTO customer (name, email , password) VALUES ('Michael Jones', 'michael.jones@example.com' , '111');
+INSERT INTO customer (name, email, password) VALUES ('example', 'example@example.com', '111');
+INSERT INTO customer (name, email , password) VALUES ('Facundo Palleros', 'facupls10@gmail.com','111');
+INSERT INTO customer (name, email , password) VALUES ('Agustina Coscarelli', 'silvanaagustinacoscarelli@gmail.com' , '111');
 INSERT INTO customer (name, email, password) VALUES ('Lugo Fernando', 'fer120793@gmail.com' , '123' );
 
 INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (1, 1, 200000, '2024-01-01', '2025-01-01');
 INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (2, 2, 150000, '2023-05-15', '2024-05-15');
 INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (3, 3, 27000, '2022-12-31', '2052-12-31');
 INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (2, 3, 145000, '2022-12-31', '2052-12-31');
-INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (2, 3, 1250000, '2022-12-31', '2052-12-31');
+INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (2, 3, 1250000, '2022-12-31', '2023-12-31');
+INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (2, 3, 1250001, '2023-12-31', '2024-12-31');
+INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (2, 3, 1250002, '2024-12-31', '2025-12-31');
 -- una poliza no puede pertenecer a dos clientes.
 -- restringir insurance_type para que no se pueda escribir otra categoría. quizas con un select
 
