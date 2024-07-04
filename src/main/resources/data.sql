@@ -2,9 +2,9 @@ INSERT INTO insurance (insurance_type) VALUES ('AUTOMOTOR');
 INSERT INTO insurance (insurance_type) VALUES ('HOGAR');
 INSERT INTO insurance (insurance_type) VALUES ('PERSONA');
 
-INSERT INTO customer (name, email, password) VALUES ('John Doe', 'john.doe@example.com', '12345');
-INSERT INTO customer (name, email , password) VALUES ('Jane Smith', 'jane.smith@example.com','111');
-INSERT INTO customer (name, email , password) VALUES ('Michael Jones', 'michael.jones@example.com' , '111');
+INSERT INTO customer (name, email, password) VALUES ('example', 'example@example.com', '111');
+INSERT INTO customer (name, email , password) VALUES ('Facundo Palleros', 'facupls10@gmail.com','111');
+INSERT INTO customer (name, email , password) VALUES ('Agustina Coscarelli', 'silvanaagustinacoscarelli@gmail.com' , '111');
 INSERT INTO customer (name, email, password) VALUES ('Lugo Fernando', 'fer120793@gmail.com' , '123' );
 
 INSERT INTO policy (insurance_id, customer_id, coverage, start_date, expiration) VALUES (1, 1, 200000, '2024-01-01', '2025-01-01');
