@@ -91,6 +91,9 @@ public class CotizacionInmuebleController {
             policyService.save(policy);
 
             flash.addFlashAttribute("secondary", "Ha generado una nueva póliza!");
+            
+            policyService.sendNotificacion(policy);
+            
             return new ModelAndView("redirect:/polizas");
         }
 

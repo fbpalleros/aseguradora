@@ -34,13 +34,17 @@
 
 
 
-                <button type="submit" class="btn btn-secondary">Crear Poliza</button>
+               
             </div>
         </form>
+        
+        <div class="col-md-12 d-flex justify-content-start align-items-center">
+        <button type="submit" class="btn btn-secondary me-2">Crear Poliza</button>
         <form th:action="@{/paso_uno_vida}" th:object="${almacenar}" method="get">
-            <button type="button" class="btn btn-secondary" onclick="history.back()">Volver</button>
-
+            <button type="button" class="btn btn-secondary mt-3" onclick="history.back()">Volver</button>
         </form>
+        </div>
+        
         <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
     </div>
 </div>
