@@ -110,7 +110,7 @@ public class CustomerController {
         ModelMap model = new ModelMap();
         if (customer != null) {
             List<Payment> paidPolicies = paymentService.findByCustomerId(customer.getId());
-            model.put("policies", paidPolicies);
+            model.put("payments", paidPolicies);
             return new ModelAndView("mis_pagos", model);
         }
         return new ModelAndView("redirect:/login");
