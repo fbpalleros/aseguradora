@@ -18,7 +18,7 @@ public class EmailConfig {
         mailSender.setPort(587);
 
         mailSender.setUsername("vivirseguros@microneuronal.com");
-        mailSender.setPassword("TVJyT!BMZyq0");
+        mailSender.setPassword("");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
