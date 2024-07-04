@@ -1,16 +1,25 @@
 package org.aseguradora.view.pdf;
 
-import com.lowagie.text.*;
+import java.awt.Color;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.aseguradora.entity.Policy;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import org.aseguradora.entity.Policy;
-
-import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.io.IOException;
 
 public class PolizaPdfView {
 
@@ -48,8 +57,8 @@ public class PolizaPdfView {
         table.addCell(policy.getCustomer().getName());
         table.addCell(String.valueOf(policy.getId()));
         table.addCell(String.valueOf(policy.getInsurance()));
-        table.addCell(String.valueOf(policy.getStartDate()));
-        table.addCell(String.valueOf(policy.getExpiration()));
+        table.addCell(formatDate(policy.getStartDate()));
+        table.addCell(formatDate(policy.getExpiration()));
 
     }
 
@@ -58,7 +67,7 @@ public class PolizaPdfView {
         PdfWriter.getInstance(document, response.getOutputStream());
 
         document.open();
-        Image img = Image.getInstance("D:\\Documentos (D)\\Unlam\\DESARROLLO WEB\\Taller Web I\\aseguradora\\src\\main\\webapp\\WEB-INF\\images\\vivirlogo.png");
+        Image img = Image.getInstance("src\\main\\webapp\\WEB-INF\\images\\vivirlogo.png");
         img.scaleAbsolute(100f, 50f);  // Adjust height and width as needed
         document.add(img);
 
@@ -210,6 +219,9 @@ public class PolizaPdfView {
                 "\n" +
                 "Vivir Seguros S.A.";
     }
-
+    private String formatDate(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(date);
+    }
 
 }

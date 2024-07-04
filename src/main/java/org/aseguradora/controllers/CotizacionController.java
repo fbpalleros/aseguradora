@@ -105,9 +105,14 @@ public class CotizacionController {
             policy.setInsurance(insurance);
             policy.setCoverage(almacenar.getCotizacion());
             policy.setType(almacenar.getType());
+            
             policyService.save(policy);
-
+            
             flash.addFlashAttribute("info", "Ha generado una nueva póliza!");
+            
+            policyService.sendNotificacion(policy);
+
+            
             return new ModelAndView("redirect:/polizas");
         }
 

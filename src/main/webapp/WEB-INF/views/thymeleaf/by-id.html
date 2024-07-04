@@ -32,7 +32,8 @@
                     <div th:if="${poliza.insurance.toString()=='PERSONA'}"><img th:src="@{images/persona.png}"
                                                                                 class="card-img-top mt-1"
                                                                                 alt="Seguro personal"></div>
-                    <h5 class="card-title text-center" th:text="'Vencimiento: ' + ${poliza.expiration}"></h5>
+                    <h5 class="card-title text-center" th:text="'Vencimiento: ' + ${#dates.format(poliza.expiration, 'dd-MM-yyyy')}"></h5>
+                    
                                             <p class="card-text text-center" th:text="'Número de póliza: ' + ${poliza.id}"></p>
                     <a th:href="@{/polizas/} + ${poliza.id}" class="btn btn-secondary w-100 text-center">Ver</a>
                     <a class="text-decoration-none w-100" th:href="@{'/polizas/' + ${poliza.id} + '/pdf'}">
