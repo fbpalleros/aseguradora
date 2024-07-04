@@ -99,8 +99,7 @@ public class VistaLoginE2E {
     @Test
     void deberiaNavegarALaPaginaCotizacionYClickearElBotonCotizarAuto(){
         iniciarSesion();
-        vistaLogin.darClickEnElLinkCotizacion();
-        vistaLogin.darClickEnElBotonCotizarAuto();
+        pedirCotizacionAuto();
 
         String url = vistaLogin.obtenerURLActual();
         assertThat(url, containsStringIgnoringCase("/spring/paso_uno"));
@@ -109,8 +108,7 @@ public class VistaLoginE2E {
     @Test
     void deberiaNavegarALaPaginaCotizacionYClickearElBotonCotizarAutoLuegoClickearElBotonSiguiente(){
         iniciarSesion();
-        vistaLogin.darClickEnElLinkCotizacion();
-        vistaLogin.darClickEnElBotonCotizarAuto();
+        pedirCotizacionAuto();
         vistaLogin.darClickEnElBotonSiguienteDePasoUno();
 
         String url = vistaLogin.obtenerURLActual();
@@ -120,15 +118,24 @@ public class VistaLoginE2E {
     @Test
     void deberiaSeleccionarElTipoDeCobertura(){
         iniciarSesion();
-        vistaLogin.darClickEnElLinkCotizacion();
-        vistaLogin.darClickEnElBotonCotizarAuto();
-        vistaLogin.darClickEnElBotonSiguienteDePasoUno();
-        vistaLogin.darClickEnElBotonSiguienteDeGuardarPasoUno();
-        vistaLogin.seleccionarTipoDeCobertura("1");
-        vistaLogin.darClickEnElBotonCotizar();
+        pedirCotizacionAuto();
+        avanzarHastaTipoCoberturaYCotizar("1");
 
         String url = vistaLogin.obtenerURLActual();
         assertThat(url, containsStringIgnoringCase("/spring/guardar_paso_tres?nombre=Fiat&modelo=Palio&anio=2001&type=1"));
+    }
+
+
+    @Test
+    void deberiaCrearUnaPoliza(){
+        iniciarSesion();
+        pedirCotizacionAuto();
+        avanzarHastaTipoCoberturaYCotizar("1");
+        vistaLogin.darClickEnElBotonCrearPoliza();
+
+        String url = vistaLogin.obtenerURLActual();
+
+        assertThat(url, containsStringIgnoringCase("/spring/polizas"));
     }
 
     private void iniciarSesion() {
@@ -137,5 +144,16 @@ public class VistaLoginE2E {
         vistaLogin.darClickEnIniciarSesion();
     }
 
+    private void pedirCotizacionAuto() {
+        vistaLogin.darClickEnElLinkCotizacion();
+        vistaLogin.darClickEnElBotonCotizarAuto();
+    }
+
+    private void avanzarHastaTipoCoberturaYCotizar(String value){
+        vistaLogin.darClickEnElBotonSiguienteDePasoUno();
+        vistaLogin.darClickEnElBotonSiguienteDeGuardarPasoUno();
+        vistaLogin.seleccionarTipoDeCobertura(value);
+        vistaLogin.darClickEnElBotonCotizar();
+    }
 
 }

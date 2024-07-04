@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <h5 class="card-title text-center" th:text="'Vencimiento: ' + ${poliza.expiration}"></h5>
                         <p class="alert card-text" th:classappend="${poliza.coverage} == 0 ? alert-success : alert-danger" th:text="'$ ' + ${poliza.coverage}"></p>
-                        <a th:href="@{/pagar/} + ${poliza.id}" class="card-text text-decoration-none">
+                        <a th:if="${poliza.coverage} > 0.0" th:href="@{/pagar/} + ${poliza.id}" class="card-text text-decoration-none">
                             <button class="btn btn-xs btn-secondary w-100" th:id="'button_pagar_' + ${poliza.id}">Pagar</button>
                             
                         </a>

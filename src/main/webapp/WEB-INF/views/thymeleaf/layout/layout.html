@@ -47,7 +47,7 @@
 	      </ul>
 	    </div>
 	    	<a th:href="@{/login}" class="text-decoration-none" th:if="${session.customer == null}"><button class="btn btn-outline-success btn-xs" type="button">Iniciar sesión</button></a>
-	    	<a th:href="@{/logout}" class="text-decoration-none" th:if="${session.customer != null}"><button class="btn btn-outline-danger btn-xs" type="button">Cerrar sesión</button></a>
+	    	<a th:href="@{/logout}" class="text-decoration-none" th:if="${session.customer != null}"><button class="btn btn-outline-danger btn-xs" id="cerrar_sesion" type="button">Cerrar sesión</button></a>
 	  </div>
 	</nav>
 	<a id="top"></a>

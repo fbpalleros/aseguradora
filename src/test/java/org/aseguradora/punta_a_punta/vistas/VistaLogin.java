@@ -62,5 +62,13 @@ public class VistaLogin extends VistaWeb {
         this.darClickEnElElemento("#cotizar_auto");
     }
 
+    public void darClickEnElBotonCrearPoliza(){
+        this.darClickEnElElemento("#boton_crear_poliza_auto");
+    }
+
+    public void darClickEnElBotonCerrarSesion(){
+        this.darClickEnElElemento("#cerrar_sesion");
+    }
+
 
 }
