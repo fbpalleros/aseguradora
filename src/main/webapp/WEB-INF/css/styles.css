@@ -193,3 +193,35 @@ html, body {
 .back-to-top.show {
     display: block;
 }
+
+label.control-label {
+    color: #042b53; 
+}
+
+.form-horizontal .form-group {
+    line-height: 1.6; 
+}
+
+.container-pago {
+    margin: 20px auto;
+    padding: 15px;
+    max-width: 800px;
+    border: 1px solid #042b53;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem; 
+}
+
+label.col-form-label {
+    color: #042b53; 
+    white-space: nowrap; 
+}
+
+.form-horizontal .form-group {
+    line-height: 1.5;
+}
+
