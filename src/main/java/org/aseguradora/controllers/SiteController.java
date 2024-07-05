@@ -17,4 +17,19 @@ public class SiteController {
     public ModelAndView quejas() {
         return new ModelAndView("site/quejas");
     }
+
+    @GetMapping("/politicas")
+    public ModelAndView politicas() {
+        return new ModelAndView("site/politicas");
+    }
+ 
+    @GetMapping("/institucional")
+    public ModelAndView institucional() {
+        return new ModelAndView("site/institucional");
+    }
+    
+    @GetMapping("/terminos")
+    public ModelAndView terminos() {
+    	return new ModelAndView("site/terminos");
+    }
 }

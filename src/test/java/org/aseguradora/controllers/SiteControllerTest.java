@@ -1,11 +1,11 @@
 package org.aseguradora.controllers;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 public class SiteControllerTest {
 
@@ -30,6 +30,23 @@ public class SiteControllerTest {
         assertThat(mav.getViewName(), equalToIgnoringCase("site/quejas"));
     }
 
+    @Test
+    public void queRetorneLaVistaInstitucional(){
+        ModelAndView mav = this.siteController.institucional();
 
+        assertThat(mav.getViewName(), equalToIgnoringCase("site/institucional"));
+    }
 
+    public void queRetorneLaVistaPoliticas(){
+        ModelAndView mav = this.siteController.politicas();
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("site/politicas"));
+    }
+    
+    public void queRetorneLaVistaTerminos(){
+        ModelAndView mav = this.siteController.terminos();
+
+        assertThat(mav.getViewName(), equalToIgnoringCase("site/terminos"));
+    }
+    
 }
