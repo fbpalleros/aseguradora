@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class FaqController {
 
     @GetMapping("/faq")
-    public ModelAndView FaqDTO() {
+    public ModelAndView faqs() {
         List<SectionDTO> faqs = Arrays.asList(
             new SectionDTO("Seguros Vehiculares", Arrays.asList(
                 new FaqDTO("¿Qué cubre el seguro vehicular?", "El seguro vehicular cubre daños materiales al vehículo, responsabilidad civil frente a terceros, robo del vehículo y daños personales al conductor y pasajeros."),
