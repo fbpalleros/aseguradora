@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+
+<div class="form-floating mb-3">
+        <textarea class="form-control" style="height: 200px" placeholder="Leave a comment here" id="floatingTextarea"
+                  readonly th:text="${complaint.response}"></textarea>
+    <label for="floatingTextarea">Estamos atentos a su reclamo. Por favor, digános cómo podemos mejorar!</label>
+</div>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
