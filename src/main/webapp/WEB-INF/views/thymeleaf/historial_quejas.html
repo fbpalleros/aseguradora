@@ -22,7 +22,10 @@
             <td th:text="${complaint.description}"></td>
             <td th:text="${complaint.date}"></td>
             <td th:text="${complaint.status}"></td>
-            <td><a th:href="@{/historial_quejas/} + ${complaint.id}"><button type="button" class="btn btn-xs btn-primary">Ver</button></a></td>
+            <td th:switch="${complaint.status.name()}">
+                <a th:case="'CERRADO'" th:href="@{/historial_quejas/} + ${complaint.id}"><button type="button" class="btn btn-xs btn-primary">Ver</button></a>
+                <button th:case="'ENVIADO'" type="button" class="btn btn-xs btn-primary" disabled>Ver</button>
+            </td>
         </tr>
         </tbody>
     </table>

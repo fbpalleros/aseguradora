@@ -7,7 +7,6 @@ import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -143,20 +142,19 @@ public class CustomerController {
         return new ModelAndView("redirect:/login");
     }
 
-//    @GetMapping("/historial_quejas/{id}")
-//    public ModelAndView vistarRespuesta(@PathVariable("id") Long idComplaint, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        Customer customer = (Customer) session.getAttribute("customer");
-//        ModelMap model = new ModelMap();
-//        if (customer != null) {
-//            Complaint complaint = complaintService.findOne(idComplaint);
-//            complaint.setResponse("Esta respuesta está siendo respondida");
-//            model.put("complaint", complaint);
-//            return new ModelAndView("queja", model);
-//        }
-//        return new ModelAndView("redirect:/login");
-//
-//    }
+    @GetMapping("/historial_quejas/{id}")
+    public ModelAndView vistarRespuesta(@PathVariable("id") Long idComplaint, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+        if (customer != null) {
+            Complaint complaint = complaintService.findOne(idComplaint);
+            model.put("complaint", complaint);
+            return new ModelAndView("queja", model);
+        }
+        return new ModelAndView("redirect:/login");
+
+    }
 
     @GetMapping("/mis_quejas")
     public ModelAndView vistaMisQuejas(HttpServletRequest request) {

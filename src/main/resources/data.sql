@@ -182,6 +182,12 @@ VALUES ('ROLE_USER');
 
 INSERT INTO customer_roles (customer_id, role_id)
 VALUES (3, 2);
+INSERT INTO customer_roles (customer_id, role_id)
+VALUES (1, 1);
+INSERT INTO customer_roles (customer_id, role_id)
+VALUES (2, 2);
+INSERT INTO customer_roles (customer_id, role_id)
+VALUES (4, 2);
 
 INSERT INTO complaint (description, customer_id, date, status)
 VALUES ('primer queja', 1, '2024-07-01', 0);
@@ -191,6 +197,8 @@ INSERT INTO complaint (description, customer_id, date, status)
 VALUES ('tercera queja', 3, '2024-07-03', 0);
 INSERT INTO complaint (description, customer_id, date, status)
 VALUES ('cuarta queja', 4, '2024-07-04', 0);
+INSERT INTO complaint (description, customer_id, date, status, response)
+VALUES ('queja con respuesta', 2, '2024-07-02', 2, 'respondida');
 
 
 

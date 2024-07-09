@@ -43,9 +43,13 @@ public class LoginController {
     public ModelAndView validarLogin(@ModelAttribute("customer") Customer customer, HttpServletRequest request) {
         ModelMap model = new ModelMap();
         Customer customerSearched = customerService.findNameCustomer(customer.getEmail(), customer.getPassword());
+
         if (customerSearched != null) {
             HttpSession session = request.getSession();
             session.setAttribute("customer", customerSearched);
+            if(customerSearched.hasRole("ROLE_ADMIN").isPresent()){
+                return new ModelAndView("redirect:/quejas");
+            }
             return new ModelAndView("redirect:/mis_datos");
         } else {
             model.put("error", "Usuario no encontrado");
