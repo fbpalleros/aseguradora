@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Estado</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="complaint : ${complaints}">
+        <th scope="row" th:text="${complaint.id}"></th>
+        <td th:text="${complaint.date}"></td>
+        <td th:text="${complaint.customer.name}"></td>
+        <td th:text="${complaint.status}"></td>
+        <td><a th:href="@{/quejas/} + ${complaint.id}"><button type="button" class="btn btn-xs btn-primary">Ver</button></a></td>
+    </tr>
+    </tbody>
+</table>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

@@ -1,11 +1,14 @@
 package org.aseguradora.config;
 
+import org.aseguradora.filters.AdminFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -22,6 +25,9 @@ public class SpringWebConfig implements WebMvcConfigurer {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private HandlerInterceptor adminFilter;
+
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
     	// Register resource handler for images
@@ -29,6 +35,12 @@ public class SpringWebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/js/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(adminFilter)
+                .addPathPatterns("/quejas", "/quejas/**");
     }
 
     // https://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html

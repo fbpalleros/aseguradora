@@ -13,10 +13,10 @@ public class SiteController {
         return new ModelAndView("site/proteccion");
     }
 
-    @GetMapping("/quejas")
-    public ModelAndView quejas() {
-        return new ModelAndView("site/quejas");
-    }
+//    @GetMapping("/quejas")
+//    public ModelAndView quejas() {
+//        return new ModelAndView("site/quejas");
+//    }
 
     @GetMapping("/politicas")
     public ModelAndView politicas() {

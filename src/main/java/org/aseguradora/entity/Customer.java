@@ -2,6 +2,7 @@ package org.aseguradora.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -86,4 +87,7 @@ public class Customer {
         return name;
     }
 
+    public Optional<Role> hasRole(String roleAdmin) {
+        return this.getRoles().stream().filter(r -> r.getName().equals(roleAdmin)).findFirst();
+    }
 }

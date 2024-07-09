@@ -23,12 +23,12 @@ public class SiteControllerTest {
         assertThat(mav.getViewName(), equalToIgnoringCase("site/proteccion"));
     }
 
-    @Test
-    public void queRetorneLaVistaLibroDeQuejas(){
-        ModelAndView mav = this.siteController.quejas();
-
-        assertThat(mav.getViewName(), equalToIgnoringCase("site/quejas"));
-    }
+//    @Test
+//    public void queRetorneLaVistaLibroDeQuejas(){
+//        ModelAndView mav = this.siteController.quejas();
+//
+//        assertThat(mav.getViewName(), equalToIgnoringCase("site/quejas"));
+//    }
 
     @Test
     public void queRetorneLaVistaInstitucional(){

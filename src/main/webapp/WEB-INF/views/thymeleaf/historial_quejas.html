@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/layout :: head"></head>
+<body>
+<header th:replace="layout/layout :: header"></header>
+
+
+<div class="container">
+    <h1>Historial de Quejas</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Respuesta</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="complaint : ${complaints}">
+            <td th:text="${complaint.description}"></td>
+            <td th:text="${complaint.date}"></td>
+            <td th:text="${complaint.status}"></td>
+            <td th:switch="${complaint.status.name()}">
+                <a th:case="'CERRADO'" th:href="@{/historial_quejas/} + ${complaint.id}"><button type="button" class="btn btn-xs btn-primary">Ver</button></a>
+                <button th:case="'ENVIADO'" type="button" class="btn btn-xs btn-primary" disabled>Ver</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a th:href="@{/mis_quejas}"><button class="btn btn-danger mb-2" type="button">Nueva queja</button></a>
+    </div>
+</div>
+
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

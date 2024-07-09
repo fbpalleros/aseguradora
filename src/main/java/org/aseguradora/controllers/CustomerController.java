@@ -1,9 +1,8 @@
 package org.aseguradora.controllers;
 
 
-import org.aseguradora.entity.Customer;
-import org.aseguradora.entity.Payment;
-import org.aseguradora.entity.Policy;
+import org.aseguradora.entity.*;
+import org.aseguradora.services.ComplaintService;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,9 @@ public class CustomerController {
     private CustomerService customerService;
 
     private PaymentService paymentService;
+
+    @Autowired
+    private ComplaintService complaintService;
 
     @Autowired
     public CustomerController(CustomerService customerService, PaymentService paymentService) {
@@ -124,6 +126,81 @@ public class CustomerController {
     @PostMapping(path = "/actualizar_datos")
     public ModelAndView actualizar(@ModelAttribute("customer") Customer customer) {
         customerService.actualizar(customer);
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/historial_quejas")
+    public ModelAndView historialQuejas(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+        if (customer != null) {
+            List<Complaint> complaints = complaintService.findByCustomerId(customer.getId());
+            model.put("complaints", complaints);
+            return new ModelAndView("historial_quejas", model);
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+    @GetMapping("/historial_quejas/{id}")
+    public ModelAndView vistarRespuesta(@PathVariable("id") Long idComplaint, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+        if (customer != null) {
+            Complaint complaint = complaintService.findOne(idComplaint);
+            model.put("complaint", complaint);
+            return new ModelAndView("queja", model);
+        }
+        return new ModelAndView("redirect:/login");
+
+    }
+
+    @GetMapping("/mis_quejas")
+    public ModelAndView vistaMisQuejas(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("customer");
+        ModelMap model = new ModelMap();
+        if (customer != null) {
+            Complaint complaint = new Complaint();
+            complaint.setCustomer(customer);
+            model.put("complaint", complaint);
+            return new ModelAndView("mis_quejas", model);
+        }
+        return new ModelAndView("redirect:/login");
+    }
+
+    @PostMapping("/send_complaint")
+    public ModelAndView enviarQueja(@ModelAttribute("complaint") Complaint complaint, HttpServletRequest request) {
+        complaint.setStatus(Status.ENVIADO);
+        complaintService.save(complaint);
+        return new ModelAndView("redirect:/login");
+    }
+
+
+    //ADMIN
+    @GetMapping("/quejas")
+    public ModelAndView vistarQuejasAdmin() {
+        List<Complaint> complaints = complaintService.findAll();
+        ModelMap model = new ModelMap();
+        model.put("complaints", complaints);
+        return new ModelAndView("admin/quejas", model);
+    }
+
+    @GetMapping("/quejas/{id}")
+    public ModelAndView vistarQueja(@PathVariable("id") Long idComplaint) {
+        Complaint complaint = complaintService.findOne(idComplaint);
+        ModelMap model = new ModelMap();
+        model.put("complaint", complaint);
+        return new ModelAndView("admin/queja_id", model);
+    }
+
+    @PostMapping("/send_response")
+    public ModelAndView responderQueja(@ModelAttribute("complaint") Complaint complaint) {
+        Complaint complaintSearched = complaintService.findOne(complaint.getId());
+        complaintSearched.setResponse(complaint.getResponse());
+        complaintSearched.setStatus(Status.CERRADO);
+        complaintService.update(complaintSearched);
         return new ModelAndView("redirect:/login");
     }
 
