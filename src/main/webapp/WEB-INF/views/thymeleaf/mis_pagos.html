@@ -18,7 +18,7 @@
             <div class="card h-100" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title text-center" th:text="'Pago '"></h5>
-                    <p class="alert alert-info card-text" th:text="'ID: ' + ${payment.id}"></p>
+                    <p class="alert alert-info card-text" th:text="'Número de póliza: ' + ${payment.id}"></p>
                     <p class="alert alert-info card-text" th:text="'Fecha: ' + ${#dates.format(payment.date, 'dd-MM-yyyy')}"></p>
                     <p class="alert alert-info card-text" th:text="'Monto: ' + ${payment.amount}"></p>
                     
@@ -27,8 +27,13 @@
         </div>
     </div>
 </div>
+<div class="button-wrapper">
+ <button type="button" class="btn btn-secondary" onclick="history.back()">Volver</button>
+</div>
 
-
+	
+<br>
+<br>
 <footer class="footer" th:replace="layout/layout :: footer"></footer>
 </body>
 </html>
