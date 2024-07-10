@@ -2,7 +2,9 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 <header th:replace="layout/layout :: header"></header>
-
+<div th:if="${error_queja != null}" class="alert alert-danger text-center">
+    <span th:text="${error_queja}"></span>
+</div>
 <div class="container-sm">
     <h2 class="title">Iniciar Sesión</h2>
     <form th:action="@{/validar-login}" th:object="${customer}" method="post">

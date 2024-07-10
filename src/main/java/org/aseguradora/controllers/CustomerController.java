@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -130,7 +131,7 @@ public class CustomerController {
     }
 
     @GetMapping("/historial_quejas")
-    public ModelAndView historialQuejas(HttpServletRequest request) {
+    public ModelAndView historialQuejas(HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         ModelMap model = new ModelMap();
@@ -138,8 +139,10 @@ public class CustomerController {
             List<Complaint> complaints = complaintService.findByCustomerId(customer.getId());
             model.put("complaints", complaints);
             return new ModelAndView("historial_quejas", model);
+        } else {
+            flash.addFlashAttribute("error_queja","Debe iniciar sesión para presentar una queja");
+            return new ModelAndView("redirect:/login");
         }
-        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/historial_quejas/{id}")
