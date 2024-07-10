@@ -34,7 +34,7 @@
                                                                                 alt="Seguro personal"></div>
                     <h5 class="card-title text-center" th:text="'Vencimiento: ' + ${#dates.format(poliza.expiration, 'dd-MM-yyyy')}"></h5>
                     
-                                            <p class="card-text text-center" th:text="'Número de póliza: ' + ${poliza.id}"></p>
+                    <p class="card-text text-center" th:text="'Número de póliza: ' + ${poliza.id}"></p>
                     <a th:href="@{/polizas/} + ${poliza.id}" class="btn btn-secondary w-100 text-center">Ver</a>
                     <a class="text-decoration-none w-100" th:href="@{'/polizas/' + ${poliza.id} + '/pdf'}">
                         <button type="button" class="btn btn-danger w-100 mt-2">PDF</button>

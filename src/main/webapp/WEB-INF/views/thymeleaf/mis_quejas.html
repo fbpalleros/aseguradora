@@ -6,6 +6,7 @@
 
 <div class="container mb-3">
     <h2 class="text-center mb-4">Libro de quejas online</h2>
+    <div class="container-quejas">
     <form th:action="@{/send_complaint}" method="post" th:object="${complaint}">
         <input type="hidden" th:field="*{customer.id}">
         <div class="mb-2">
@@ -86,6 +87,7 @@
     	<br>
     	<br>
     </form>
+    </div>
 </div>
 
 <footer th:replace="layout/layout :: footer"></footer>

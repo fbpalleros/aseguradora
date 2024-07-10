@@ -66,6 +66,7 @@ html, body {
 .footer {
     background-color: #bccdf5; 
     padding: 1rem 0;
+    
 }
 .button-wrapper1 {
     text-align: center;
@@ -107,7 +108,7 @@ html, body {
 }
 
 .border-contact{
-	 border: 1px solid #042b53;
+	border: 1px solid #042b53;
     border-radius: 0.25rem;
 }
 
@@ -126,8 +127,23 @@ html, body {
             max-width: 1200px; /* Ajusta el ancho máximo del contenido */
 
         }
+   
+.container-quejas{
+	background-color: #bccdf5;
+	padding:20px;
+	border: 1px solid #042b53;
+    border-radius: 0.25rem;
+}
+
+.container-pago{
+	background-color: #bccdf5;
+	padding:20px;
+	border: 1px solid #042b53;
+    border-radius: 0.25rem;
+}
         
-.color-contact{
+        
+.color-contact {
 	background-color: #bccdf5
 }
 
@@ -142,7 +158,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+  
 }
 
 .footer-logo img {
