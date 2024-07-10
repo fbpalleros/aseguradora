@@ -8,14 +8,76 @@
     <h2 class="text-center mb-4">Presentanos tu queja</h2>
     <form th:action="@{/send_complaint}" method="post" th:object="${complaint}">
         <input type="hidden" th:field="*{customer.id}">
+        <div class="mb-2">
+            <label for="nombre" class="contact-text  form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" required>
+        </div>
+        <div class="mb-2">
+            <label for="apellido" class="contact-text  form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" required>
+        </div>
+        <div class="mb-2">
+            <label for="telefonocontacto" class="contact-text  form-label">Teléfono de contacto</label>
+            <input type="tel" class="form-control" id="telefonocontacto"  required>
+        </div>
+        <div class="mb-2">
+            <label for="horario" class="contact-text  form-label">Horario de contacto</label>
+            <input type="text" class="form-control" id="horario"  required>
+        </div>
+        <div class="mb-2">
+            <label for="telefonoparticular" class="contact-text  form-label">Teléfono particular</label>
+            <input type="tel" class="form-control" id="telefonoparticular"  required>
+        </div>
+        <div class="mb-2">
+            <label for="telefonolaboral" class="contact-text  form-label">Teléfono laboral</label>
+            <input type="tel" class="form-control" id="telefonolaboral"  required>
+        </div>
+        <div class="mb-2">
+            <label for="localidad" class="contact-text form-label">Localidad</label>
+            <input type="text" class="form-control" id="localidad"  required>
+        </div>
+        <div class="mb-2">
+            <label for="provincia" class="contact-text form-label">Provincia</label>
+            <input type="text" class="form-control" id="provincia"  required>
+        </div>
+        <div class="mb-2">
+            <label for="email" class="contact-text form-label">E-mail</label>
+            <input type="text" class="form-control" id="email"  required>
+        </div>
+        <div class="mb-2">
+            <label for="cliente" class="contact-text form-label">Tipo de documento</label>
+            <select class="form-control" id="cliente" required>
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="DNI">Documento nacional de identidad</option>
+                <option value="civica">Libreta civica</option>
+                <option value="enrolamiento">Libreta de enrolamiento</option>
+                <option value="pasaporte">Pasaporte</option>
+            </select>
+        </div>
+        <div class="mb-2">
+            <label for="numerodoc" class="contact-text form-label">Numero de documento</label>
+            <input type="text" class="form-control" id="numerodoc"  required>
+        </div>
+        <div class="mb-2">
+            <label for="motivo" class="contact-text form-label">Motivo de su queja</label>
+            <select class="form-control" id="motivo" required>
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="correo">Correo</option>
+                <option value="lavado">Lavado de dinero</option>
+                <option value="procesos">Procesos automáticos</option>
+                <option value="producto">Producto</option>
+                <option value="polizaerror">Póliza con error</option>
+                <option value="saldadocaducado">Saldado/Caducado</option>
+                <option value="compañia">Servicio compañia</option>
+                <option value="productor">Servicio productor</option>
+                <option value="varios">Varios</option>
+                <option value="ayuda">VIVIRhelp</option>
+            </select>
+        </div>
         <div class="form-floating mb-3">
         <textarea class="form-control" style="height: 200px" placeholder="Leave a comment here" id="floatingTextarea" th:field="*{description}"
                   required></textarea>
             <label for="floatingTextarea">Estamos atentos a su reclamo. Por favor, digános cómo podemos mejorar!</label>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputTel" class="form-label">Teléfono de contacto</label>
-            <input type="text" class="form-control" id="exampleInputTel" pattern="[0-9]{10}" placeholder="11-xxxxxxxx" required>
         </div>
         <button type="submit" class="btn btn-xs btn-primary">Enviar</button>
     </form>
