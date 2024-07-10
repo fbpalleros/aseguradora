@@ -8,6 +8,7 @@ import org.aseguradora.services.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,10 +30,13 @@ public class CustomerControllerTest {
     private HttpSession session;
     private HttpServletRequest request;
 
+    private RedirectAttributes flash;
+
     @BeforeEach
     public void init() {
         this.session = mock(HttpSession.class);
         this.request = mock(HttpServletRequest.class);
+        this.flash = mock(RedirectAttributes.class);
         this.customerService = mock(CustomerService.class);
         this.paymentService = mock(PaymentService.class);
         this.customerController = new CustomerController(customerService, paymentService);
@@ -45,7 +49,7 @@ public class CustomerControllerTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
 
-        ModelAndView mav = this.customerController.mostrarDatos(request);
+        ModelAndView mav = this.customerController.mostrarDatos(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("mis_datos"));
     }
@@ -55,7 +59,7 @@ public class CustomerControllerTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(null);
 
-        ModelAndView mav = this.customerController.mostrarDatos(request);
+        ModelAndView mav = this.customerController.mostrarDatos(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
     }
@@ -67,7 +71,7 @@ public class CustomerControllerTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
 
-        ModelAndView mav = this.customerController.mostrarDeuda(request);
+        ModelAndView mav = this.customerController.mostrarDeuda(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("saldo"));
     }
@@ -85,7 +89,7 @@ public class CustomerControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.customerService.findPoliciesByCustomerId(1L)).thenReturn(policies);
 
-        ModelAndView mav = this.customerController.mostrarDeuda(request);
+        ModelAndView mav = this.customerController.mostrarDeuda(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("saldo"));
         assertThat(mav.getModel().get("policies"), equalToObject(policies));
@@ -107,7 +111,7 @@ public class CustomerControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.customerService.findPoliciesByCustomerId(1L)).thenReturn(policies);
 
-        ModelAndView mav = this.customerController.mostrarDeuda(request);
+        ModelAndView mav = this.customerController.mostrarDeuda(request, flash);
 
         assertThat(mav.getModel().get("saldo_total"), equalTo(2000.00));
     }
@@ -127,7 +131,7 @@ public class CustomerControllerTest {
         when(this.customerService.findPolicyByIdCustomer(customer.getId(), p1.getId())).thenReturn(p1);
         when(this.customerService.pay(p1)).thenReturn((p2));
 
-        ModelAndView mav = this.customerController.pagar(1L, request);
+        ModelAndView mav = this.customerController.pagar(1L, request, flash);
         mav.addObject(payment);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("pago"));
@@ -137,7 +141,7 @@ public class CustomerControllerTest {
 
 
     @Test
-    public void queAlIntentarPagarUnaPolizaRetorneLaVentanaDePago(){
+    public void queAlIntentarPagarUnaPolizaRetorneLaVentanaDePago() {
         Customer customer = new Customer();
         customer.setId(1L);
 
@@ -151,13 +155,13 @@ public class CustomerControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.customerService.findPolicyByIdCustomer(1L, 1L)).thenReturn(policy);
 
-        ModelAndView mav = this.customerController.pagar(1L, request);
+        ModelAndView mav = this.customerController.pagar(1L, request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("pago"));
     }
 
     @Test
-    public void queAlEnviarElPagoSeGuardeElMismoYSeActualiceLaPolizaEnCero(){
+    public void queAlEnviarElPagoSeGuardeElMismoYSeActualiceLaPolizaEnCero() {
         Customer customer = new Customer();
         customer.setId(1L);
         Policy policy = new Policy(1L, customer, 2000.00);
@@ -185,14 +189,14 @@ public class CustomerControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.customerService.findOne(customer.getId())).thenReturn(customer);
 
-        ModelAndView mav = this.customerController.vistaActualizar(request);
+        ModelAndView mav = this.customerController.vistaActualizar(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("actualizar"));
         assertThat(mav.getModel().get("customer"), equalToObject(customer));
     }
 
     @Test
-    public void queSeRetorneLaVentanaMisPagos(){
+    public void queSeRetorneLaVentanaMisPagos() {
         Customer customer = new Customer();
         customer.setId(1L);
 
@@ -201,7 +205,7 @@ public class CustomerControllerTest {
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.paymentService.findByCustomerId(1L)).thenReturn(paidPolicies);
-        ModelAndView mav = this.customerController.mostrarPagos(request);
+        ModelAndView mav = this.customerController.mostrarPagos(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("mis_pagos"));
         assertThat(mav.getModel().get("payments"), equalToObject(paidPolicies));

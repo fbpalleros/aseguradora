@@ -33,26 +33,28 @@ public class CustomerController {
     }
 
     @RequestMapping(path = "/mis_datos", method = RequestMethod.GET)
-    public ModelAndView mostrarDatos(HttpServletRequest request) {
+    public ModelAndView mostrarDatos(HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
-
-        if (customer != null) {
-            ModelAndView mav = new ModelAndView("mis_datos");
-            mav.addObject("customer", customer);
-            return mav;
+        ModelMap model = new ModelMap();
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
+            model.put("customer", customer);
+            return new ModelAndView("mis_datos", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         } else {
             return new ModelAndView("redirect:/login");
         }
     }
 
     @RequestMapping(path = "/mi_saldo", method = RequestMethod.GET)
-    public ModelAndView mostrarDeuda(HttpServletRequest request) {
+    public ModelAndView mostrarDeuda(HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         ModelMap model = new ModelMap();
 
-        if (customer != null) {
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
             List<Policy> policies = customerService.findPoliciesByCustomerId(customer.getId());
             model.put("policies", policies);
             final Double[] saldoTotal = {0.0};
@@ -61,17 +63,20 @@ public class CustomerController {
             });
             model.put("saldo_total", saldoTotal[0]);
             return new ModelAndView("saldo", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         } else {
             return new ModelAndView("redirect:/login");
         }
     }
 
     @GetMapping("/pagar/{id}")
-    public ModelAndView pagar(@PathVariable("id") Long id, HttpServletRequest request) {
+    public ModelAndView pagar(@PathVariable("id") Long id, HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         ModelMap model = new ModelMap();
-        if (customer != null) {
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
             Payment payment = new Payment();
             Policy policy = customerService.findPolicyByIdCustomer(customer.getId(), id);
             payment.setPolicy(policy);
@@ -79,6 +84,9 @@ public class CustomerController {
             payment.setAmount(policy.getCoverage());
             model.put("payment", payment);
             return new ModelAndView("pago", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         }
         return new ModelAndView("redirect:/polizas");
     }
@@ -99,27 +107,33 @@ public class CustomerController {
     }
 
     @GetMapping("/mis_pagos")
-    public ModelAndView mostrarPagos(HttpServletRequest request) {
+    public ModelAndView mostrarPagos(HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         ModelMap model = new ModelMap();
-        if (customer != null) {
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
             List<Payment> paidPolicies = paymentService.findByCustomerId(customer.getId());
             model.put("payments", paidPolicies);
             return new ModelAndView("mis_pagos", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         }
         return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/actualizar")
-    public ModelAndView vistaActualizar(HttpServletRequest request) {
+    public ModelAndView vistaActualizar(HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         ModelMap model = new ModelMap();
         Customer customerSession = (Customer) session.getAttribute("customer");
-        if (customerSession != null) {
+        if (customerSession != null && customerSession.hasRole("ROLE_USER").isPresent()) {
             Customer customer = customerService.findOne(customerSession.getId());
             model.put("customer", customer);
             return new ModelAndView("actualizar", model);
+        } else if (customerSession != null && customerSession.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         }
         return new ModelAndView("redirect:/login");
     }
@@ -135,40 +149,49 @@ public class CustomerController {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         ModelMap model = new ModelMap();
-        if (customer != null) {
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
             List<Complaint> complaints = complaintService.findByCustomerId(customer.getId());
             model.put("complaints", complaints);
             return new ModelAndView("historial_quejas", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         } else {
-            flash.addFlashAttribute("error_queja","Debe iniciar sesión para presentar una queja");
+            flash.addFlashAttribute("error_queja", "Debe iniciar sesión para presentar una queja");
             return new ModelAndView("redirect:/login");
         }
     }
 
     @GetMapping("/historial_quejas/{id}")
-    public ModelAndView vistarRespuesta(@PathVariable("id") Long idComplaint, HttpServletRequest request) {
+    public ModelAndView vistarRespuesta(@PathVariable("id") Long idComplaint, HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         ModelMap model = new ModelMap();
-        if (customer != null) {
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
             Complaint complaint = complaintService.findOne(idComplaint);
             model.put("complaint", complaint);
             return new ModelAndView("queja", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         }
         return new ModelAndView("redirect:/login");
 
     }
 
     @GetMapping("/mis_quejas")
-    public ModelAndView vistaMisQuejas(HttpServletRequest request) {
+    public ModelAndView vistaMisQuejas(HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
         ModelMap model = new ModelMap();
-        if (customer != null) {
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
             Complaint complaint = new Complaint();
             complaint.setCustomer(customer);
             model.put("complaint", complaint);
             return new ModelAndView("mis_quejas", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         }
         return new ModelAndView("redirect:/login");
     }

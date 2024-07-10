@@ -48,7 +48,7 @@ public class PolizaControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.policyService.findByCustomerId(3L)).thenReturn(policiesMock);
 
-        ModelAndView mav = this.polizaController.verPolizas(request);
+        ModelAndView mav = this.polizaController.verPolizas(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("by-id"));
         assertThat(mav.getModel().get("polizas_by_id"), equalToObject(policiesMock));
@@ -63,7 +63,7 @@ public class PolizaControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.customerService.findPoliciesByCustomerId(1L)).thenReturn(policiesMock);
 
-        ModelAndView mav = this.polizaController.verPolizas(request);
+        ModelAndView mav = this.polizaController.verPolizas(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
     }
@@ -78,7 +78,7 @@ public class PolizaControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.policyService.findById(policyMock.getId())).thenReturn(policyMock);
 
-        ModelAndView mav = this.polizaController.verPolizaPorId(3L, request);
+        ModelAndView mav = this.polizaController.verPolizaPorId(3L, request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("policy_by_id"));
         assertThat(mav.getModel().get("policy"), equalToObject(policyMock));
@@ -93,7 +93,7 @@ public class PolizaControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.policyService.findById(1L)).thenReturn(policy);
 
-        ModelAndView mav = this.polizaController.verPolizaPorId(1L, request);
+        ModelAndView mav = this.polizaController.verPolizaPorId(1L, request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
     }
