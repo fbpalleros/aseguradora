@@ -7,7 +7,7 @@
 <div class="form-floating mb-3">
         <textarea class="form-control" style="height: 200px" placeholder="Leave a comment here" id="floatingTextarea"
                   readonly th:text="${complaint.description}"></textarea>
-    <label for="floatingTextarea">Estamos atentos a su reclamo. Por favor, digános cómo podemos mejorar!</label>
+    <label for="floatingTextarea">Estamos atentos a su reclamo.</label>
 </div>
 
 <form th:action="@{/send_response}" method="post" th:object="${complaint}">
@@ -17,7 +17,7 @@
                   required th:field="*{response}"></textarea>
         <label for="floatingTextareaAdmin">Respuesta</label>
     </div>
-    <button type="submit" class="btn btn-xs btn-primary">Responder</button>
+    <button type="submit" class="btn btn-xs btn-secondary">Responder</button>
 </form>
 
 <footer th:replace="layout/layout :: footer"></footer>
