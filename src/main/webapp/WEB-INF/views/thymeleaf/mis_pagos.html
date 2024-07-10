@@ -16,11 +16,11 @@
     <div class="row">
         <div class="col-md-4 mb-4" th:each="payment: ${payments}">
             <div class="card h-100" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title text-center" th:text="'Pago '"></h5>
-                    <p class="alert alert-info card-text" th:text="'Número de póliza: ' + ${payment.id}"></p>
-                    <p class="alert alert-info card-text" th:text="'Fecha: ' + ${#dates.format(payment.date, 'dd-MM-yyyy')}"></p>
-                    <p class="alert alert-info card-text" th:text="'Monto: ' + ${payment.amount}"></p>
+                <div class="card-body pago">
+                    <h5 class="pago-title" th:text="'Pago '"></h5>
+                    <p class="pago-text" th:text="'Número de póliza: ' + ${payment.id}"></p>
+                    <p class="pago-text" th:text="'Fecha: ' + ${#dates.format(payment.date, 'dd-MM-yyyy')}"></p>
+                    <p class="pago-text" th:text="'Monto: ' + ${payment.amount}"></p>
                     
                 </div>
             </div>
