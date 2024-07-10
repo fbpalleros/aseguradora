@@ -21,8 +21,7 @@
 header{
 	background-color:  #bccdf5 ;
     color: #042b53;
-    font-style: italic;
-    
+    font-style: italic;   
 }
 
 .button-wrapper {
@@ -30,7 +29,8 @@ header{
     left: 50%;
     transform: translateX(-50%);
 }
-.relative-container {
+
+.relative-container{
     position: relative;
 }
 
@@ -51,7 +51,6 @@ header{
     font-weight: bold;
 }
 
-
 html, body {
     height: 100%;
 }
@@ -65,7 +64,7 @@ html, body {
 }
 .footer {
     background-color: #bccdf5; 
-    padding: 1rem 0;
+    padding: 1rem 0;   
 }
 .button-wrapper1 {
     text-align: center;
@@ -105,9 +104,28 @@ html, body {
 	font-style: italic;
 	color: #042b53;
 }
+.pago-text{
+	font-style: italic;
+	color: #042b53;
+	background-color:white;
+	border-radius: 0.25rem;
+	padding:10px
+}
+
+.pago-title{
+	text-align:center;
+	margin-bottom:20px;
+}
+.pago{
+	background-color: #bccdf5;
+	padding:20px;
+	border: 1px solid #042b53;
+    border-radius: 0.25rem;
+	padding:20px;
+}
 
 .border-contact{
-	 border: 1px solid #042b53;
+	border: 1px solid #042b53;
     border-radius: 0.25rem;
 }
 
@@ -123,11 +141,25 @@ html, body {
         }
         
 .container-custom {
-            max-width: 1200px; /* Ajusta el ancho máximo del contenido */
+  max-width: 1200px; /* Ajusta el ancho máximo del contenido */
 
         }
+   
+.container-quejas{
+	background-color: #bccdf5;
+	padding:20px;
+	border: 1px solid #042b53;
+    border-radius: 0.25rem;
+}
+
+
+
+.form-horizontal{
+	background-color: #bccdf5;
+	line-height: 1.5;
+}
         
-.color-contact{
+.color-contact {
 	background-color: #bccdf5
 }
 
@@ -142,7 +174,7 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+  
 }
 
 .footer-logo img {
@@ -198,22 +230,25 @@ label.control-label {
     color: #042b53; 
 }
 
-.form-horizontal .form-group {
-    line-height: 1.6; 
-}
-
 .container-pago {
     margin: 20px auto;
+    background-color: #bccdf5;
     padding: 15px;
     max-width: 800px;
     border: 1px solid #042b53;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    border-radius: 0.25rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.datos{
+    background-color: #bccdf5;
+    border: 1px solid #042b53;
+    border-radius: 0.25rem;
+}
+
 .form-group {
-    margin-bottom: 1.5rem; 
+    margin-bottom: 1.5rem;
+    line-height: 1.5; 
 }
 
 label.col-form-label {
@@ -221,7 +256,4 @@ label.col-form-label {
     white-space: nowrap; 
 }
 
-.form-horizontal .form-group {
-    line-height: 1.5;
-}
 

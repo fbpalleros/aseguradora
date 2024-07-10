@@ -3,40 +3,40 @@
 <head th:replace="layout/layout :: head"></head>
 <body>
 <header th:replace="layout/layout :: header"></header>
-<div class="my-2">
+<div class="mb-2">
     <h2 class="text-center">Mis datos</h2>
 </div>
 <div class="container d-flex justify-content-center">
     <div class="col-sm-6 d-flex flex-column gap-2 mb-3">
-        <div class="card border-secondary">
-            <div class="card-body">
+        <div class="card">
+            <div class="card-body datos">
                 <h5 class="card-title text-center">Numero de cliente</h5>
                 <p class="card-text text-center" th:text="${customer.id}"></p>
             </div>
         </div>
-        <div class="card border-secondary">
+        <div class="card datos border-secondary">
             <div class="card-body">
                 <h5 class="card-title text-center">Nombre:</h5>
                 <p class="card-text text-center" th:text="${customer.name}"></p>
             </div>
         </div>
-        <div class="card border-secondary">
+        <div class="card datos border-secondary">
             <div class="card-body">
                 <h5 class="card-title text-center">Email</h5>
                 <p class="card-text text-center" th:text="${customer.email}"></p>
             </div>
         </div>
-        <div class="card border-secondary">
+        <div class="card datos border-secondary">
             <div class="card-body">
                 <a th:href="@{/mi_saldo}" class="btn btn-secondary w-100 text-center" id="buttonMiDeuda">Mi deuda</a>
             </div>
         </div>
-        <div class="card border-secondary">
+        <div class="card datos border-secondary">
             <div class="card-body">
                 <a th:href="@{/actualizar}" class="btn btn-secondary w-100 text-center">Actualizar datos</a>
             </div>
         </div>
-        <div class="card border-secondary">
+        <div class="card datos border-secondary">
             <div class="card-body">
                 <a th:href="@{/historial_quejas}" class="btn btn-secondary w-100 text-center">Mis quejas</a>
             </div>

@@ -10,6 +10,8 @@ public class Complaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    private String motivo;
 
     private String description;
 
@@ -91,4 +93,12 @@ public class Complaint {
     public void setResponseDate(Date responseDate) {
         this.responseDate = responseDate;
     }
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
 }

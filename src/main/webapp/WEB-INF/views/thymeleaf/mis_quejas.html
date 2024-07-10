@@ -5,7 +5,8 @@
 <header th:replace="layout/layout :: header"></header>
 
 <div class="container mb-3">
-    <h2 class="text-center mb-4">Presentanos tu queja</h2>
+    <h2 class="text-center mb-4">Libro de quejas online</h2>
+    <div class="container-quejas">
     <form th:action="@{/send_complaint}" method="post" th:object="${complaint}">
         <input type="hidden" th:field="*{customer.id}">
         <div class="mb-2">
@@ -77,10 +78,16 @@
         <div class="form-floating mb-3">
         <textarea class="form-control" style="height: 200px" placeholder="Leave a comment here" id="floatingTextarea" th:field="*{description}"
                   required></textarea>
-            <label for="floatingTextarea">Estamos atentos a su reclamo. Por favor, digános cómo podemos mejorar!</label>
+            <label for="floatingTextarea">Estamos atentos a su reclamo.</label>
         </div>
-        <button type="submit" class="btn btn-xs btn-primary">Enviar</button>
+        
+        <div class="button-wrapper">
+        <button type="submit" class="btn btn-xs btn-secondary">Enviar</button>
+    	</div>
+    	<br>
+    	<br>
     </form>
+    </div>
 </div>
 
 <footer th:replace="layout/layout :: footer"></footer>

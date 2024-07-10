@@ -6,36 +6,41 @@
 
 
 <div class="container">
-    <h1>Historial de Quejas</h1>
+    <h2 class="text-center mb-3 fs-2" >Historial de quejas</h2>
 
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th>Descripción</th>
+        <tr class="text-center">
+        	<th >Motivo</th>
+            <th >Descripción</th>
             <th>Fecha</th>
             <th>Estado</th>
             <th>Respuesta</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="complaint : ${complaints}">
+        <tr class="text-center" th:each="complaint : ${complaints}">
+        	<td th:text="${complaint.motivo}"></td>
             <td th:text="${complaint.description}"></td>
             <td th:text="${complaint.date}"></td>
             <td th:text="${complaint.status}"></td>
             <td th:switch="${complaint.status.name()}">
                 <a th:case="'CERRADO'" th:href="@{/historial_quejas/} + ${complaint.id}"><button type="button" class="btn btn-xs btn-primary">Ver</button></a>
-                <button th:case="'ENVIADO'" type="button" class="btn btn-xs btn-primary" disabled>Ver</button>
+                <button th:case="'ENVIADO'" type="button" class="btn btn-xs btn-secondary" disabled>Ver</button>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a th:href="@{/mis_quejas}"><button class="btn btn-danger mb-2" type="button">Nueva queja</button></a>
+    <div class="button-wrapper">
+        <a th:href="@{/mis_quejas}"><button class="btn btn-danger mt-2 mb-5 text-center" type="button">Nueva queja</button></a>
     </div>
+    <br>
+    <br>
+    <br>
 </div>
 
 
-<footer th:replace="layout/layout :: footer"></footer>
+<footer class="footer" th:replace="layout/layout :: footer"></footer>
 </body>
 </html>
