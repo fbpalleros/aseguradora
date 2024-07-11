@@ -22,12 +22,16 @@
                     <label class="form-label" for="metros"> La cantidad de m2 del domicilio es :</label>
                     <input class="form-control" type="text" th:field="*{metros}" th:value="${almacenar.getMetros()}" id="metros" name="metros" readonly><br>
                 </div>
-
                 <div>
                     <label class="form-label" for="cotizacion"> El precio de su cuota por mes seria :</label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+				        <span class="input-group-text">$</span>
+				    </div>	
                     <input class="form-control" type="text" th:field="*{cotizacion}" th:value="${almacenar.getCotizacion()}" id="cotizacion" name="cotizacion" readonly><br>
                 </div>
-            
+            		</div>
+            		
 		        <div class="col-md-12">
 		    		<button type="submit" class="btn btn-secondary col-auto" id="boton_crear_poliza_inmu" onclick="spiner()">Crear Poliza</button>
 					<button type="button" class="ms-2 btn btn-secondary col-auto" onclick="history.back()">Volver</button>
