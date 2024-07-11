@@ -104,6 +104,7 @@ public class CotizacionInmuebleControllerTest {
         AlmacenarCasaDTO almacenar = new AlmacenarCasaDTO();
         almacenar.setProvincia("Buenos Aires");
         almacenar.setMetros(20.00);
+        almacenar.setType(1);
 
         ModelAndView mav = this.cotizacionInmuebleController.guardaPasoDos(almacenar, new ModelMap());
 

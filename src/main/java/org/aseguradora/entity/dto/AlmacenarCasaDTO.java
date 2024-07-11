@@ -6,6 +6,7 @@ public class AlmacenarCasaDTO {
     public String localidad;
     public Double metros;
     public Double cotizacion;
+    private Integer type;
 
     public AlmacenarCasaDTO() {
     }
@@ -47,5 +48,13 @@ public class AlmacenarCasaDTO {
 
     public void setLocalidad(String localidad) {
         this.localidad = localidad;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

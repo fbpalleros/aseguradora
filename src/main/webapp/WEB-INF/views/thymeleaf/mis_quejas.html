@@ -61,7 +61,7 @@
         </div>
         <div class="mb-2">
             <label for="motivo" class="contact-text form-label">Motivo de su queja</label>
-            <select class="form-control" id="motivo" required>
+            <select class="form-control" id="motivo" required th:field="*{motivo}">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option value="correo">Correo</option>
                 <option value="lavado">Lavado de dinero</option>

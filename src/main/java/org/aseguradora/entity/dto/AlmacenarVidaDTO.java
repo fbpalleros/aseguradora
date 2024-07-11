@@ -6,6 +6,7 @@ public class AlmacenarVidaDTO {
     public Integer anio;
     public Double precio;
     public Double cotizacion;
+    private Integer type;
 
     public AlmacenarVidaDTO() {
     }
@@ -47,5 +48,13 @@ public class AlmacenarVidaDTO {
 
     public void setCotizacion(Double cotizacion) {
         this.cotizacion = cotizacion;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

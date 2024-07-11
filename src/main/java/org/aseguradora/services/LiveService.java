@@ -9,4 +9,6 @@ public interface LiveService {
     List<Integer> buscarAnioPorOficio(String oficio);
 
     Double buscarPrecioPorAnioYOficio(String oficio , Integer anio );
+
+    Double applyQuote(Double price, Integer type) throws IllegalStateException;
 }

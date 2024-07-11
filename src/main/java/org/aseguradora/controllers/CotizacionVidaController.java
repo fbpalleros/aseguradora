@@ -66,11 +66,11 @@ public class CotizacionVidaController {
     @GetMapping("/guardar_paso_dos_vida")
     public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarVidaDTO almacenar, ModelMap model) {
 
-        if (almacenar.getOficio() != null && almacenar.getAnio() != null) {
+        if (almacenar.getOficio() != null && almacenar.getAnio() != null && almacenar.getType() != null) {
 
             Double precio = liveService.buscarPrecioPorAnioYOficio(almacenar.getOficio(), almacenar.getAnio());
 
-            Double cotizacion = precio * 0.50 / 6;
+            Double cotizacion = liveService.applyQuote(precio, almacenar.getType());
 
             almacenar.setPrecio(precio);
             almacenar.setCotizacion(cotizacion);

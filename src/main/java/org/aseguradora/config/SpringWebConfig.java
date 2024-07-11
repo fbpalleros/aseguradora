@@ -1,7 +1,7 @@
 package org.aseguradora.config;
 
-import org.aseguradora.filters.AdminFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,6 +26,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
     private ApplicationContext applicationContext;
 
     @Autowired
+    @Qualifier("adminFilter")
     private HandlerInterceptor adminFilter;
 
     @Override

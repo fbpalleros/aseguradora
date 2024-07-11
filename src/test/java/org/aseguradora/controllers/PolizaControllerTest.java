@@ -2,6 +2,7 @@ package org.aseguradora.controllers;
 
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Policy;
+import org.aseguradora.entity.Role;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.PolicyService;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
@@ -41,14 +44,21 @@ public class PolizaControllerTest {
 
     @Test
     public void queSeRetornenLasPolizasDelUsuario(){
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         List<Policy> policiesMock = new ArrayList<>();
         Customer customer = new Customer();
+        customer.setRoles(roles);
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.policyService.findByCustomerId(3L)).thenReturn(policiesMock);
 
-        ModelAndView mav = this.polizaController.verPolizas(request);
+        ModelAndView mav = this.polizaController.verPolizas(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("by-id"));
         assertThat(mav.getModel().get("polizas_by_id"), equalToObject(policiesMock));
@@ -63,14 +73,22 @@ public class PolizaControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.customerService.findPoliciesByCustomerId(1L)).thenReturn(policiesMock);
 
-        ModelAndView mav = this.polizaController.verPolizas(request);
+        ModelAndView mav = this.polizaController.verPolizas(request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
     }
 
     @Test
     public void queSeRetorneUnaPolizaEspecificaDeUnCliente(){
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
+        customer.setRoles(roles);
+
         Policy policyMock = new Policy();
         policyMock.setId(3L);
 
@@ -78,7 +96,7 @@ public class PolizaControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.policyService.findById(policyMock.getId())).thenReturn(policyMock);
 
-        ModelAndView mav = this.polizaController.verPolizaPorId(3L, request);
+        ModelAndView mav = this.polizaController.verPolizaPorId(3L, request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("policy_by_id"));
         assertThat(mav.getModel().get("policy"), equalToObject(policyMock));
@@ -93,7 +111,7 @@ public class PolizaControllerTest {
         when(session.getAttribute("customer")).thenReturn(customer);
         when(this.policyService.findById(1L)).thenReturn(policy);
 
-        ModelAndView mav = this.polizaController.verPolizaPorId(1L, request);
+        ModelAndView mav = this.polizaController.verPolizaPorId(1L, request, flash);
 
         assertThat(mav.getViewName(), equalToIgnoringCase("redirect:/login"));
     }

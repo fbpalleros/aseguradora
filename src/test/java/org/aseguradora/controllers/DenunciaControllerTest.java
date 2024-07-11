@@ -2,6 +2,7 @@ package org.aseguradora.controllers;
 
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Denuncia;
+import org.aseguradora.entity.Role;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.DenunciaService;
 import org.aseguradora.services.InsuranceService;
@@ -23,7 +24,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -38,11 +41,12 @@ public class DenunciaControllerTest {
     private PolicyService policyService;
     private CustomerService customerService;
     private DenunciaService denunciaService;
-    
+
     @BeforeEach
     public void init() {
         this.session = mock(HttpSession.class);
         this.request = mock(HttpServletRequest.class);
+        this.flash = mock(RedirectAttributes.class);
         this.policyService = mock(PolicyService.class);
         this.customerService = mock(CustomerService.class);
         this.denunciaService = mock(DenunciaService.class);
@@ -53,7 +57,7 @@ public class DenunciaControllerTest {
     
     @Test
     public void queRetorneLaVistaMisDenunciasSinLogin(){
-        ModelAndView view = denunciaController.misDenuncias(request);
+        ModelAndView view = denunciaController.misDenuncias(request, flash);
         
         assertThat(view.getViewName(), equalToIgnoringCase("login"));
         assertEquals(view.getModel().get("customer").getClass(), Customer.class);
@@ -62,8 +66,15 @@ public class DenunciaControllerTest {
     
     @Test
     public void queRetorneLaVistaMisDenunciasConLogin(){
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
     	Customer customer = new Customer();
     	customer.setId(1L);
+        customer.setRoles(roles);
     	
     	session.setAttribute("customer",customer);
 
@@ -71,7 +82,7 @@ public class DenunciaControllerTest {
     	when(session.getAttribute("customer")).thenReturn(customer);
     	when(denunciaService.findAllByCustomerId(customer.getId())).thenReturn(new ArrayList<Denuncia>());
     	
-        ModelAndView view = denunciaController.misDenuncias(request);
+        ModelAndView view = denunciaController.misDenuncias(request, flash);
         
         assertThat(view.getViewName(), equalToIgnoringCase("denuncia/misdenuncias"));
         assertEquals(view.getModel().get("denuncias").getClass(), ArrayList.class);

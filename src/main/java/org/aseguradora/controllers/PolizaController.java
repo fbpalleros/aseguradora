@@ -33,31 +33,34 @@ public class PolizaController {
     }
 
     @GetMapping("/polizas")
-    public ModelAndView verPolizas(HttpServletRequest request) {
+    public ModelAndView verPolizas(HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
 
-        if (customer != null) {
-
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
             List<Policy> policyList = customerService.findPoliciesByCustomerId(customer.getId());
             ModelMap model = new ModelMap();
             model.put("polizas_by_id", policyList);
-
             return new ModelAndView("by-id", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         }
-
         return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/polizas/{id_policy}")
-    public ModelAndView verPolizaPorId(@PathVariable("id_policy") Long idPolicy, HttpServletRequest request) {
+    public ModelAndView verPolizaPorId(@PathVariable("id_policy") Long idPolicy, HttpServletRequest request, RedirectAttributes flash) {
         HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("customer");
-        if (customer != null) {
+        if (customer != null && customer.hasRole("ROLE_USER").isPresent()) {
             Policy policy = policyService.findById(idPolicy);
             ModelMap model = new ModelMap();
             model.put("policy", policy);
             return new ModelAndView("policy_by_id", model);
+        } else if (customer != null && customer.hasRole("ROLE_ADMIN").isPresent()) {
+            flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
+            return new ModelAndView("redirect:/quejas");
         }
         return new ModelAndView("redirect:/login");
     }

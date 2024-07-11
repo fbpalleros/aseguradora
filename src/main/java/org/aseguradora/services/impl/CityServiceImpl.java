@@ -11,6 +11,9 @@ import java.util.List;
 @Service
 public class CityServiceImpl implements CityService {
 
+    private final Double QUOTE_1 = 1.30 / 6;
+    private final Double QUOTE_2 = 1.50 / 6;
+
     private CityRepository cityRepository;
 
     @Autowired
@@ -26,6 +29,18 @@ public class CityServiceImpl implements CityService {
     @Override
     public List<String> buscarDependiendoLaProvincia(String provincia) {
         return cityRepository.buscarDependiendoLaProvincia(provincia);
+    }
+
+    @Override
+    public Double applyQuote(Double metros, Integer type) throws IllegalStateException {
+        switch (type) {
+            case 1:
+                return (double) Math.round(metros * QUOTE_1);
+            case 2:
+                return (double) Math.round(metros * QUOTE_2);
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
     }
 
 }
