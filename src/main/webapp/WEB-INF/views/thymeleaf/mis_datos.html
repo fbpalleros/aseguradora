@@ -26,16 +26,17 @@
                 <p class="card-text text-center" th:text="${customer.email}"></p>
             </div>
         </div>
-        <div class="card datos">
-            <div class="card-body">
-                <a th:href="@{/mi_saldo}" class="btn btn-secondary w-100 text-center" id="buttonMiDeuda">Mi deuda</a>
-            </div>
-        </div>
         <div class="card datos ">
             <div class="card-body">
                 <a th:href="@{/actualizar}" class="btn btn-secondary w-100 text-center">Actualizar datos</a>
             </div>
         </div>
+        <div class="card datos">
+            <div class="card-body">
+                <a th:href="@{/mi_saldo}" class="btn btn-secondary w-100 text-center" id="buttonMiDeuda">Mi deuda</a>
+            </div>
+        </div>
+        
         <div class="card datos ">
             <div class="card-body">
                 <a th:href="@{/historial_quejas}" class="btn btn-secondary w-100 text-center">Mis quejas</a>
