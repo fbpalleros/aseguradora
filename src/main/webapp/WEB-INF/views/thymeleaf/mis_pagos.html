@@ -9,7 +9,7 @@
     </div>
     
    	<div th:if="${payments.size() == 0}" class="alert alert-info text-center justify-content-center" role="alert">
-   	<span>No hay pagos registrados</span>
+   	<span>No hay pagos registrados.</span>
 	</div>
 
 <div class="container mt-3">
@@ -20,7 +20,7 @@
                     <h5 class="pago-title" th:text="'Pago '"></h5>
                     <p class="pago-text" th:text="'Número de póliza: ' + ${payment.id}"></p>
                     <p class="pago-text" th:text="'Fecha: ' + ${#dates.format(payment.date, 'dd-MM-yyyy')}"></p>
-                    <p class="pago-text" th:text="'Monto: ' + ${payment.amount}"></p>
+					<p class="pago-text" th:text="'Monto: $ ' + ${#numbers.formatDecimal(payment.amount, 1, 'COMMA', 2, 'POINT')}"></p>
                     
                 </div>
             </div>

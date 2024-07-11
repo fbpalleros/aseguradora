@@ -105,7 +105,6 @@ html, body {
 	color: #042b53;
 }
 .pago-text{
-	font-style: italic;
 	color: #042b53;
 	background-color:white;
 	border-radius: 0.25rem;
@@ -118,7 +117,13 @@ html, body {
 }
 .pago{
 	background-color: #bccdf5;
+	border: 1px solid #042b53;
+    border-radius: 0.25rem;
 	padding:20px;
+}
+
+.actualizar{
+	background-color: #bccdf5;
 	border: 1px solid #042b53;
     border-radius: 0.25rem;
 	padding:20px;

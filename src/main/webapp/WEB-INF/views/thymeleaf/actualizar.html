@@ -13,17 +13,17 @@
             
            	<div class="container d-flex justify-content-center">
 	           	<div class="col-sm-6 d-flex flex-column gap-2 mb-3">
-		           	<div class="card border-secondary">
-		               <div class="card-body ">
-		                 <h5 class="card-title">Nombre Anterior:</h5>
+		           	<div class="card actualizar">
+		               <div class="card-body">
+		                 <h5 class="card-title">Nombre anterior:</h5>
 		                 <p class="card-text" th:text="${customer.name}"></p>
-		             		<div class= "mb-3">
+		             		<div>
 		                       <label class="form-label" for="nombre">Informe el nuevo nombre:</label>
 		                       <input class="form-control" type="text" th:field="*{name}" id="nombre" name="name" required><br>
 		                   </div>
 	               		</div>
             		</div>
-		           	<div class="card border-secondary">
+		           	<div class="card actualizar">
 		               <div class="card-body ">
 		                    <h5 class="card-title">Email anterior:</h5>
 		                    <p class="card-text" th:text="${customer.email}"></p>
@@ -63,9 +63,9 @@
                     
                 -->
             
-            	<div class="text-center mt-4">
-                    <button type="submit" class="btn btn btn-secondary">Actualizar</button>
-           			<button type="button" class="btn btn-secondary" onclick="history.back()">Volver</button>
+            	<div class="col-sm-6 offset-sm-3 text-center mt-3">
+                    <button type="submit" class=" col-auto btn btn btn-secondary">Actualizar</button>
+           			<button type="button" class="col-auto btn btn-secondary" onclick="history.back()">Volver</button>
                 	
                 </div>
               </div>

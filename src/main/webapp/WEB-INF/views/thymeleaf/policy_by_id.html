@@ -24,7 +24,7 @@
                                                                                 alt="Seguro personal"></div>
                                 <h5 class="card-title text-center bold-text" th:text="'Vencimiento: ' + ${#dates.format(policy.expiration, 'dd-MM-yyyy')}"></h5>
                                 
-                                <p class="card-title text-center" th:text="'Cobertura Póliza: ' + ${policy.coverage}"></p>
+								<p class="card-title text-center" th:text="'Cobertura Póliza: $' + ${#numbers.formatDecimal(policy.coverage, 1, 'COMMA', 2, 'POINT')}"></p>
                                 <div class="row">
                                     
                                     <div class="card-text">
