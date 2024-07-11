@@ -175,6 +175,7 @@ public class CustomerController {
             flash.addFlashAttribute("notUser", "Debes ser usuario para acceder a esta página!");
             return new ModelAndView("redirect:/quejas");
         }
+        
         return new ModelAndView("redirect:/login");
 
     }
@@ -200,7 +201,7 @@ public class CustomerController {
     public ModelAndView enviarQueja(@ModelAttribute("complaint") Complaint complaint, HttpServletRequest request) {
         complaint.setStatus(Status.ENVIADO);
         complaintService.save(complaint);
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/historial_quejas");
     }
 
 
@@ -227,7 +228,7 @@ public class CustomerController {
         complaintSearched.setResponse(complaint.getResponse());
         complaintSearched.setStatus(Status.CERRADO);
         complaintService.update(complaintSearched);
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/quejas");
     }
 
 

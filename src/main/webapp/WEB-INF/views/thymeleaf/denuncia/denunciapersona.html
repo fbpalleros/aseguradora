@@ -26,7 +26,6 @@
                 <textarea id="descripcionHecho" th:field="*{description}" rows="3" class="form-control" required></textarea>
             </div>
             <div class="my-2">
-            <button type="button" class="btn btn-secondary" onclick="cargarDocumentacion()">Cargar Documentación</button>
             <button type="submit" class="btn btn-secondary">Finalizar</button>
 <button type="button" class="btn btn-secondary" onclick="history.back()">Volver</button></div>
                </form>
@@ -35,9 +34,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function cargarDocumentacion() {
-            alert("Documentación cargada");
-        }
+       
     </script>
     <footer th:replace="layout/layout :: footer"></footer>
 </body>

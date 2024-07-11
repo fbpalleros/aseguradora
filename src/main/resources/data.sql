@@ -224,6 +224,12 @@ VALUES ('Profesor', 1975, 1000000);
 INSERT INTO vida (oficio, anio, precio)
 VALUES ('Profesor', 1964, 900000);
 INSERT INTO vida (oficio, anio, precio)
+VALUES ('Otro', 1994, 3000000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Otro', 1979, 2500000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Otro', 1964, 1000000);
+INSERT INTO vida (oficio, anio, precio)
 VALUES ('Profesor', 1965, 900000);
 INSERT INTO vida (oficio, anio, precio)
 VALUES ('Profesor', 1966, 900000);

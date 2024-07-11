@@ -68,7 +68,7 @@ public class PolizaPdfView {
 
         document.open();
         Image img = Image.getInstance("src\\main\\webapp\\WEB-INF\\images\\vivirlogo.png");
-        img.scaleAbsolute(100f, 50f);  // Adjust height and width as needed
+        img.scaleAbsolute(100f, 100f);  // Adjust height and width as needed
         document.add(img);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
