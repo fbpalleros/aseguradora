@@ -9,20 +9,20 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">Fecha</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Estado</th>
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center">Fecha</th>
+        <th scope="col" class="text-center">Nombre</th>
+        <th scope="col" class="text-center">Estado</th>
 
     </tr>
     </thead>
     <tbody>
-    <tr th:each="complaint : ${complaints}">
-        <th scope="row" th:text="${complaint.id}"></th>
-        <td th:text="${complaint.date}"></td>
-        <td th:text="${complaint.customer.name}"></td>
-        <td th:text="${complaint.status}"></td>
-        <td><a th:href="@{/quejas/} + ${complaint.id}"><button type="button" class="btn btn-xs btn-primary">Ver</button></a></td>
+    <tr class="text-center" th:each="complaint : ${complaints}">
+        <th class="text-center" scope="row" th:text="${complaint.id}"></th>
+        <td class="text-center" th:text="${complaint.date}"></td>
+        <td class="text-center" th:text="${complaint.customer.name}"></td>
+        <td class="text-center" th:text="${complaint.status}"></td>
+        <td><a th:href="@{/quejas/} + ${complaint.id}"><button type="button" class="btn btn-xs btn-secondary">Ver</button></a></td>
     </tr>
     </tbody>
 </table>

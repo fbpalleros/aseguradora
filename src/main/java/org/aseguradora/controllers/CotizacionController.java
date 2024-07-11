@@ -110,7 +110,7 @@ public class CotizacionController {
             
             flash.addFlashAttribute("info", "Ha generado una nueva póliza!");
             
-            policyService.sendNotificacion(policy);
+           policyService.sendNotificacion(policy);
 
             
             return new ModelAndView("redirect:/polizas");

@@ -9,11 +9,7 @@
         <h2 class="text-center">Cotización persona</h2>
 
         <form th:action="@{/crear_poliza_vida}" th:object="${almacenar}" method="post">
-            <div class="d-flex flex-column gap-3">
-                <!--                <div hidden="hidden">-->
-                <!--                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
-                <!--                </div>-->
-
+            <div class="d-flex flex-column gap-2">
                 <div>
                     <label class="form-label" for="oficio"> Usted selecciono el oficio :</label>
                     <input class="form-control" type="text" th:field="*{oficio}" th:value="${almacenar.getOficio()}" id="oficio" name="oficio" readonly><br>
@@ -25,29 +21,47 @@
 
                     <div >
                         <label class="form-label" for="Precio"> El precio de su Poliza es :</label>
+                        <div class="input-group">
+                    <div class="input-group-prepend">
+				        <span class="input-group-text">$</span>
+				    </div>	
                         <input class="form-control" type="text" th:field="*{precio}" th:value="${almacenar.getPrecio()}" id="precio" name="precio" readonly><br>
+                    </div>
                     </div>
                 <div>
                     <label class="form-label" for="cotizacion"> El precio de su cuota por mes seria :</label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+				        <span class="input-group-text">$</span>
+				    </div>	
                     <input class="form-control" type="text" th:field="*{cotizacion}" th:value="${almacenar.getCotizacion()}" id="cotizacion" name="cotizacion" readonly><br>
                 </div>
-
-
-
-               
+                </div>
+				<div class="col-md-12">
+		    		<button type="submit" class="btn btn-secondary col-auto" id="boton_crear_poliza_vida" onclick="spiner()">Crear Poliza</button>
+					<button type="button" class="ms-2 btn btn-secondary col-auto" onclick="history.back()">Volver</button>
+				</div>
+  
             </div>
         </form>
-        
-        <div class="col-md-12 d-flex justify-content-start align-items-center">
-        <button type="submit" class="btn btn-secondary me-2">Crear Poliza</button>
-        <form th:action="@{/paso_uno_vida}" th:object="${almacenar}" method="get">
-            <button type="button" class="btn btn-secondary mt-3" onclick="history.back()">Volver</button>
-        </form>
-        </div>
-        
+
         <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
     </div>
 </div>
+
+<script type="text/javascript">
+
+function spiner() {
+    const button = document.getElementById('boton_crear_poliza_vida');
+    button.innerHTML = '<span id="spinner-box" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
+    button.onclick = null; // Desactiva la función onclick
+    button.style.pointerEvents = 'none'; // Desactiva la interacción con el botón
+}
+
+
+
+</script>
+
 
 
 <footer th:replace="layout/layout :: footer"></footer>

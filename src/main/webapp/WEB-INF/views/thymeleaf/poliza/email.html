@@ -61,17 +61,17 @@
             height:100px;
         }
     </style>
-    <title>Confirmación de Contratación de Seguro de Auto</title>
+    <title>Confirmación de Contratación de Seguro</title>
 </head>
 <body>
 <div class="email-container">
     <div class="header">
         <img th:src="@{images/vivirlogo.png}" alt="vivir logo" class="logo"/>
-        <h1>Confirmación de Seguro de Auto</h1>
+        <h1>Confirmación de Seguro</h1>
     </div>
     <div class="content">
         <h2>¡Hola <span th:text="${policy.customer}"></span>!</h2>
-        <p>Nos complace informarte que tu seguro de auto ha sido contratado con éxito. A continuación, encontrarás los detalles de tu póliza:</p>
+        <p>Nos complace informarte que tu seguro ha sido contratado con éxito. A continuación, encontrarás los detalles de tu póliza:</p>
         <div class="details">
             <h3>Detalles del Seguro:</h3>
             <p><strong>Número de Póliza: </strong><span th:text="${policy.id}"></span></p>
@@ -80,11 +80,11 @@
             <p><strong>Tipo de Cobertura: </strong><span th:text="${policy.insurance}"></span></p>
         </div>
         <p>Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en contactarnos. Estamos aquí para ayudarte.</p>
-        <p>Gracias por confiar en nosotros para proteger tu vehículo.</p>
+        <p>Gracias por confiar en nosotros.</p>
     </div>
     <div class="footer">
         <p>&copy; 2024 Compañía de Seguros. Todos los derechos reservados.</p>
-        <p><a href="https://www.companiadeseguros.com">Visita nuestro sitio web</a></p>
+        <p><a href="https://www.vivirseguros.com">Visita nuestro sitio web</a></p>
     </div>
 </div>
 </body>

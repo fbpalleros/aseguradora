@@ -101,7 +101,7 @@ public class CotizacionVidaController {
             
             
 
-            flash.addFlashAttribute("secondary", "Ha generado una nueva póliza!");
+            flash.addFlashAttribute("info", "Ha generado una nueva póliza!");
             
             policyService.sendNotificacion(policy);
             

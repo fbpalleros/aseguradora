@@ -5,16 +5,11 @@
 
 <div class="container">
     <div class="d-flex flex-column">
-
         <h2 class="my-3 text-center">Cotización vehiculo</h2>
 
         <form th:action="@{/crear_poliza}" th:object="${almacenar}" method="post">
             <div class="d-flex flex-column gap-2">
-                <!--                <div hidden="hidden">-->
-                <!--                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
-                <!--                </div>-->
-
-                <div>
+				<div>
                     <label class="form-label" for="nombre"> Usted selecciono la Marca :</label>
                     <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}"
                            id="nombre" name="modelo" readonly><br>
@@ -32,32 +27,58 @@
                 </div>
                 <div>
                     <label class="form-label" for="Precio"> El precio de su vehiculo es :</label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+				        <span class="input-group-text">$</span>
+				    </div>	
                     <input class="form-control" type="text" th:field="*{precio}" th:value="${almacenar.getPrecio()}"
-                           id="precio" name="precio" readonly><br>
+                           id="precio" name="precio" readonly>
+                	</div>
                 </div>
                 <div>
                     <label class="form-label" for="cotizacion"> El precio de su cuota por mes seria :</label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+				        <span class="input-group-text">$</span>
+				    </div>	
                     <input class="form-control" type="text" th:field="*{cotizacion}"
                            th:value="${almacenar.getCotizacion()}" id="cotizacion" name="cotizacion" readonly><br>
+                	</div>
                 </div>
                 <div>
                     <label class="form-label" for="type"> Selecciono la cobertura :</label>
-                    <input class="form-control" type="text" th:field="*{type}" th:value="${almacenar.type}" id="type"
-                           name="type" readonly><br>
+                
+                           
+                    <select class="form-select" id="type" name="type" th:field="*{type}" th:value="${almacenar.type}">
+                        <option value="1">TODO RIESGO</option>
+                        <option value="2">TERCEROS COMPLETO</option>
+                        <option value="3">TERCEROS COMPLETO CON GRANIZO</option>
+                    </select>
                 </div>
                 <div class=col-md-12>
-	                <button type="submit" class="btn btn-secondary col-auto" id="boton_crear_poliza_auto">Crear póliza</button>
-	                <button type="button" class="btn btn-secondary col-auto" onclick="history.back()">Volver</button>
+	                <button type="submit" class="btn btn-secondary col-auto" id="boton_crear_poliza_auto" onclick="spiner()">Crear póliza</button>
+	                <button type="button" class=" ms-2 btn btn-secondary col-auto" onclick="history.back()">Volver</button>
             	</div>
+            	
             </div>
         </form>
-        <form th:action="@{/paso_uno}" th:object="${almacenar}" method="get">
-
-
-        </form>
+        
         <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
     </div>
 </div>
+
+<script type="text/javascript">
+
+function spiner() {
+    const button = document.getElementById('boton_crear_poliza_auto');
+    button.innerHTML = '<span id="spinner-box" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
+    button.onclick = null; // Desactiva la función onclick
+    button.style.pointerEvents = 'none'; // Desactiva la interacción con el botón
+}
+
+
+
+</script>
 
 
 <footer th:replace="layout/layout :: footer"></footer>

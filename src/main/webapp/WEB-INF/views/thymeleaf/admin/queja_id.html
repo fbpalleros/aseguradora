@@ -4,7 +4,7 @@
 <body>
 <header th:replace="layout/layout :: header"></header>
 
-<div class="form-floating mb-3">
+<div class="mx-3 form-floating mb-3">
         <textarea class="form-control" style="height: 200px" placeholder="Leave a comment here" id="floatingTextarea"
                   readonly th:text="${complaint.description}"></textarea>
     <label for="floatingTextarea">Estamos atentos a su reclamo.</label>
@@ -12,14 +12,14 @@
 
 <form th:action="@{/send_response}" method="post" th:object="${complaint}">
     <input type="hidden" th:field="*{id}">
-    <div class="form-floating mb-3">
-        <textarea class="form-control" style="height: 200px" placeholder="Leave a comment here" id="floatingTextareaAdmin"
+    <div class=" mx-3 form-floating mb-3">
+        <textarea class="form-control " style="height: 200px" placeholder="Leave a comment here" id="floatingTextareaAdmin"
                   required th:field="*{response}"></textarea>
         <label for="floatingTextareaAdmin">Respuesta</label>
     </div>
-    <button type="submit" class="btn btn-xs btn-secondary">Responder</button>
+    <button type="submit" class="btn btn-xs btn-secondary ms-3 my-2">Responder</button>
 </form>
-
+<br>
 <footer th:replace="layout/layout :: footer"></footer>
 </body>
 </html>

@@ -26,6 +26,7 @@
                     <div th:if="${denuncia.policy.insurance.insuranceType.toString()=='PERSONA'}"><img th:src="@{images/persona.png}"
                                                                                 class="card-img-top mt-1"
                                                                                 alt="Seguro personal"></div>
+                        <p class="card-text" th:text="'Número de póliza: ' + ${denuncia.policy.id}"></p>
                        
                         <p class="card-text" th:text="'Fecha: ' + ${#strings.substring(denuncia.accidentDate,8,10)} + '-' +
                             									  ${#strings.substring(denuncia.accidentDate,5,7)} + '-' +

@@ -72,7 +72,7 @@ public class PolizaController {
         if (customer != null) {
             response.setContentType("application/pdf");
             String headerKey = "Content-Disposition";
-            String headerValue = "attachment; filename=policy_" + ".pdf";
+            String headerValue = "attachment; filename=PolizaVIVIR" + ".pdf";
             response.setHeader(headerKey, headerValue);
 
             Policy policy = policyService.findById(idPolicy);

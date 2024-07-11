@@ -9,44 +9,50 @@
         <h2 class="text-center">Cotización inmueble</h2>
 
         <form th:action="@{/crear_poliza_inmu}" th:object="${almacenar}" method="post">
-            <div class="d-flex flex-column gap-3">
-                <!--                <div hidden="hidden">-->
-                <!--                    <input class="form-control" type="text" th:field="*{nombre}" th:value="${almacenar.getNombre()}" id="nombre" name="nombre" readonly><br>-->
-                <!--                </div>-->
-
-                <div >
-                    <label class="form-label" for="provincia"> Usted selecciono la Provincia : </label>
+            <div class="d-flex flex-column gap-2">
+                <div>
+                    <label class="form-label" for="provincia"> Usted seleccionó la Provincia : </label>
                     <input class="form-control" type="text" th:field="*{provincia}" th:value="${almacenar.getProvincia()}" id="provincia" name="provincia" readonly><br>
                 </div>
                 <div >
-                    <label class="form-label" for="localidad"> Usted selecciono la Localidad :</label>
+                    <label class="form-label" for="localidad"> Usted seleccionó la Localidad :</label>
                     <input class="form-control" type="text" th:field="*{localidad}" th:value="${almacenar.getLocalidad()}" id="localidad" name="localidad" readonly><br>
                 </div>
                 <div >
-                    <label class="form-label" for="metros"> La cantidad de m2 del domicio es :</label>
+                    <label class="form-label" for="metros"> La cantidad de m2 del domicilio es :</label>
                     <input class="form-control" type="text" th:field="*{metros}" th:value="${almacenar.getMetros()}" id="metros" name="metros" readonly><br>
                 </div>
-
                 <div>
                     <label class="form-label" for="cotizacion"> El precio de su cuota por mes seria :</label>
+                    <div class="input-group">
+                    <div class="input-group-prepend">
+				        <span class="input-group-text">$</span>
+				    </div>	
                     <input class="form-control" type="text" th:field="*{cotizacion}" th:value="${almacenar.getCotizacion()}" id="cotizacion" name="cotizacion" readonly><br>
                 </div>
-            </div>
+            		</div>
+            		
+		        <div class="col-md-12">
+		    		<button type="submit" class="btn btn-secondary col-auto" id="boton_crear_poliza_inmu" onclick="spiner()">Crear Poliza</button>
+					<button type="button" class="ms-2 btn btn-secondary col-auto" onclick="history.back()">Volver</button>
+				</div>
+			</div>
         </form>
-        <div class="col-md-12 d-flex justify-content-start align-items-center">
-    		<button type="submit" class="btn btn-secondary me-2">Crear Poliza</button>
-    
-    		<form th:action="@{/paso_uno_inmu}" th:object="${almacenar}" method="get">
-        		<button type="button" class="btn btn-secondary mt-3" onclick="history.back()">Volver</button>
-    		</form>
-		</div>
-
+        
         <span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
     </div>
-       
-    
 </div>
 
+<script type="text/javascript">
+
+function spiner() {
+    const button = document.getElementById('boton_crear_poliza_inmu');
+    button.innerHTML = '<span id="spinner-box" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Procesando...';
+    button.onclick = null; // Desactiva la función onclick
+    button.style.pointerEvents = 'none'; // Desactiva la interacción con el botón
+}
+
+</script>
 
 <footer th:replace="layout/layout :: footer"></footer>
 </body>
