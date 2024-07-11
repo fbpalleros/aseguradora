@@ -13,6 +13,7 @@ public class Complaint {
     
     private String motivo;
 
+    @Column(length = 500)
     private String description;
 
     @ManyToOne
@@ -22,6 +23,7 @@ public class Complaint {
 
     private Status status;
 
+    @Column(length = 1000)
     private String response;
 
     private Date responseDate;

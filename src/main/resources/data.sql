@@ -57,6 +57,55 @@ INSERT INTO auto (name, anio, model, precio)
 VALUES ('Honda', 2018, 'HR-V', 7000000);
 INSERT INTO auto (name, anio, model, precio)
 VALUES ('Honda', 2023, 'CR-V', 7250000);
+INSERT INTO auto (name, anio, model, precio)
+VALUES
+    ('Fiat', 1990, 'Uno', 500000),
+    ('Ford', 1990, 'Taunus', 600000),
+    ('Chevrolet', 1990, '400', 700000),
+    ('Peugeot', 1990, '504', 800000),
+    ('Renault', 1990, '9', 900000);
+INSERT INTO auto (name, anio, model, precio)
+VALUES
+    ('Fiat', 1991, 'Premio', 550000),
+    ('Ford', 1991, 'Escort', 650000),
+    ('Chevrolet', 1991, 'Sprint', 750000),
+    ('Peugeot', 1991, '605', 850000),
+    ('Renault', 1991, '19', 950000);
+INSERT INTO auto (name, anio, model, precio)
+VALUES
+    ('Toyota', 2024, 'Corolla', 2500000),
+    ('Volkswagen', 2024, 'Gol', 1800000),
+    ('Fiat', 2024, 'Cronos', 2000000),
+    ('Chevrolet', 2024, 'Onix', 1700000),
+    ('Renault', 2024, 'Logan', 1900000);
+INSERT INTO auto (name, anio, model, precio)
+VALUES
+    ('Fiat', 1995, 'Palio', 1200000),
+    ('Fiat', 1996, 'Palio', 1300000),
+    ('Fiat', 1997, 'Palio', 1400000),
+    ('Fiat', 1998, 'Palio', 1500000),
+    ('Fiat', 1999, 'Palio', 1600000),
+    ('Fiat', 1996, 'Uno', 1300000),
+    ('Fiat', 1997, 'Duna', 1400000),
+    ('Fiat', 1998, 'Premio', 1500000),
+    ('Fiat', 1999, 'Siena', 1600000),
+    ('Fiat', 2000, 'Palio Fire', 1700000),
+    ('Fiat', 2001, 'Palio Weekend', 1800000),
+    ('Fiat', 2002, 'Marea', 1900000),
+    ('Fiat', 2003, 'Stilo', 2000000),
+    ('Fiat', 2004, 'Panda', 2100000);
+INSERT INTO auto (name, anio, model, precio)
+VALUES
+    ('Ford', 1995, 'Fiesta', 1400000),
+    ('Ford', 1996, 'Escort', 1500000),
+    ('Ford', 1997, 'Taunus', 1600000),
+    ('Ford', 1998, 'Ka', 1700000),
+    ('Ford', 1999, 'Focus', 1800000),
+    ('Ford', 2000, 'Fiesta Classic', 1900000),
+    ('Ford', 2001, 'Ka Street', 2000000),
+    ('Ford', 2002, 'Focus 2', 2100000),
+    ('Ford', 2003, 'Ecosport', 2200000),
+    ('Ford', 2004, 'Fiesta One', 2300000);
 
 
 
@@ -169,11 +218,31 @@ VALUES ('Abogado', 1979, 4000000);
 INSERT INTO vida (oficio, anio, precio)
 VALUES ('Abogado', 1964, 3000000);
 INSERT INTO vida (oficio, anio, precio)
-VALUES ('Profesor', 1994, 2000000);
+VALUES ('Profesor', 1976, 2000000);
 INSERT INTO vida (oficio, anio, precio)
-VALUES ('Profesor', 1979, 1000000);
+VALUES ('Profesor', 1975, 1000000);
 INSERT INTO vida (oficio, anio, precio)
 VALUES ('Profesor', 1964, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1965, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1966, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1967, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1968, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1969, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1970, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1971, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1972, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1973, 900000);
+INSERT INTO vida (oficio, anio, precio)
+VALUES ('Profesor', 1974, 900000);
 
 INSERT INTO role (name)
 VALUES ('ROLE_ADMIN');
@@ -189,14 +258,16 @@ VALUES (2, 2);
 INSERT INTO customer_roles (customer_id, role_id)
 VALUES (4, 2);
 
-INSERT INTO complaint (description, customer_id, date, status)
-VALUES ('segunda queja', 2, '2024-07-02', 0);
-INSERT INTO complaint (description, customer_id, date, status)
-VALUES ('tercera queja', 3, '2024-07-03', 0);
-INSERT INTO complaint (description, customer_id, date, status)
-VALUES ('cuarta queja', 4, '2024-07-04', 0);
-INSERT INTO complaint (description, customer_id, date, status, response)
-VALUES ('queja con respuesta', 2, '2024-07-02', 2, 'respondida');
+INSERT INTO complaint (motivo, description, customer_id, date, status)
+VALUES ('producto', 'Me dirijo a ustedes para presentar una formal queja por el seguro de hogar que contraté a través de su página web el 01/02/2024 con póliza número 10820.', 2, '2024-07-02', 0);
+INSERT INTO complaint (motivo, description, customer_id, date, status)
+VALUES ('correo', 'Desde el inicio, he experimentado serios inconvenientes con la cobertura del seguro. He intentado comunicarme con su servicio de atención al cliente en diversas ocasiones sin obtener una respuesta satisfactoria.', 3, '2024-07-03', 0);
+INSERT INTO complaint (motivo, description, customer_id, date, status)
+VALUES ('varios', 'No he recibido información clara y precisa sobre el estado del siniestro ni los pasos a seguir en cada etapa del proceso. He tenido que realizar numerosas llamadas y enviar correos electrónicos para obtener actualizaciones, sin obtener respuestas satisfactorias en un tiempo razonable.', 4, '2024-07-04', 0);
+INSERT INTO complaint (motivo, description, customer_id, date, status, response)
+VALUES ('ayuda', 'A pesar de mis reiteradas solicitudes y reclamos, no he recibido ninguna propuesta concreta para solucionar los problemas mencionados. La falta de iniciativa y proactividad por parte de su compañía para encontrar una solución satisfactoria es inaceptable.', 2, '2024-07-02', 2, 'En primer lugar, le pedimos disculpas por las molestias y la insatisfacción que ha experimentado durante el proceso de gestión del siniestro en su vivienda. Lamentamos profundamente la falta de comunicación oportuna, las demoras injustificadas y la ausencia de soluciones efectivas que usted ha mencionado.
+
+Comprendemos su frustración y nos comprometemos a tomar las medidas necesarias para resolver este asunto de manera satisfactoria a la brevedad posible.');
 
 
 
