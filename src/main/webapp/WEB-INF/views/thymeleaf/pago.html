@@ -58,7 +58,12 @@
     <div class="form-group row">
       <label for="monto" class="col-sm-4 col-form-label">Monto</label>
       <div class="col-sm-8">
-        <input type="number" class="form-control" id="monto" th:field="*{amount}" readonly>
+		<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">$</span>
+    </div>
+    <input type="number" class="form-control" id="monto" th:field="*{amount}" readonly>
+</div>
       </div>
     </div>
 
