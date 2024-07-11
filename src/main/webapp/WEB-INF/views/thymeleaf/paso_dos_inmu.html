@@ -31,7 +31,15 @@
                     </div>
 
                     <br>
-
+                    <div>
+                        <label class="form-label" for="select1">Seleccione la cobertura:</label>
+                        <select class="form-select" id="tipo_cobertura" name="cobertura" th:field="*{type}">
+                            <option value="" selected="selected">--Seleccione la cobertura--</option>
+                            <option value="1">BASICA</option>
+                            <option value="2">MAS HOGAR</option>
+                        </select>
+                        <br>
+                    </div>
                 </div>
 
                 <button type="submit"  class="btn btn-secondary">Siguiente</button>

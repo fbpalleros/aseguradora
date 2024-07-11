@@ -52,7 +52,7 @@ public class LoginController {
             }
             return new ModelAndView("redirect:/mis_datos");
         } else {
-            model.put("error", "Usuario no encontrado");
+            model.put("error", "Usuario y/o contraseña incorrecta");
         }
 
         return new ModelAndView("login", model);

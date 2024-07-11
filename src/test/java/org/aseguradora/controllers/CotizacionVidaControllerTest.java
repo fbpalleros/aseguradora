@@ -99,6 +99,7 @@ public class CotizacionVidaControllerTest {
         AlmacenarVidaDTO almacenar = new AlmacenarVidaDTO();
         almacenar.setOficio("Camionero");
         almacenar.setAnio(1970);
+        almacenar.setType(1);
 
         Double precio = 0.0;
 

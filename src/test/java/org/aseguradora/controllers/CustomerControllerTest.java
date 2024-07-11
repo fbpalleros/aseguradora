@@ -3,6 +3,7 @@ package org.aseguradora.controllers;
 import org.aseguradora.entity.Customer;
 import org.aseguradora.entity.Payment;
 import org.aseguradora.entity.Policy;
+import org.aseguradora.entity.Role;
 import org.aseguradora.services.CustomerService;
 import org.aseguradora.services.PaymentService;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -44,7 +47,14 @@ public class CustomerControllerTest {
 
     @Test
     public void queRetorneLaVistaMisDatos() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
+        customer.setRoles(roles);
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
@@ -66,7 +76,14 @@ public class CustomerControllerTest {
 
     @Test
     public void queRetorneLaVistaMiSaldo() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
+        customer.setRoles(roles);
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
@@ -78,8 +95,15 @@ public class CustomerControllerTest {
 
     @Test
     public void queRetorneLaVistaMiSaldoYMuestreElSaldoDeLasPolizasSiTuviese() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
         customer.setId(1L);
+        customer.setRoles(roles);
         Policy policy = new Policy(1L, customer, 1000.00);
 
         List<Policy> policies = new ArrayList<>();
@@ -98,8 +122,15 @@ public class CustomerControllerTest {
 
     @Test
     public void queElSaldoTotalSeaIgualALaSumaDeDeudaDeTodasLasPolizas() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
         customer.setId(1L);
+        customer.setRoles(roles);
         Policy p1 = new Policy(1L, customer, 1000.00);
         Policy p2 = new Policy(2L, customer, 1000.00);
 
@@ -118,8 +149,15 @@ public class CustomerControllerTest {
 
     @Test
     public void queSeActualiceElValorDeLaPolizaAlPagarla() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
         customer.setId(1L);
+        customer.setRoles(roles);
 
         Policy p1 = new Policy(1L, customer, 1000.00);
         Policy p2 = new Policy(1L, customer, 0.0);
@@ -142,8 +180,15 @@ public class CustomerControllerTest {
 
     @Test
     public void queAlIntentarPagarUnaPolizaRetorneLaVentanaDePago() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
         customer.setId(1L);
+        customer.setRoles(roles);
 
         Policy policy = new Policy(1L, customer, 2000.00);
         Payment payment = new Payment();
@@ -162,8 +207,15 @@ public class CustomerControllerTest {
 
     @Test
     public void queAlEnviarElPagoSeGuardeElMismoYSeActualiceLaPolizaEnCero() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
         customer.setId(1L);
+        customer.setRoles(roles);
         Policy policy = new Policy(1L, customer, 2000.00);
         Payment payment = new Payment();
         payment.setPolicy(policy);
@@ -182,8 +234,15 @@ public class CustomerControllerTest {
 
     @Test
     public void queRetorneLaVistaActualizarSiExisteUsuario() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
         customer.setId(1L);
+        customer.setRoles(roles);
 
         when(request.getSession()).thenReturn(session);
         when(session.getAttribute("customer")).thenReturn(customer);
@@ -197,8 +256,15 @@ public class CustomerControllerTest {
 
     @Test
     public void queSeRetorneLaVentanaMisPagos() {
+        Role role = new Role();
+        role.setId(1L);
+        role.setName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+
         Customer customer = new Customer();
         customer.setId(1L);
+        customer.setRoles(roles);
 
         List<Payment> paidPolicies = new ArrayList<>();
 

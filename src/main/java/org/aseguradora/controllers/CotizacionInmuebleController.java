@@ -61,9 +61,9 @@ public class CotizacionInmuebleController {
     @GetMapping("/guardar_paso_dos_inmu")
     public ModelAndView guardaPasoDos(@ModelAttribute("almacenar") AlmacenarCasaDTO almacenar, ModelMap model) {
 
-        if (almacenar.getProvincia() != null) {
+        if (almacenar.getProvincia() != null && almacenar.getType() != null) {
 
-            Double cotizacion = almacenar.getMetros() * 1.50 / 6;
+            Double cotizacion = cityService.applyQuote(almacenar.getMetros(), almacenar.getType());
 
             almacenar.setCotizacion(cotizacion);
 

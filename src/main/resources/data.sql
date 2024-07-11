@@ -190,8 +190,6 @@ INSERT INTO customer_roles (customer_id, role_id)
 VALUES (4, 2);
 
 INSERT INTO complaint (description, customer_id, date, status)
-VALUES ('primer queja', 1, '2024-07-01', 0);
-INSERT INTO complaint (description, customer_id, date, status)
 VALUES ('segunda queja', 2, '2024-07-02', 0);
 INSERT INTO complaint (description, customer_id, date, status)
 VALUES ('tercera queja', 3, '2024-07-03', 0);

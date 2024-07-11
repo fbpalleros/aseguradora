@@ -11,12 +11,12 @@
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Correo electrónico</label>
             <input type="email" th:field="*{email}" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp">
+                   aria-describedby="emailHelp" required>
             <div id="emailHelp" class="form-text">Nunca compartiremos tu correo electrónico con nadie más.</div>
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-            <input type="password" th:field="*{password}" class="form-control" id="exampleInputPassword1">
+            <input type="password" th:field="*{password}" class="form-control" id="exampleInputPassword1" required>
         </div>
         <!--        <div class="mb-3 form-check">-->
         <!--            <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
@@ -26,8 +26,9 @@
     </form>
 </div>
 
-
-<span th:if="${error != null}" class="alert alert-danger" th:text="${error}"></span>
+<div th:if="${error != null}" class="container alert alert-danger text-center">
+    <span th:text="${error}"></span>
+</div>
 
 <footer th:replace="layout/layout :: footer"></footer>
 </body>
