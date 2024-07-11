@@ -89,10 +89,11 @@ public class CotizacionInmuebleController {
             policy.setInsurance(insurance);
             policy.setCoverage(almacenar.getCotizacion());
             policyService.save(policy);
-
-            flash.addFlashAttribute("secondary", "Ha generado una nueva póliza!");
+            
+            flash.addFlashAttribute("info", "Ha generado una nueva póliza!");
             
             policyService.sendNotificacion(policy);
+
             
             return new ModelAndView("redirect:/polizas");
         }
